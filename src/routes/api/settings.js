@@ -1,11 +1,11 @@
 const express = require("express");
-const { settings } = require("../../backendApi");
+const api = require("../../backendApi");
 
 const router = express.Router();
 
 router.get("/", async (req, res, next) => {
   try {
-    const data = await settings.get();
+    const data = await api.getSettings();
     res.json(data);
   } catch (error) {
     next(error);
@@ -15,7 +15,7 @@ router.get("/", async (req, res, next) => {
 router.post("/", async (req, res, next) => {
   try {
     const { repoName, buildCommand, mainBranch, period } = req.body;
-    await settings.save({
+    await api.saveSettings({
       repoName,
       buildCommand,
       mainBranch,

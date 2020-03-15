@@ -33,8 +33,6 @@ async function saveSettings(params) {
 }
 
 module.exports = {
-  settings: {
-    get: getSettings,
-    save: saveSettings
-  }
+  getSettings,
+  saveSettings,
 };
