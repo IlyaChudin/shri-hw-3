@@ -23,13 +23,8 @@ async function getSettings() {
   };
 }
 
-async function saveSettings(params) {
-  await instance.post("/conf", {
-    repoName: params.repoName,
-    buildCommand: params.buildCommand,
-    mainBranch: params.mainBranch,
-    period: params.period
-  });
+async function saveSettings({ repoName, buildCommand, mainBranch, period }) {
+  await instance.post("/conf", { repoName, buildCommand, mainBranch, period });
 }
 
 async function getAllBuilds(offset, limit) {
@@ -52,13 +47,8 @@ async function getBuildLog(buildId) {
   return response.data;
 }
 
-async function requestBuild(params) {
-  await instance.post("/build/request", {
-    commitMessage: params.commitMessage,
-    commitHash: params.commitHash,
-    branchName: params.branchName,
-    authorName: params.authorName
-  });
+async function requestBuild({ commitMessage, commitHash, branchName, authorName }) {
+  await instance.post("/build/request", { commitMessage, commitHash, branchName, authorName });
 }
 
 module.exports = {

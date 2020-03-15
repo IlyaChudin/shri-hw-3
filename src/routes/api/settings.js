@@ -1,5 +1,6 @@
 const express = require("express");
 const api = require("../../backendApi");
+const repository = require("../../repository");
 
 const router = express.Router();
 
@@ -15,12 +16,14 @@ router.get("/", async (req, res, next) => {
 router.post("/", async (req, res, next) => {
   try {
     const { repoName, buildCommand, mainBranch, period } = req.body;
-    await api.saveSettings({
+    const settings = {
       repoName,
       buildCommand,
       mainBranch,
       period
-    });
+    };
+    await repository.setSettings(settings);
+    await api.saveSettings(settings);
     res.status(200).send();
   } catch (error) {
     next(error);

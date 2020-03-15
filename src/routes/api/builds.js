@@ -1,5 +1,6 @@
 const express = require("express");
 const api = require("../../backendApi");
+const repository = require("../../repository");
 
 const router = express.Router();
 
@@ -36,13 +37,8 @@ router.get("/:buildId/logs", async (req, res, next) => {
 router.post("/:commitHash", async (req, res, next) => {
   try {
     const { commitHash } = req.params;
-    // TODO заменить рандомные значения на информацию из гит
-    await api.requestBuild({
-      commitMessage: `commit message ${Math.floor(Math.random() * 10)}`,
-      commitHash,
-      branchName: `feature-${Math.floor(Math.random() * 10)}`,
-      authorName: `David ${Math.floor(Math.random() * 10)}`
-    });
+    const commitInfo = await repository.getCommitInfo(commitHash);
+    await api.requestBuild(commitInfo);
     res.status(200).send();
   } catch (error) {
     next(error);
