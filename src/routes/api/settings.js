@@ -23,9 +23,6 @@ router.post("/", async (req, res, next) => {
     });
     res.status(200).send();
   } catch (error) {
-    if (error.response.status === 400) {
-      error.data = { errors: error.response.data.errors };
-    }
     next(error);
   }
 });
