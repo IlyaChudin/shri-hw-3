@@ -1,41 +1,17 @@
-const axios = require("axios");
-const api = require("./backendApi");
-const { gitHubToken } = require("./config");
+const backendApi = require("./backendApi");
+const githubApi = require("./githubApi");
 
-const axiosOptions = {
-  baseURL: "https://api.github.com/repos"
+const settings = {
+  repoName: undefined,
+  buildCommand: undefined,
+  mainBranch: undefined,
+  period: undefined
 };
-if (gitHubToken) {
-  axiosOptions.headers = {
-    Authorization: `token ${gitHubToken}`
-  };
-}
-const instance = axios.create(axiosOptions);
-
-const settings = {};
 let lastCommitHash;
 let interval;
 
-async function getCommitInfo(commitHash) {
-  const { data } = await instance.get(`/${settings.repoName}/commits/${commitHash}`);
-  return {
-    commitMessage: data.commit.message,
-    commitHash,
-    // Описание почему так в README
-    branchName: settings.mainBranch,
-    authorName: data.commit.author.name
-  };
-}
-
-async function getCommits(branchName) {
-  const { data } = await instance.get(`/${settings.repoName}/commits`, {
-    params: { sha: branchName }
-  });
-  return data;
-}
-
-async function getNewCommits() {
-  const commits = await getCommits(settings.mainBranch);
+async function getNewHashes() {
+  const commits = await githubApi.getBranchCommits(settings.repoName, settings.mainBranch);
   if (commits.length === 0 || lastCommitHash === undefined) {
     return [];
   }
@@ -51,7 +27,7 @@ async function getNewCommits() {
 }
 
 async function initLastCommitHash() {
-  const commits = await getCommits(settings.mainBranch);
+  const commits = await githubApi.getBranchCommits(settings.repoName, settings.mainBranch);
   if (commits.length === 0) {
     lastCommitHash = undefined;
   } else {
@@ -68,13 +44,14 @@ function startAutoUpdate() {
   interval = setInterval(async () => {
     try {
       console.log("Update started!");
-      const hashes = await getNewCommits();
+      const hashes = await getNewHashes();
       for (let i = hashes.length - 1; i >= 0; i -= 1) {
         const hash = hashes[i];
         // eslint-disable-next-line no-await-in-loop
-        const commitInfo = await getCommitInfo(hash);
+        const commitInfo = await githubApi.getCommitInfo(settings.repoName, hash);
+        commitInfo.branchName = settings.mainBranch;
         // eslint-disable-next-line no-await-in-loop
-        await api.requestBuild(commitInfo);
+        await backendApi.requestBuild(commitInfo);
         console.log("New commit: ", commitInfo);
       }
       if (hashes.length > 0) {
@@ -108,7 +85,7 @@ async function internalInit({ repoName, buildCommand, mainBranch, period }) {
 
 async function init() {
   try {
-    const data = await api.getSettings();
+    const data = await backendApi.getSettings();
     await internalInit(data);
   } catch (error) {
     console.error(error);
@@ -116,8 +93,8 @@ async function init() {
 }
 
 async function setSettings({ repoName, buildCommand, mainBranch, period }) {
-  const { data } = await instance.get(`/${repoName}`);
-  if (!data.id) {
+  const repoInfo = await githubApi.getRepositoryInfo(repoName);
+  if (!repoInfo.id) {
     throw new Error("Repository not found.");
   }
   setTimeout(() => internalInit({ repoName, buildCommand, mainBranch, period }), 0);
@@ -126,5 +103,5 @@ async function setSettings({ repoName, buildCommand, mainBranch, period }) {
 module.exports = {
   init,
   setSettings,
-  getCommitInfo
+  getSettings: () => settings
 };

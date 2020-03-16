@@ -2,9 +2,9 @@ const path = require("path");
 const express = require("express");
 const routes = require("./routes");
 const config = require("./config");
-const repository = require("./repository");
+const updater = require("./updater");
 
-repository.init();
+updater.init();
 
 const app = express();
 
