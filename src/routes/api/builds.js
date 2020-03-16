@@ -1,6 +1,7 @@
 const express = require("express");
 const api = require("../../backendApi");
 const repository = require("../../repository");
+const cache = require("../../cache");
 
 const router = express.Router();
 
@@ -27,8 +28,15 @@ router.get("/:buildId", async (req, res, next) => {
 router.get("/:buildId/logs", async (req, res, next) => {
   try {
     const { buildId } = req.params;
+    const key = `build_log_${buildId}`;
+    const cacheData = cache.get(key);
+    if (cacheData) {
+      res.json(cacheData);
+      return;
+    }
     const data = await api.getBuildLog(buildId);
     res.json(data);
+    cache.set(key, data);
   } catch (error) {
     next(error);
   }
