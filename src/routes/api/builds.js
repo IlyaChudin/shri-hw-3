@@ -48,7 +48,7 @@ router.post("/:commitHash", async (req, res, next) => {
     const { branchName } = req.body;
     const settings = updater.getSettings();
     const commitInfo = await githubApi.getCommitInfo(settings.repoName, commitHash);
-    commitInfo.branchName = branchName;
+    commitInfo.branchName = branchName || settings.mainBranch;
     await backendApi.requestBuild(commitInfo);
     res.status(200).send();
   } catch (error) {
