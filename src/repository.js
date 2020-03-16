@@ -1,13 +1,16 @@
 const axios = require("axios");
 const api = require("./backendApi");
-const config = require("./config");
+const { gitHubToken } = require("./config");
 
-const instance = axios.create({
-  baseURL: "https://api.github.com/repos",
-  headers: {
-    Authorization: `token ${config.gitHubToken}`
-  }
-});
+const axiosOptions = {
+  baseURL: "https://api.github.com/repos"
+};
+if (gitHubToken) {
+  axiosOptions.headers = {
+    Authorization: `token ${gitHubToken}`
+  };
+}
+const instance = axios.create(axiosOptions);
 
 const settings = {};
 let lastCommitHash;
