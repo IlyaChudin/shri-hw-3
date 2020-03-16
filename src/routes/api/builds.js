@@ -29,14 +29,12 @@ router.get("/:buildId/logs", async (req, res, next) => {
   try {
     const { buildId } = req.params;
     const key = `build_log_${buildId}`;
-    const cacheData = cache.get(key);
-    if (cacheData) {
-      res.json(cacheData);
-      return;
+    let data = cache.get(key);
+    if (data === undefined) {
+      data = await api.getBuildLog(buildId);
+      cache.set(key, data);
     }
-    const data = await api.getBuildLog(buildId);
-    res.json(data);
-    cache.set(key, data);
+    res.set("Content-Type", "text/plain").send(data);
   } catch (error) {
     next(error);
   }
