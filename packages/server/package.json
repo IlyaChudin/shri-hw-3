@@ -6,8 +6,6 @@
     "dev": "nodemon --inspect src/app.js",
     "lint": "eslint src/ --fix"
   },
-  "author": "Ilya Chudin",
-  "license": "ISC",
   "dependencies": {
     "axios": "^0.19.2",
     "express": "^4.17.1",
@@ -16,5 +14,11 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.2"
+  },
+  "lint-staged": {
+    "src/**/*.js": [
+      "eslint --fix",
+      "git add"
+    ]
   }
 }

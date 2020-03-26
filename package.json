@@ -14,7 +14,14 @@
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-prettier": "^3.1.2",
+    "husky": "^4.2.3",
     "lerna": "^3.20.2",
+    "lint-staged": "^10.0.9",
     "prettier": "^1.19.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lerna exec lint-staged --concurrency 1 --stream"
+    }
   }
 }

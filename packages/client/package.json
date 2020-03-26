@@ -13,6 +13,12 @@
     "eject": "react-scripts eject",
     "lint": "eslint src/ --fix"
   },
+  "lint-staged": {
+    "src/**/*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
   "browserslist": {
     "production": [
       ">0.2%",
