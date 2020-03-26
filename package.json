@@ -4,11 +4,13 @@
   "author": "Ilya Chudin",
   "license": "ISC",
   "scripts": {
-    "start": "lerna run start --stream",
+    "start": "lerna run build --scope=@shri-ci/client --stream && lerna run start --scope=@shri-ci/server --stream",
+    "dev": "lerna run dev --stream",
     "lint": "lerna run lint --stream",
-    "postinstall": "lerna exec npm i"
+    "postinstall": "lerna bootstrap"
   },
   "devDependencies": {
+    "cross-env": "^7.0.2",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-config-prettier": "^6.10.0",
