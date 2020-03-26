@@ -1,0 +1,14 @@
+{
+  "name": "shri-ci",
+  "private": true,
+  "author": "Ilya Chudin",
+  "license": "ISC",
+  "scripts": {
+    "start": "lerna run start --stream",
+    "lint": "lerna run lint --stream",
+    "postinstall": "lerna exec npm i"
+  },
+  "devDependencies": {
+    "lerna": "^3.20.2"
+  }
+}
