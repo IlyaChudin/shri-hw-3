@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "start": "node src/app.js",
-    "dev": "cross-env PORT=5000 nodemon --inspect src/app.js",
+    "dev": "cross-env PORT=5000 NODE_ENV=development nodemon --inspect src/app.js",
     "lint": "eslint src/ --fix"
   },
   "dependencies": {

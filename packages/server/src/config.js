@@ -4,5 +4,6 @@ module.exports = {
   jwtToken: process.env.SHRI_API_KEY,
   gitHubToken: process.env.GITHUB_TOKEN,
   cacheSize: 256 * 1024 * 1024,
-  cacheMaxAge: 1000 * 60 * 60
+  cacheMaxAge: 1000 * 60 * 60,
+  nodeEnv: process.env.NODE_ENV || "production"
 };

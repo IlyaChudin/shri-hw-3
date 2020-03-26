@@ -4,21 +4,21 @@ const routes = require("./routes");
 const config = require("./config");
 const updater = require("./updater");
 
-updater.init();
+if (config.nodeEnv === "production") {
+  updater.init();
+}
 
 const app = express();
+const buildPath = path.resolve(__dirname, "../../client/build");
+const indexHtml = path.join(buildPath, "index.html");
 
-app.use(express.static(path.resolve(__dirname, "static")));
+app.use(express.static(buildPath));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use("/", routes);
 
-app.use((req, res, next) => {
-  const err = new Error("Not Found");
-  err.status = 404;
-  next(err);
-});
+app.get("*", (req, res) => res.sendFile(indexHtml));
 
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
