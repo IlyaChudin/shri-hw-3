@@ -1,19 +1,28 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import Home from "./pages/Home";
+import Settings from "./pages/Settings";
+import NotFound from "./pages/NotFound";
+import Build from "./pages/Build";
 
 function App() {
-  const [settings, setSettings] = useState("");
-  useEffect(() => {
-    axios
-      .get("/api/settings")
-      .then(res => setSettings(JSON.stringify(res.data, null, 2)))
-      .catch(err => setSettings(err.message));
-  });
   return (
-    <div>
-      <h1>Settings!</h1>
-      <pre>{settings}</pre>
-    </div>
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/">
+          <Home />
+        </Route>
+        <Route path="/settings">
+          <Settings />
+        </Route>
+        <Route path="/build/:id">
+          <Build />
+        </Route>
+        <Route path="*">
+          <NotFound />
+        </Route>
+      </Switch>
+    </BrowserRouter>
   );
 }
 

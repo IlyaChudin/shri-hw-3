@@ -1,0 +1,19 @@
+.start-screen {
+  display: flex;
+
+  &__content {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__text {
+    width: 200px;
+    margin-top: 32px;
+    margin-bottom: 24px;
+    text-align: center;
+    font-size: var(--font-size-s);
+    line-height: var(--line-height-s);
+  }
+}
