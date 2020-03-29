@@ -1,0 +1,16 @@
+.icon-plus {
+  display: flex;
+  align-items: center;
+
+  &__text {
+    margin-left: 4px;
+
+    &_type_primary {
+      color: var(--text-color-primary);
+    }
+
+    &_type_secondary {
+      color: var(--text-color-secondary);
+    }
+  }
+}

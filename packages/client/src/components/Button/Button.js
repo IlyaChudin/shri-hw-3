@@ -5,7 +5,7 @@ import Icon from "../Icon";
 import cn from "../../classname";
 
 function Button(props) {
-  const { href, history, text, onClick, size, view, icon, mix } = props;
+  const { href, history, text, onClick, size, view = "default", icon, mix } = props;
   const button = cn("button");
   const clickHandler = e => {
     onClick && onClick(e);
