@@ -12,7 +12,7 @@ function Header(props) {
       <div className={classnames(header("content"), layout("container", { size: "s" }))}>
         <div className={header("title", { color: titleColor })}>{title}</div>
         {buttons && (
-          <div className={header("action")}>
+          <div className={header("actions")}>
             {buttons.map(({ id, ...buttonProps }) => (
               <Button key={id} {...buttonProps} mix={header("button")} />
             ))}
