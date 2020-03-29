@@ -1,17 +1,20 @@
 import React from "react";
+import { classnames } from "@bem-react/classnames";
 import Button from "../Button";
 import cn from "../../classname";
 
 function Header(props) {
-  const { buttons, title, titleColor } = props;
+  const { buttons, title, titleColor = "default" } = props;
+  const header = cn("header");
+  const layout = cn("layout");
   return (
-    <div className="header layout layout_space-h_s">
-      <div className="header__content layout__container layout__container_size_s">
-        <div className={cn("header", "title")({ color: titleColor })}>{title}</div>
+    <div className={classnames(header(), layout({ "space-h": "s" }))}>
+      <div className={classnames(header("content"), layout("container", { size: "s" }))}>
+        <div className={header("title", { color: titleColor })}>{title}</div>
         {buttons && (
-          <div className="header__actions">
+          <div className={header("action")}>
             {buttons.map(({ id, ...buttonProps }) => (
-              <Button key={id} {...buttonProps} mixes={["header__button"]} />
+              <Button key={id} {...buttonProps} mix={header("button")} />
             ))}
           </div>
         )}
