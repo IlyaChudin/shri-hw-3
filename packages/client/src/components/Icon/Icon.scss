@@ -2,7 +2,6 @@
   display: inline-block;
   background-repeat: no-repeat;
   background-position: center;
-  background-size: contain;
 
   &_type {
     &_settings {
@@ -45,8 +44,8 @@
     }
 
     &_s {
-      width: 12px;
-      height: 12px;
+      width: 28px;
+      height: 28px;
     }
 
     &_m {

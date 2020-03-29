@@ -4,17 +4,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 0px;
+  border: 0;
+  outline: none;
   font-size: var(--font-size-s);
   font-family: var(--font-family-yandex);
   border-radius: 4px;
-
-  &__icon {
-    display: flex;
-    flex-shrink: 0;
-    align-items: center;
-    justify-content: center;
-  }
 
   &_view_default {
     background-color: var(--default-bg-color);
@@ -34,14 +28,18 @@
     }
   }
 
+  &_view_clean {
+    background-color: transparent;
+    -webkit-tap-highlight-color: transparent;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
   &_size_s {
     min-height: 28px;
     line-height: 28px;
-
-    & .button__icon {
-      width: 28px;
-      height: 28px;
-    }
 
     & .button__text {
       margin-left: 13px;

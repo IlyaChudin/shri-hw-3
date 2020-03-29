@@ -1,0 +1,35 @@
+@import "../../mixins";
+
+.form {
+  &__header {
+    display: flex;
+    flex-direction: column;
+    margin-top: 6px;
+    margin-bottom: 6px;
+  }
+
+  &__title {
+    color: var(--text-color-primary);
+    font-size: var(--font-size-m);
+    font-weight: bold;
+    line-height: var(--line-height-l);
+  }
+
+  &__description {
+    color: var(--text-colot-ghost);
+    font-size: var(--font-size-s);
+    line-height: var(--line-height-m);
+    margin-top: 8px;
+    letter-spacing: 0.06px;
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: row;
+
+    @include mobile {
+      flex-direction: column;
+      justify-content: stretch;
+    }
+  }
+}

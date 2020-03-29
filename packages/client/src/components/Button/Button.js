@@ -15,11 +15,7 @@ function Button(props) {
   };
   return (
     <button className={classnames(button({ size, view, "with-icon": !!icon }), mix)} onClick={clickHandler}>
-      {icon && (
-        <div className={button("icon")}>
-          <Icon {...icon} />
-        </div>
-      )}
+      {icon && <Icon {...icon} mix={button("icon")} />}
       {text && <span className={button("text")}>{text}</span>}
     </button>
   );

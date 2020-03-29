@@ -1,0 +1,31 @@
+.form-field {
+  display: flex;
+
+  &_type_h {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  &_type_v {
+    flex-direction: column;
+  }
+
+  &_required .form-field__title:after {
+    content: " *";
+    color: #FF3333;
+  }
+
+  &__title {
+    display: inline-block;
+    letter-spacing: 0.06px;
+    color: var(--text-color-primary);
+    font-size: var(--font-size-s);
+    line-height: var(--line-height-m);
+  }
+
+  &__addon {
+    color: var(--text-color-form-addon);
+    font-size: var(--font-size-s);
+    line-height: var(--line-height-m);
+  }
+}
