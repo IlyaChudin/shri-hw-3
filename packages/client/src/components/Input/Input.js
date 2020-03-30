@@ -4,7 +4,7 @@ import cn from "../../classname";
 import Button from "../Button/Button";
 
 function Input(props) {
-  const { placeholder, clearButton, size, textAlign, value, onChange, mix } = props;
+  const { placeholder, clearButton, size, textAlign, value, onChange, error, mix } = props;
   const input = cn("input");
   const clickHandler = () => onChange("");
   const changeHandler = e => onChange(e.target.value);
@@ -19,11 +19,12 @@ function Input(props) {
         />
       )}
       <input
-        className={input("control", { size, "text-align": textAlign })}
+        className={input("control", { size, "text-align": textAlign, view: error && "error" })}
         placeholder={placeholder}
         value={value}
         onChange={changeHandler}
       />
+      {error && <p className={input("error")}>{error}</p>}
     </div>
   );
 }

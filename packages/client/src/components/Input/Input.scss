@@ -19,6 +19,14 @@
       border: 2px solid var(--border-color-focused);
     }
 
+    &_view_error {
+      border: 2px solid var(--error-color);
+
+      &:focus {
+        border: 2px solid var(--error-color);
+      }
+    }
+
     &_size_m {
       height: 36px;
       padding-left: 13px;
@@ -30,6 +38,13 @@
         text-align: right;
       }
     }
+  }
+
+  &__error {
+    color: var(--error-color);
+    font-size: var(--font-size-s);
+    line-height: var(--line-height-xs);
+    margin-top: 6px;
   }
 
   &__icon {

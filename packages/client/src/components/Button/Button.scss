@@ -37,6 +37,11 @@
     }
   }
 
+  &_view_disabled {
+    color: #7F7F7F;
+    background-color: #F2F2F2;
+  }
+
   &_size_s {
     min-height: 28px;
     line-height: 28px;

@@ -32,4 +32,11 @@
       justify-content: stretch;
     }
   }
+
+  &__error {
+    color: var(--error-color);
+    font-size: var(--font-size-s);
+    line-height: var(--line-height-xs);
+    margin: 6px 0;
+  }
 }

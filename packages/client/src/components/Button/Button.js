@@ -5,7 +5,7 @@ import Icon from "../Icon";
 import cn from "../../classname";
 
 function Button(props) {
-  const { href, history, text, onClick, size, view = "default", icon, mix } = props;
+  const { href, history, text, onClick, size, view = "default", disabled, icon, mix } = props;
   const button = cn("button");
   const clickHandler = e => {
     onClick && onClick(e);
@@ -14,7 +14,11 @@ function Button(props) {
     }
   };
   return (
-    <button className={classnames(button({ size, view, "with-icon": !!icon }), mix)} onClick={clickHandler}>
+    <button
+      disabled={disabled}
+      className={classnames(button({ size, view: disabled ? "disabled" : view, "with-icon": !!icon }), mix)}
+      onClick={clickHandler}
+    >
       {icon && <Icon {...icon} mix={button("icon")} />}
       {text && <span className={button("text")}>{text}</span>}
     </button>

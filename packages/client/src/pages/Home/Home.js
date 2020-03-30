@@ -1,14 +1,15 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import StartScreen from "../../components/StartScreen";
 import BuildList from "../../components/BuildList";
 
 function Home(props) {
-  const settings = true;
+  const settings = useSelector(x => x.settings);
   const header = settings
     ? {
-        title: "philip1967/my-awesome-repo-with-long-long-long-repo",
+        title: settings.repoName,
         titleColor: "primary",
         buttons: [
           {
