@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { classnames } from "@bem-react/classnames";
-import InputMask from "react-input-mask";
+import MaskedInput from "react-text-mask";
 import cn from "../../classname";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
@@ -57,18 +57,19 @@ function Settings() {
               />
             </FormField>
             <FormField title="Synchronize every" type="h" addon="minutes" mix={settings("field")}>
-              <InputMask
-                mask="999"
-                maskChar={null}
-                value={period}
-                onChange={setPeriod}
-                placeholder="10"
-                size="m"
-                textAlign="right"
-                mix={settings("input", { size: "small" })}
-              >
-                {inputProps => <Input {...inputProps} />}
-              </InputMask>
+              <div className={cn("input")()}>
+                <MaskedInput
+                  className={classnames(
+                    cn("input")("control", { size: "m", "text-align": "right" }),
+                    settings("input", { size: "small" })
+                  )}
+                  guide={false}
+                  mask={[/\d/, /\d/, /\d/]}
+                  placeholder="10"
+                  value={period}
+                  onChange={e => setPeriod(e.target.value)}
+                />
+              </div>
             </FormField>
             <div className={settings("buttons")}>
               <Button text="Save" view="accent" size="m" mix={settings("button")} />
