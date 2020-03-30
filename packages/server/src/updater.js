@@ -93,10 +93,6 @@ async function init() {
 }
 
 async function setSettings({ repoName, buildCommand, mainBranch, period }) {
-  const repoInfo = await githubApi.getRepositoryInfo(repoName);
-  if (!repoInfo.id) {
-    throw new Error("Repository not found.");
-  }
   setTimeout(() => internalInit({ repoName, buildCommand, mainBranch, period }), 0);
 }
 

@@ -28,8 +28,16 @@ async function getBranchCommits(repoName, branchName) {
 }
 
 async function getRepositoryInfo(repoName) {
-  const { data } = await instance.get(`/${repoName}`);
-  return data;
+  try {
+    const { data } = await instance.get(`/${repoName}`);
+    return data;
+  } catch (e) {
+    if (e.response && e.response.status === 404) {
+      throw new Error("Repository not found");
+    } else {
+      throw e;
+    }
+  }
 }
 
 module.exports = {
