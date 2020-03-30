@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { classnames } from "@bem-react/classnames";
 import Button from "../Button";
 import cn from "../../classname";
@@ -10,7 +11,9 @@ function Header(props) {
   return (
     <div className={classnames(header(), layout({ "space-h": "s" }))}>
       <div className={classnames(header("content"), layout("container", { size: "s" }))}>
-        <div className={header("title", { color: titleColor })}>{title}</div>
+        <Link className={header("title", { color: titleColor })} to="/">
+          {title}
+        </Link>
         {buttons && (
           <div className={header("actions")}>
             {buttons.map(({ id, ...buttonProps }) => (
