@@ -32,12 +32,10 @@
   "proxy": "http://localhost:5000",
   "lint-staged": {
     "src/**/*.scss": [
-      "stylelint --fix",
-      "git add"
+      "stylelint --fix"
     ],
     "src/**/*.js": [
-      "eslint --fix",
-      "git add"
+      "eslint --fix"
     ]
   },
   "browserslist": {
