@@ -1,15 +1,37 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import { classnames } from "@bem-react/classnames";
+import { format } from "date-fns";
+import { ru } from "date-fns/locale";
 import cn from "../../classname";
 import IconPlus from "../IconPlus";
+
+function formatDuration(duration) {
+  const date = new Date(duration * 1000);
+  const h = date.getUTCHours();
+  const m = date.getUTCMinutes();
+  const s = date.getSeconds();
+  return h > 0 ? `${h} ч ${m} мин` : `${m} м ${s} сек`;
+}
+
+function getCardView(status) {
+  switch (status) {
+    case "Waiting":
+    case "InProgress":
+      return "pending";
+    case "Success":
+      return "success";
+    default:
+      return "fail";
+  }
+}
 
 function BuildCard(props) {
   const {
     href,
     history,
     onClick,
-    type,
+    status,
     view = "default",
     number,
     title,
@@ -28,7 +50,7 @@ function BuildCard(props) {
     }
   };
   return (
-    <div className={classnames(buildCard({ view, type }), mix)} onClick={clickHandler}>
+    <div className={classnames(buildCard({ view, type: getCardView(status) }), mix)} onClick={clickHandler}>
       <div className={buildCard("status")} />
       <div className={buildCard("container")}>
         <div>
@@ -42,7 +64,7 @@ function BuildCard(props) {
               icon={{ type: "commit", size: "xs" }}
               items={[
                 { text: commitBranch, type: "primary" },
-                { text: commitHash, type: "secondary" }
+                { text: commitHash && commitHash.substring(0, 7), type: "secondary" }
               ]}
             />
             <IconPlus
@@ -58,14 +80,14 @@ function BuildCard(props) {
               <IconPlus
                 mix={buildCard("date")}
                 icon={{ type: "calendar", size: "xs" }}
-                items={[{ text: date, type: "secondary" }]}
+                items={[{ text: format(new Date(date), "d MMM HH:mm", { locale: ru }), type: "secondary" }]}
               />
             )}
             {duration && (
               <IconPlus
                 mix={buildCard("duration")}
                 icon={{ type: "stopwatch", size: "xs" }}
-                items={[{ text: duration, type: "secondary" }]}
+                items={[{ text: formatDuration(duration), type: "secondary" }]}
               />
             )}
           </div>
