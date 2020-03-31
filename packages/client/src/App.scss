@@ -55,6 +55,7 @@ body {
   --accent-bg-color-hovered: #F2C200;
   --default-bg-color: #E6E6E6;
   --default-bg-color-hovered: #DBDBDB;
+  --modal-bg-color: #FFFFFF;
   --border-color: #D9D9D9;
   --border-color-focused: #B3B3B3;
   --text-color-primary: #000000;
@@ -122,4 +123,8 @@ body {
       max-width: 824px;
     }
   }
+}
+
+.ReactModal__Body--open {
+  overflow: hidden;
 }

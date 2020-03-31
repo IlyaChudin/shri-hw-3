@@ -9,7 +9,7 @@ function Form(props) {
     <div className={classnames(form(), mix)}>
       <div className={form("header")}>
         <span className={form("title")}>{title}</span>
-        <span className={form("description")}>{description}</span>
+        {description && <span className={form("description")}>{description}</span>}
       </div>
       {children}
       {error && <p className={form("error")}>{error}</p>}
