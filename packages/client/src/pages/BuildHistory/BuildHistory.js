@@ -25,7 +25,7 @@ function BuildHistory({ title }) {
 
   const runBuildHandler = () => setIsOpen(true);
   const showMoreHandler = () => dispatch(getBuilds(store.builds.length));
-  const onSubmit = ({ hash }) => dispatch(runBuild(hash, "master", history));
+  const onSubmit = ({ hash, branch }) => dispatch(runBuild(hash, branch, history));
   const onCancel = () => setIsOpen(false);
 
   const layout = cn("layout");

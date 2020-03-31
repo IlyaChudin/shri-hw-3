@@ -8,18 +8,21 @@ import cn from "../../classname";
 function NewBuildForm(props) {
   const { onSubmit, onCancel, error } = props;
   const [hash, setHash] = useState("");
+  const [branch, setBranch] = useState("");
   const newFormBuild = cn("new-build-form");
   const submitHandler = () => {
-    onSubmit && onSubmit({ hash });
+    onSubmit && onSubmit({ hash, branch });
   };
   return (
-    <Form title="New build" mix={newFormBuild()}>
-      <FormField title="Enter the commit hash which you want to build." type="v" mix={newFormBuild("field")}>
+    <Form title="New build" mix={newFormBuild()} error={error}>
+      <FormField title="Commit hash" type="v" mix={newFormBuild("field")}>
+        <Input placeholder="66e50bf" value={hash} onChange={setHash} clearButton size="m" mix={newFormBuild("input")} />
+      </FormField>
+      <FormField title="Branch" type="v" mix={newFormBuild("field")}>
         <Input
-          placeholder="Commit hash"
-          value={hash}
-          error={error}
-          onChange={setHash}
+          placeholder="master"
+          value={branch}
+          onChange={setBranch}
           clearButton
           size="m"
           mix={newFormBuild("input")}
