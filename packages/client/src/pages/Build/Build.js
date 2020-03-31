@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { classnames } from "@bem-react/classnames";
 import { useDispatch, useSelector } from "react-redux";
 import cn from "../../classname";
@@ -8,9 +8,21 @@ import BuildCard from "../../components/BuildCard";
 import BuildLog from "../../components/BuildLog";
 import Footer from "../../components/Footer";
 import { clearDetails, getDetails, getLog } from "../../store/details/actions";
+import { runBuild } from "../../store/builds/actions";
 
 function Build() {
   const { id } = useParams();
+  const settings = useSelector(x => x.settings);
+  const store = useSelector(x => x.details);
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  useEffect(() => {
+    dispatch(getDetails(id));
+    dispatch(getLog(id));
+    return () => dispatch(clearDetails());
+  }, [dispatch, id]);
+
   const buttons = [
     {
       id: "rebuild",
@@ -20,7 +32,12 @@ function Build() {
       },
       view: "default",
       text: "Rebuild",
-      size: "s"
+      size: "s",
+      onClick: () => {
+        if (store.details.commitHash) {
+          dispatch(runBuild(store.details.commitHash, store.details.branchName, history));
+        }
+      }
     },
     {
       id: "settings",
@@ -33,16 +50,7 @@ function Build() {
       size: "s"
     }
   ];
-  const settings = useSelector(x => x.settings);
-  const store = useSelector(x => x.details);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getDetails(id));
-    dispatch(getLog(id));
-  }, [dispatch, id]);
-  useEffect(() => {
-    return () => dispatch(clearDetails());
-  }, [dispatch]);
+
   const layout = cn("layout");
   return (
     <>
