@@ -13,7 +13,7 @@ function App() {
   const settings = useSelector(x => x.settings);
   useEffect(() => {
     dispatch(getSettings());
-  });
+  }, [dispatch]);
   return (
     <BrowserRouter>
       <Switch>
