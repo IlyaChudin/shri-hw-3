@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_BUILDS_SUCCESS, GET_BUILDS_FAILURE, RUN_BUILD_SUCCESS, RUN_BUILD_FAILURE } from "./types";
+import { GET_BUILDS_SUCCESS, GET_BUILDS_FAILURE, RUN_BUILD_SUCCESS, RUN_BUILD_FAILURE, CLEAR_BUILDS } from "./types";
 
 function getBuildsSuccess(builds, showMore) {
   return {
@@ -29,6 +29,12 @@ function runBuildsFailure(error) {
   };
 }
 
+function clearBuilds() {
+  return {
+    type: CLEAR_BUILDS
+  };
+}
+
 export function getBuilds(offset, limit = 10) {
   return async dispatch => {
     try {
@@ -46,6 +52,7 @@ export function runBuild(commitHash, branchName, history) {
       const { data } = await axios.post(`/api/builds/${commitHash}`, { params: { branchName } });
       dispatch(runBuildsSuccess());
       history.push(`/build/${data.id}`);
+      dispatch(clearBuilds());
     } catch (e) {
       dispatch(runBuildsFailure(e.message));
     }

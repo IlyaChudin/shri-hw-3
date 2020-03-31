@@ -1,4 +1,4 @@
-import { GET_BUILDS_FAILURE, GET_BUILDS_SUCCESS, RUN_BUILD_SUCCESS, RUN_BUILD_FAILURE } from "./types";
+import { GET_BUILDS_FAILURE, GET_BUILDS_SUCCESS, RUN_BUILD_SUCCESS, RUN_BUILD_FAILURE, CLEAR_BUILDS } from "./types";
 
 const initialState = {
   builds: [],
@@ -17,6 +17,8 @@ export default function reducer(state = initialState, action) {
       return { ...state, runBuildError: null };
     case RUN_BUILD_FAILURE:
       return { ...state, runBuildError: action.error };
+    case CLEAR_BUILDS:
+      return initialState;
     default:
       return state;
   }
