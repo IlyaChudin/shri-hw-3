@@ -8,6 +8,8 @@ import BuildDetails from "./pages/BuildDetails";
 import BuildHistory from "./pages/BuildHistory";
 import { getSettings } from "./store/settings/actions";
 
+const defaultTitle = "School CI server";
+
 function App() {
   const dispatch = useDispatch();
   const settings = useSelector(x => x.settings);
@@ -18,16 +20,16 @@ function App() {
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
-          {settings.isLoaded ? <BuildHistory /> : <Home />}
+          {settings.isLoaded ? <BuildHistory title={settings.repoName} /> : <Home title={defaultTitle} />}
         </Route>
         <Route path="/settings">
-          <Settings />
+          <Settings title={defaultTitle} />
         </Route>
         <Route path="/build/:id">
-          <BuildDetails />
+          <BuildDetails title={settings.repoName} />
         </Route>
         <Route path="*">
-          <NotFound />
+          <NotFound title={defaultTitle} />
         </Route>
       </Switch>
     </BrowserRouter>

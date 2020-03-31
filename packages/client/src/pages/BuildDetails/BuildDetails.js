@@ -9,10 +9,10 @@ import BuildLog from "../../components/BuildLog";
 import Footer from "../../components/Footer";
 import { clearDetails, getDetails, getLog } from "../../store/details/actions";
 import { runBuild } from "../../store/builds/actions";
+import Button from "../../components/Button/Button";
 
-function BuildDetails() {
+function BuildDetails({ title }) {
   const { id } = useParams();
-  const settings = useSelector(x => x.settings);
   const store = useSelector(x => x.details);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -23,38 +23,19 @@ function BuildDetails() {
     return () => dispatch(clearDetails());
   }, [dispatch, id]);
 
-  const buttons = [
-    {
-      id: "rebuild",
-      icon: {
-        type: "rebuild",
-        size: "s"
-      },
-      view: "default",
-      text: "Rebuild",
-      size: "s",
-      onClick: () => {
-        if (store.details.commitHash) {
-          dispatch(runBuild(store.details.commitHash, store.details.branchName, history));
-        }
-      }
-    },
-    {
-      id: "settings",
-      href: "/settings",
-      icon: {
-        type: "settings",
-        size: "s"
-      },
-      view: "default",
-      size: "s"
+  const rebuildHandler = () => {
+    if (store.details.commitHash) {
+      dispatch(runBuild(store.details.commitHash, store.details.branchName, history));
     }
-  ];
+  };
 
   const layout = cn("layout");
   return (
     <>
-      <Header buttons={buttons} title={settings.repoName} titleColor="primary" />
+      <Header title={title} titleColor="primary">
+        <Button text="Rebuild" icon={{ type: "rebuild", size: "s" }} size="s" onClick={rebuildHandler} />
+        <Button href="/settings" icon={{ type: "settings", size: "s" }} size="s" />
+      </Header>
       <div className={classnames(layout({ "space-h": "s" }), cn("page")("content"))}>
         <div className={classnames(layout("container", { size: "s" }))}>
           {store.details && store.details.id && (

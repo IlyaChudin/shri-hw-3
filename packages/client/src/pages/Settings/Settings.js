@@ -12,7 +12,7 @@ import Input from "../../components/Input";
 import Button from "../../components/Button/Button";
 import { clearSaveError, saveSettings } from "../../store/settings/actions";
 
-function Settings() {
+function Settings({ title }) {
   const [repoName, setRepository] = useState("");
   const [buildCommand, setBuildCommand] = useState("");
   const [mainBranch, setMainBranch] = useState("");
@@ -50,7 +50,7 @@ function Settings() {
   const layout = cn("layout");
   return (
     <>
-      <Header title="School CI server" />
+      <Header title={title} />
       <div className={classnames(settings(), layout({ "space-h": "s" }), cn("page")("content"))}>
         <div className={classnames(settings("content"), layout("container", { size: "s" }))}>
           <Form
