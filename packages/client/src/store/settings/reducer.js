@@ -13,6 +13,7 @@ const initialState = {
   buildCommand: "",
   mainBranch: "",
   period: "",
+  isLoaded: false,
   isSaving: false,
   saveError: null,
   getError: null
@@ -21,9 +22,9 @@ const initialState = {
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case GET_SETTINGS_SUCCESS:
-      return { ...state, ...action.settings, getError: null };
+      return { ...state, ...action.settings, isLoaded: true, getError: null };
     case GET_SETTINGS_FAILURE:
-      return { ...state, getError: action.error };
+      return { ...state, isLoaded: false, getError: action.error };
     case SAVE_SETTINGS_START:
       return { ...state, isSaving: true };
     case SAVE_SETTINGS_END:

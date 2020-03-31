@@ -1,14 +1,16 @@
 import React, { useEffect } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Home from "./pages/Home";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
-import Build from "./pages/Build";
+import BuildDetails from "./pages/BuildDetails";
+import BuildHistory from "./pages/BuildHistory";
 import { getSettings } from "./store/settings/actions";
 
 function App() {
   const dispatch = useDispatch();
+  const settings = useSelector(x => x.settings);
   useEffect(() => {
     dispatch(getSettings());
   });
@@ -16,13 +18,13 @@ function App() {
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
-          <Home />
+          {settings.isLoaded ? <BuildHistory /> : <Home />}
         </Route>
         <Route path="/settings">
           <Settings />
         </Route>
         <Route path="/build/:id">
-          <Build />
+          <BuildDetails />
         </Route>
         <Route path="*">
           <NotFound />

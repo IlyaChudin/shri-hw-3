@@ -10,7 +10,7 @@ import Footer from "../../components/Footer";
 import { clearDetails, getDetails, getLog } from "../../store/details/actions";
 import { runBuild } from "../../store/builds/actions";
 
-function Build() {
+function BuildDetails() {
   const { id } = useParams();
   const settings = useSelector(x => x.settings);
   const store = useSelector(x => x.details);
@@ -80,4 +80,4 @@ function Build() {
   );
 }
 
-export default Build;
+export default BuildDetails;
