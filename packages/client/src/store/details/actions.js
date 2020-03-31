@@ -45,7 +45,6 @@ export function getDetails(buildId) {
   return async dispatch => {
     try {
       const { data } = await axios.get(`/api/builds/${buildId}`);
-      console.log(data);
       dispatch(getBuildDetailsSuccess(data));
     } catch (e) {
       if (e.response && e.response.status === 400) {
