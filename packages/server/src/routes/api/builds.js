@@ -31,7 +31,7 @@ router.get("/:buildId/logs", async (req, res, next) => {
     const { buildId } = req.params;
     const key = `build_log_${buildId}`;
     let data = cache.get(key);
-    if (data === undefined) {
+    if (!data) {
       data = await backendApi.getBuildLog(buildId);
       cache.set(key, data);
     }
