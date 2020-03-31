@@ -52,18 +52,24 @@ function BuildCard(props) {
             />
           </div>
         </div>
-        <div className={buildCard("time")}>
-          <IconPlus
-            mix={buildCard("date")}
-            icon={{ type: "calendar", size: "xs" }}
-            items={[{ text: date, type: "secondary" }]}
-          />
-          <IconPlus
-            mix={buildCard("duration")}
-            icon={{ type: "calendar", size: "xs" }}
-            items={[{ text: duration, type: "secondary" }]}
-          />
-        </div>
+        {(date || duration) && (
+          <div className={buildCard("time")}>
+            {date && (
+              <IconPlus
+                mix={buildCard("date")}
+                icon={{ type: "calendar", size: "xs" }}
+                items={[{ text: date, type: "secondary" }]}
+              />
+            )}
+            {duration && (
+              <IconPlus
+                mix={buildCard("duration")}
+                icon={{ type: "stopwatch", size: "xs" }}
+                items={[{ text: duration, type: "secondary" }]}
+              />
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

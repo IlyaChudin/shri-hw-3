@@ -5,7 +5,7 @@ import Footer from "../../components/Footer";
 import StartScreen from "../../components/StartScreen";
 import BuildList from "../../components/BuildList";
 
-function Home(props) {
+function Home() {
   const settings = useSelector(x => x.settings);
   const header = settings
     ? {

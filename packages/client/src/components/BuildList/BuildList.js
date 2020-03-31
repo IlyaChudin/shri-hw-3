@@ -1,31 +1,67 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { classnames } from "@bem-react/classnames";
+import { useDispatch, useSelector } from "react-redux";
+import { format } from "date-fns";
+import { ru } from "date-fns/locale";
 import cn from "../../classname";
 import BuildCard from "../BuildCard";
 import Button from "../Button/Button";
+import { getBuilds } from "../../store/builds/actions";
 
-function BuildList(props) {
+function getCardView(status) {
+  switch (status) {
+    case "Waiting":
+    case "InProgress":
+      return "pending";
+    case "Success":
+      return "success";
+    default:
+      return "fail";
+  }
+}
+
+function formatDuration(duration) {
+  const date = new Date(duration * 1000);
+  const h = date.getUTCHours();
+  const m = date.getUTCMinutes();
+  const s = date.getSeconds();
+  return h > 0 ? `${h} ч ${m} мин` : `${m} м ${s} сек`;
+}
+
+function BuildList() {
+  const store = useSelector(x => x.builds);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (store.builds.length === 0) {
+      dispatch(getBuilds(0));
+    }
+  }, [dispatch, store.builds.length]);
+
+  const showMoreHandler = e => {
+    dispatch(getBuilds(store.builds.length));
+  };
+
   const buildList = cn("build-list");
   const layout = cn("layout");
   return (
     <div className={classnames(buildList(), layout({ "space-h": "s" }), cn("page")("content"))}>
       <div className={classnames(buildList("content"), layout("container", { size: "s" }))}>
-        {new Array(9).fill(0).map((x, i) => (
+        {store.builds.map(build => (
           <BuildCard
-            key={i}
-            href={`/build/${1368}`}
-            type="success"
+            key={build.id}
+            href={`/build/${build.id}`}
+            type={getCardView(build.status)}
             mix={buildList("item")}
-            number="1368"
-            title="add documentation for postgres scaler"
-            commitBranch="master"
-            commitHash="9c9f0b9"
-            user="Philip Kirkorov"
-            date="21 янв, 03:06"
-            duration="1 ч 20 мин"
+            number={build.buildNumber}
+            title={build.commitMessage}
+            commitBranch={build.branchName}
+            commitHash={build.commitHash.substring(0, 7)}
+            user={build.authorName}
+            date={build.start && format(new Date(build.start), "d MMM HH:mm", { locale: ru })}
+            duration={build.duration && formatDuration(build.duration)}
           />
         ))}
-        <Button text="Show more" size="m" mix={buildList("button")} />
+        {store.showMore && <Button text="Show more" size="m" mix={buildList("button")} onClick={showMoreHandler} />}
       </div>
     </div>
   );
