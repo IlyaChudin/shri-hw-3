@@ -48,7 +48,8 @@ async function getBuildLog(buildId) {
 }
 
 async function requestBuild({ commitMessage, commitHash, branchName, authorName }) {
-  await instance.post("/build/request", { commitMessage, commitHash, branchName, authorName });
+  const response = await instance.post("/build/request", { commitMessage, commitHash, branchName, authorName });
+  return response.data.data;
 }
 
 module.exports = {

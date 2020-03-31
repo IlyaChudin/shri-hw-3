@@ -4,9 +4,7 @@ const routes = require("./routes");
 const config = require("./config");
 const updater = require("./updater");
 
-if (config.nodeEnv === "production") {
-  updater.init();
-}
+updater.init();
 
 const app = express();
 const buildPath = path.resolve(__dirname, "../../client/build");
