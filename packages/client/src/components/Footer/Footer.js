@@ -1,31 +1,23 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import cn from "../../classname";
+import Layout from "../Layout";
 
-const links = [
-  {
-    href: "#",
-    text: "Support"
-  },
-  {
-    href: "#",
-    text: "Learning"
-  }
-];
+const footer = cn("footer");
 
 function Footer() {
   return (
-    <div className="footer layout layout_space-h_s">
-      <div className="footer__content layout__container layout__container_size_s">
-        <div className="footer__menu">
-          {links.map(({ href, text }, i) => (
-            <Link key={i} to={href} className="footer__link">
-              {text}
-            </Link>
-          ))}
-        </div>
-        <span className="footer__copyright">© 2020 Ilya Chudin</span>
+    <Layout mix={footer()} containerMix={footer("content")}>
+      <div className={footer("menu")}>
+        <Link to="#" className={footer("link")}>
+          Support
+        </Link>
+        <Link to="#" className={footer("link")}>
+          Learning
+        </Link>
       </div>
-    </div>
+      <span className={footer("copyright")}>&copy; 2020 Ilya Chudin</span>
+    </Layout>
   );
 }
 

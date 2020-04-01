@@ -1,7 +1,7 @@
 import React from "react";
 import cn from "../../classname";
 import BuildCard from "../BuildCard";
-import Button from "../Button/Button";
+import Button from "../Button";
 
 function BuildList(props) {
   const { builds, showMore, onShowMoreClick } = props;

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Form from "../Form";
 import FormField from "../FormField";
 import Input from "../Input";
-import Button from "../Button/Button";
+import Button from "../Button";
 import cn from "../../classname";
 
 function NewBuildForm(props) {

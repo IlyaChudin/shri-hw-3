@@ -1,7 +1,7 @@
 import React from "react";
 import { classnames } from "@bem-react/classnames";
 import cn from "../../classname";
-import Button from "../Button/Button";
+import Button from "../Button";
 
 function Input(props) {
   const { placeholder, clearButton, size, textAlign, value, onChange, error, mix } = props;
