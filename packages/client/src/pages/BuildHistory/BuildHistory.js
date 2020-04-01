@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import Header from "../../components/Header";
-import Footer from "../../components/Footer";
 import BuildList from "../../components/BuildList";
 import Modal from "../../components/Modal";
 import NewBuildForm from "../../components/NewBuildForm";
@@ -36,7 +35,6 @@ function BuildHistory({ title }) {
       <Layout isPageContent>
         <BuildList builds={store.builds} showMore={store.showMore} onShowMoreClick={showMoreHandler} />
       </Layout>
-      <Footer />
       <Modal isOpen={isOpen}>
         <NewBuildForm onSubmit={onSubmit} onCancel={onCancel} error={store.runBuildError} />
       </Modal>

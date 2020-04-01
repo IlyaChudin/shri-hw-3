@@ -6,6 +6,7 @@ import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 import BuildDetails from "./pages/BuildDetails";
 import BuildHistory from "./pages/BuildHistory";
+import Footer from "./components/Footer";
 import { getSettings } from "./store/settings/actions";
 
 const defaultTitle = "School CI server";
@@ -32,6 +33,7 @@ function App() {
           <NotFound title={defaultTitle} />
         </Route>
       </Switch>
+      <Footer />
     </BrowserRouter>
   );
 }

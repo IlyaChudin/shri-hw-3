@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import Header from "../../components/Header";
 import BuildCard from "../../components/BuildCard";
 import BuildLog from "../../components/BuildLog";
-import Footer from "../../components/Footer";
 import { clearDetails, getDetails, getLog } from "../../store/details/actions";
 import { runBuild } from "../../store/builds/actions";
 import Button from "../../components/Button";
@@ -52,7 +51,6 @@ function BuildDetails({ title }) {
         {store.log && <BuildLog text={store.log} />}
         {store.getLogError && <p>{store.getLogError}</p>}
       </Layout>
-      <Footer />
     </>
   );
 }

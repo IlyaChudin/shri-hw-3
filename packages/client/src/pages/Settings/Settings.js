@@ -5,7 +5,6 @@ import MaskedInput from "react-text-mask";
 import { useHistory } from "react-router-dom";
 import cn from "../../classname";
 import Header from "../../components/Header";
-import Footer from "../../components/Footer";
 import Form from "../../components/Form";
 import FormField from "../../components/FormField";
 import Input from "../../components/Input";
@@ -125,7 +124,6 @@ function Settings({ title }) {
           </div>
         </Form>
       </Layout>
-      <Footer />
     </>
   );
 }
