@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { classnames } from "@bem-react/classnames";
 import cn from "../../classname";
 import Button from "../Button";
@@ -7,7 +7,11 @@ const input = cn("input");
 
 function Input(props) {
   const { placeholder, clearButton, size, textAlign, value, onChange, error, mix } = props;
-  const clickHandler = () => onChange("");
+  const inputRef = useRef(null);
+  const clickHandler = () => {
+    onChange("");
+    inputRef.current.focus();
+  };
   const changeHandler = e => onChange(e.target.value);
   return (
     <div className={classnames(input({ "icon-position": clearButton ? "right" : undefined }), mix)}>
@@ -20,6 +24,7 @@ function Input(props) {
         />
       )}
       <input
+        ref={inputRef}
         className={input("control", { size, "text-align": textAlign, view: error && "error" })}
         placeholder={placeholder}
         value={value}
