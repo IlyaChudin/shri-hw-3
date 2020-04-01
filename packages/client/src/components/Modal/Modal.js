@@ -3,11 +3,10 @@ import ReactModal from "react-modal";
 import cn from "../../classname";
 
 ReactModal.setAppElement("#root");
+const modal = cn("modal");
 
 function Modal(props) {
   const { isOpen, children } = props;
-
-  const modal = cn("modal");
   return (
     <ReactModal
       isOpen={isOpen}

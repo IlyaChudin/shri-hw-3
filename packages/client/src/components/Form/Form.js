@@ -2,9 +2,10 @@ import React from "react";
 import { classnames } from "@bem-react/classnames";
 import cn from "../../classname";
 
+const form = cn("form");
+
 function Form(props) {
   const { title, description, children, error, mix } = props;
-  const form = cn("form");
   return (
     <div className={classnames(form(), mix)}>
       <div className={form("header")}>

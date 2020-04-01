@@ -26,6 +26,8 @@ function getCardView(status) {
   }
 }
 
+const buildCard = cn("build-card");
+
 function BuildCard(props) {
   const {
     href,
@@ -42,7 +44,6 @@ function BuildCard(props) {
     duration,
     mix
   } = props;
-  const buildCard = cn("build-card");
   const clickHandler = e => {
     onClick && onClick(e);
     if (href) {

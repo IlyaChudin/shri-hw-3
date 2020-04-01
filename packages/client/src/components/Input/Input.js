@@ -3,9 +3,10 @@ import { classnames } from "@bem-react/classnames";
 import cn from "../../classname";
 import Button from "../Button";
 
+const input = cn("input");
+
 function Input(props) {
   const { placeholder, clearButton, size, textAlign, value, onChange, error, mix } = props;
-  const input = cn("input");
   const clickHandler = () => onChange("");
   const changeHandler = e => onChange(e.target.value);
   return (

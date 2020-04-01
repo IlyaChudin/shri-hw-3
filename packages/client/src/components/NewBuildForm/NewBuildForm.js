@@ -5,11 +5,12 @@ import Input from "../Input";
 import Button from "../Button";
 import cn from "../../classname";
 
+const newFormBuild = cn("new-build-form");
+
 function NewBuildForm(props) {
   const { onSubmit, onCancel, error } = props;
   const [hash, setHash] = useState("");
   const [branch, setBranch] = useState("");
-  const newFormBuild = cn("new-build-form");
   const submitHandler = () => {
     onSubmit && onSubmit({ hash, branch });
   };

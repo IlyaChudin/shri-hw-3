@@ -3,9 +3,10 @@ import cn from "../../classname";
 import BuildCard from "../BuildCard";
 import Button from "../Button";
 
+const buildList = cn("build-list");
+
 function BuildList(props) {
   const { builds, showMore, onShowMoreClick } = props;
-  const buildList = cn("build-list");
   return (
     <div className={buildList()}>
       {builds.map(build => (

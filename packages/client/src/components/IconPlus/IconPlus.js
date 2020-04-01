@@ -3,9 +3,10 @@ import { classnames } from "@bem-react/classnames";
 import cn from "../../classname";
 import Icon from "../Icon";
 
+const iconPlus = cn("icon-plus");
+
 function IconPlus(props) {
   const { icon, items, mix } = props;
-  const iconPlus = cn("icon-plus");
   return (
     <div className={classnames(iconPlus(), mix)}>
       <Icon {...icon} />
