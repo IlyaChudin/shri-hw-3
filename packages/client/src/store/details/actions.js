@@ -4,7 +4,9 @@ import {
   GET_BUILD_DETAILS_FAILURE,
   GET_BUILD_LOG_SUCCESS,
   GET_BUILD_LOG_FAILURE,
-  CLEAR_DETAILS
+  CLEAR_DETAILS,
+  LOG_LOADING_START,
+  LOG_LOADING_END
 } from "./types";
 
 function getBuildDetailsSuccess(details) {
@@ -41,6 +43,18 @@ export function clearDetails() {
   };
 }
 
+function logLoadingStart() {
+  return {
+    type: LOG_LOADING_START
+  };
+}
+
+function logLoadingEnd() {
+  return {
+    type: LOG_LOADING_END
+  };
+}
+
 export function getDetails(buildId) {
   return async dispatch => {
     try {
@@ -59,6 +73,7 @@ export function getDetails(buildId) {
 export function getLog(buildId) {
   return async dispatch => {
     try {
+      dispatch(logLoadingStart());
       const { data } = await axios.get(`/api/builds/${buildId}/logs`);
       dispatch(getBuildLogSuccess(data));
     } catch (e) {
@@ -67,6 +82,8 @@ export function getLog(buildId) {
       } else {
         dispatch(getBuildLogFailure("Build not found"));
       }
+    } finally {
+      dispatch(logLoadingEnd());
     }
   };
 }

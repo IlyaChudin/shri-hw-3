@@ -8,6 +8,7 @@ import { clearDetails, getDetails, getLog } from "../../store/details/actions";
 import { runBuild } from "../../store/builds/actions";
 import Button from "../../components/Button";
 import Layout from "../../components/Layout";
+import Loading from "../../components/Loading";
 
 function BuildDetails({ title }) {
   const { id } = useParams();
@@ -48,6 +49,7 @@ function BuildDetails({ title }) {
           />
         )}
         {store.getDetailsError && <p>{store.getDetailsError}</p>}
+        {store.logLoading && <Loading />}
         {store.log && <BuildLog text={store.log} />}
         {store.getLogError && <p>{store.getLogError}</p>}
       </Layout>
