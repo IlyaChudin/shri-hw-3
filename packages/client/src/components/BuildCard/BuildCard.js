@@ -1,5 +1,5 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { classnames } from "@bem-react/classnames";
 import { format } from "date-fns";
 import { ru } from "date-fns/locale";
@@ -31,7 +31,6 @@ const buildCard = cn("build-card");
 function BuildCard(props) {
   const {
     href,
-    history,
     onClick,
     status,
     view = "default",
@@ -44,6 +43,7 @@ function BuildCard(props) {
     duration,
     mix
   } = props;
+  const history = useHistory();
   const clickHandler = e => {
     onClick && onClick(e);
     if (href) {
@@ -98,4 +98,4 @@ function BuildCard(props) {
   );
 }
 
-export default withRouter(BuildCard);
+export default BuildCard;
