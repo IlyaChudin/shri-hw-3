@@ -1,12 +1,14 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { classnames } from "@bem-react/classnames";
 import Icon from "../Icon";
 import cn from "../../classname";
 
+const button = cn("button");
+
 function Button(props) {
-  const { href, history, text, onClick, size, view = "default", disabled, icon, mix } = props;
-  const button = cn("button");
+  const { href, text, onClick, size, view = "default", disabled, icon, mix } = props;
+  const history = useHistory();
   const clickHandler = e => {
     onClick && onClick(e);
     if (href) {
@@ -25,4 +27,4 @@ function Button(props) {
   );
 }
 
-export default withRouter(Button);
+export default Button;
