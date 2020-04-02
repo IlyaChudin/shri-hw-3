@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { classnames } from "@bem-react/classnames";
 import { useDispatch, useSelector } from "react-redux";
 import MaskedInput from "react-text-mask";
 import { useHistory } from "react-router-dom";
+import { Controller, useForm } from "react-hook-form";
 import cn from "../../classname";
 import Header from "../../components/Header";
 import Form from "../../components/Form";
@@ -13,23 +14,13 @@ import Layout from "../../components/Layout";
 import { clearSaveError, saveSettings } from "../../store/settings/actions";
 
 const settings = cn("settings");
+const required = { required: { value: true, message: "This field is required" } };
 
 function Settings({ title }) {
-  const [repoName, setRepository] = useState("");
-  const [buildCommand, setBuildCommand] = useState("");
-  const [mainBranch, setMainBranch] = useState("");
-  const [period, setPeriod] = useState(0);
-  const [errors, setErrors] = useState({});
+  const { register, errors, setValue, control, handleSubmit } = useForm();
   const history = useHistory();
   const dispatch = useDispatch();
   const store = useSelector(x => x.settings);
-
-  useEffect(() => {
-    setRepository(store.repoName);
-    setBuildCommand(store.buildCommand);
-    setMainBranch(store.mainBranch);
-    setPeriod(store.period);
-  }, [store.repoName, store.buildCommand, store.mainBranch, store.period]);
 
   useEffect(() => {
     return () => {
@@ -39,15 +30,15 @@ function Settings({ title }) {
     };
   }, [store.saveError, dispatch]);
 
-  const onSubmit = e => {
-    setErrors({
-      ...(repoName ? {} : { repoName: "This field is required" }),
-      ...(buildCommand ? {} : { buildCommand: "This field is required" })
-    });
-    if (repoName && buildCommand) {
-      dispatch(saveSettings({ repoName, buildCommand, mainBranch, period }, history));
+  // hack MaskedInput.defaultValue not working
+  useEffect(() => setValue("period", store.period), [store.period, setValue]);
+
+  const onSubmit = data => {
+    if (!errors.repoName && !errors.buildCommand) {
+      dispatch(saveSettings({ ...data, period: Number(data.period) }, history));
     }
   };
+
   return (
     <>
       <Header title={title} />
@@ -55,64 +46,73 @@ function Settings({ title }) {
         <Form
           title="Settings"
           description="Configure repository connection and synchronization settings."
+          onSubmit={handleSubmit(onSubmit)}
           mix={settings("form")}
           error={store.saveError}
         >
-          <FormField title="GitHub repository" required={true} type="v" mix={settings("field")}>
+          <FormField title="GitHub repository" required type="v" mix={settings("field")}>
             <Input
+              name="repoName"
+              initialValue={store.repoName}
               placeholder="user-name/repo-name"
-              clearButton={true}
-              error={errors && errors.repoName}
               size="m"
+              clearButton
+              register={register(required)}
+              setValue={setValue}
+              error={errors.repoName && errors.repoName.message}
               mix={settings("input")}
-              value={repoName}
-              onChange={setRepository}
             />
           </FormField>
-          <FormField title="Build command" required={true} type="v" mix={settings("field")}>
+          <FormField title="Build command" required type="v" mix={settings("field")}>
             <Input
+              name="buildCommand"
+              initialValue={store.buildCommand}
               placeholder="npm ci && npm run build"
-              clearButton={true}
-              error={errors && errors.buildCommand}
               size="m"
+              clearButton
+              register={register(required)}
+              setValue={setValue}
+              error={errors.buildCommand && errors.buildCommand.message}
               mix={settings("input")}
-              value={buildCommand}
-              onChange={setBuildCommand}
             />
           </FormField>
           <FormField title="Main branch" type="v" mix={settings("field")}>
             <Input
+              name="mainBranch"
+              initialValue={store.mainBranch}
               placeholder="master"
-              clearButton={true}
               size="m"
+              clearButton
+              register={register}
+              setValue={setValue}
               mix={settings("input")}
-              value={mainBranch}
-              onChange={setMainBranch}
             />
           </FormField>
           <FormField title="Synchronize every" type="h" addon="minutes" mix={settings("field")}>
             <div className={cn("input")()}>
-              <MaskedInput
+              <Controller
+                as={MaskedInput}
+                control={control}
+                name="period"
                 className={classnames(
                   cn("input")("control", { size: "m", "text-align": "right" }),
                   settings("input", { size: "small" })
                 )}
                 guide={false}
+                defaultValue="123"
                 mask={[/\d/, /\d/, /\d/]}
                 placeholder="10"
-                value={period}
-                onChange={e => setPeriod(Number(e.target.value))}
               />
             </div>
           </FormField>
           <div className={settings("buttons")}>
             <Button
               disabled={store.isSaving}
+              type="submit"
               text="Save"
               view="accent"
               size="m"
               mix={settings("button")}
-              onClick={onSubmit}
             />
             <Button
               disabled={store.isSaving}

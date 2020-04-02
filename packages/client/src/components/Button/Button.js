@@ -7,7 +7,7 @@ import cn from "../../classname";
 const button = cn("button");
 
 function Button(props) {
-  const { href, text, onClick, size, view = "default", disabled, icon, mix } = props;
+  const { href, text, onClick, size, view = "default", type = "button", disabled, icon, mix } = props;
   const history = useHistory();
   const clickHandler = e => {
     onClick && onClick(e);
@@ -17,6 +17,7 @@ function Button(props) {
   };
   return (
     <button
+      type={type}
       disabled={disabled}
       className={classnames(button({ size, view: disabled ? "disabled" : view, "with-icon": !!icon }), mix)}
       onClick={clickHandler}
