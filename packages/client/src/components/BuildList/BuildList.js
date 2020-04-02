@@ -2,11 +2,12 @@ import React from "react";
 import cn from "../../classname";
 import BuildCard from "../BuildCard";
 import Button from "../Button";
+import Loading from "../Loading";
 
 const buildList = cn("build-list");
 
 function BuildList(props) {
-  const { builds, showMore, onShowMoreClick } = props;
+  const { builds, showMore, isLoading, onShowMoreClick } = props;
   return (
     <div className={buildList()}>
       {builds.map(build => (
@@ -24,7 +25,10 @@ function BuildList(props) {
           duration={build.duration}
         />
       ))}
-      {showMore && <Button text="Show more" size="m" mix={buildList("button")} onClick={onShowMoreClick} />}
+      {isLoading && <Loading />}
+      {showMore && !isLoading && (
+        <Button text="Show more" size="m" mix={buildList("button")} onClick={onShowMoreClick} />
+      )}
     </div>
   );
 }

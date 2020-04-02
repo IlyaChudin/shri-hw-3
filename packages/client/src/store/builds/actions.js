@@ -1,5 +1,12 @@
 import axios from "axios";
-import { GET_BUILDS_SUCCESS, GET_BUILDS_FAILURE, RUN_BUILD_SUCCESS, RUN_BUILD_FAILURE, CLEAR_BUILDS } from "./types";
+import {
+  GET_BUILDS_SUCCESS,
+  GET_BUILDS_FAILURE,
+  RUN_BUILD_SUCCESS,
+  RUN_BUILD_FAILURE,
+  CLEAR_BUILDS,
+  GET_BUILDS_LOADING
+} from "./types";
 
 function getBuildsSuccess(builds, showMore) {
   return {
@@ -35,13 +42,23 @@ function clearBuilds() {
   };
 }
 
+function getBuildsLoading(isLoading) {
+  return {
+    type: GET_BUILDS_LOADING,
+    isLoading
+  };
+}
+
 export function getBuilds(offset, limit = 10) {
   return async dispatch => {
     try {
+      dispatch(getBuildsLoading(true));
       const { data } = await axios.get("/api/builds", { params: { offset, limit } });
       dispatch(getBuildsSuccess(data, data.length >= limit));
     } catch (e) {
       dispatch(getBuildsFailure(e.message));
+    } finally {
+      dispatch(getBuildsLoading(false));
     }
   };
 }

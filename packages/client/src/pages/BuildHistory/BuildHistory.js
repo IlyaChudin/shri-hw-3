@@ -38,7 +38,12 @@ function BuildHistory({ appName }) {
         <Button href="/settings" icon={{ type: "settings", size: "s" }} size="s" />
       </Header>
       <Layout isPageContent>
-        <BuildList builds={store.builds} showMore={store.showMore} onShowMoreClick={showMoreHandler} />
+        <BuildList
+          builds={store.builds}
+          showMore={store.showMore}
+          isLoading={store.isLoading}
+          onShowMoreClick={showMoreHandler}
+        />
       </Layout>
       <Modal isOpen={isOpen}>
         <NewBuildForm onSubmit={onSubmit} onCancel={onCancel} error={store.runBuildError} />
