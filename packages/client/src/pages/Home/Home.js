@@ -11,7 +11,7 @@ function Home({ appName }) {
   return (
     <>
       <Header title={appName}>
-        <Button href="/settings" icon={{ type: "settings", size: "s" }} size="s" />
+        <Button href="/settings" icon={{ type: "settings", size: "s" }} size="s" text="Settings" />
       </Header>
       <StartScreen />
     </>
