@@ -9,11 +9,16 @@ import Button from "../../components/Button";
 import Layout from "../../components/Layout";
 import { getBuilds, runBuild } from "../../store/builds/actions";
 
-function BuildHistory({ title }) {
+function BuildHistory({ appName }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const store = useSelector(x => x.builds);
+  const repoName = useSelector(x => x.settings.repoName);
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    document.title = `Build history - ${appName}`;
+  }, [appName]);
 
   useEffect(() => {
     if (store.builds.length === 0) {
@@ -28,7 +33,7 @@ function BuildHistory({ title }) {
 
   return (
     <>
-      <Header title={title} titleColor="primary">
+      <Header title={repoName} titleColor="primary">
         <Button text="Run build" icon={{ type: "play", size: "s" }} size="s" onClick={runBuildHandler} />
         <Button href="/settings" icon={{ type: "settings", size: "s" }} size="s" />
       </Header>

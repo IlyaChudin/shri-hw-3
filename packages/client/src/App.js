@@ -9,28 +9,30 @@ import BuildHistory from "./pages/BuildHistory";
 import Footer from "./components/Footer";
 import { getSettings } from "./store/settings/actions";
 
-const defaultTitle = "School CI server";
+const appName = "School CI server";
 
 function App() {
   const dispatch = useDispatch();
-  const settings = useSelector(x => x.settings);
+  const isLoaded = useSelector(x => x.settings.isLoaded);
+
   useEffect(() => {
     dispatch(getSettings());
   }, [dispatch]);
+
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
-          {settings.isLoaded ? <BuildHistory title={settings.repoName} /> : <Home title={defaultTitle} />}
+          {isLoaded ? <BuildHistory appName={appName} /> : <Home appName={appName} />}
         </Route>
         <Route path="/settings">
-          <Settings title={defaultTitle} />
+          <Settings appName={appName} />
         </Route>
         <Route path="/build/:id">
-          <BuildDetails title={settings.repoName} />
+          <BuildDetails appName={appName} />
         </Route>
         <Route path="*">
-          <NotFound title={defaultTitle} />
+          <NotFound appName={appName} />
         </Route>
       </Switch>
       <Footer />

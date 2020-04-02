@@ -10,11 +10,16 @@ import Button from "../../components/Button";
 import Layout from "../../components/Layout";
 import Loading from "../../components/Loading";
 
-function BuildDetails({ title }) {
+function BuildDetails({ appName }) {
   const { id } = useParams();
   const store = useSelector(x => x.details);
+  const repoName = useSelector(x => x.settings.repoName);
   const dispatch = useDispatch();
   const history = useHistory();
+
+  useEffect(() => {
+    document.title = `Build #${store.details.buildNumber} - ${appName}`;
+  }, [store.details.buildNumber, appName]);
 
   useEffect(() => {
     dispatch(getDetails(id));
@@ -30,7 +35,7 @@ function BuildDetails({ title }) {
 
   return (
     <>
-      <Header title={title} titleColor="primary">
+      <Header title={repoName} titleColor="primary">
         <Button text="Rebuild" icon={{ type: "rebuild", size: "s" }} size="s" onClick={rebuildHandler} />
         <Button href="/settings" icon={{ type: "settings", size: "s" }} size="s" />
       </Header>

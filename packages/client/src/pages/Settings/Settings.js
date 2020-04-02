@@ -16,11 +16,15 @@ import { clearSaveError, saveSettings } from "../../store/settings/actions";
 const settings = cn("settings");
 const required = { required: { value: true, message: "This field is required" } };
 
-function Settings({ title }) {
+function Settings({ appName }) {
   const { register, errors, setValue, control, handleSubmit } = useForm();
   const history = useHistory();
   const dispatch = useDispatch();
   const store = useSelector(x => x.settings);
+
+  useEffect(() => {
+    document.title = `Settings - ${appName}`;
+  }, [appName]);
 
   useEffect(() => {
     return () => {
@@ -41,7 +45,7 @@ function Settings({ title }) {
 
   return (
     <>
-      <Header title={title} />
+      <Header title={appName} />
       <Layout isPageContent mix={settings()} containerMix={settings("content")}>
         <Form
           title="Settings"
