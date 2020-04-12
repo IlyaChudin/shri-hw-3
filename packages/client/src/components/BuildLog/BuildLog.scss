@@ -1,0 +1,22 @@
+@import "../../mixins";
+
+.build-log {
+  font-family: Hack, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 20px;
+  background-color: #F2F2F2;
+  overflow-x: auto;
+  margin-top: 12px;
+  padding: 8px 12px;
+  border-radius: 6px;
+
+  @include mobile {
+    padding: 4px 13px;
+    border-radius: 0;
+    margin-top: 16px;
+    margin-left: -16px;
+    margin-right: -16px;
+  }
+}

@@ -1,28 +1,29 @@
 {
-  "name": "shri-hw-3",
-  "version": "1.0.0",
-  "description": "",
+  "name": "shri-ci",
   "private": true,
-  "scripts": {
-    "start": "node src/app.js",
-    "dev": "nodemon --inspect src/app.js",
-    "lint": "eslint . --fix"
-  },
   "author": "Ilya Chudin",
   "license": "ISC",
-  "dependencies": {
-    "axios": "^0.19.2",
-    "express": "^4.17.1",
-    "lru-cache": "^5.1.1",
-    "object-sizeof": "^1.5.3"
+  "scripts": {
+    "start": "lerna run build --scope=@shri-ci/client --stream && lerna run start --scope=@shri-ci/server --stream",
+    "dev": "lerna run dev --stream",
+    "lint": "lerna run lint --stream",
+    "postinstall": "lerna bootstrap"
   },
   "devDependencies": {
+    "cross-env": "^7.0.2",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-prettier": "^3.1.2",
-    "nodemon": "^2.0.2",
+    "husky": "^4.2.3",
+    "lerna": "^3.20.2",
+    "lint-staged": "^10.0.9",
     "prettier": "^1.19.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lerna exec lint-staged --concurrency 1 --stream"
+    }
   }
 }

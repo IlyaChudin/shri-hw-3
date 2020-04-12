@@ -1,0 +1,28 @@
+@import "../../mixins";
+
+.build-list {
+  &__item {
+    margin-bottom: 8px;
+  }
+
+  &__button {
+    min-height: 28px;
+    line-height: 28px;
+
+    & .button__text {
+      margin-left: 13px;
+      margin-right: 13px;
+    }
+
+    @include mobile {
+      width: 100%;
+      min-height: 36px;
+      line-height: 36px;
+
+      & .button__text {
+        margin-left: 20px;
+        margin-right: 20px;
+      }
+    }
+  }
+}

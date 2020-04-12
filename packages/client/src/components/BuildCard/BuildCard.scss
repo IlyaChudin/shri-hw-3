@@ -1,0 +1,171 @@
+@import "../../mixins";
+
+.build-card {
+  display: flex;
+  border-radius: 6px;
+  box-shadow: 0 1px 1px rgba(67, 68, 69, 0.3), 0 0 1px rgba(67, 68, 69, 0.3);
+  padding: 12px 24px;
+
+  @include mobile {
+    padding: 16px 12px;
+  }
+
+  &__status {
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-right: 8px;
+    width: 24px;
+    height: 24px;
+
+    @include mobile {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  &__header {
+    display: flex;
+
+    @include mobile {
+      flex-direction: column;
+    }
+  }
+
+  &__number {
+    font-size: 18px;
+    line-height: 20px;
+    font-weight: 500;
+
+    @include mobile {
+      font-size: 16px;
+      line-height: 16px;
+    }
+  }
+
+  &__title {
+    font-size: 15px;
+    line-height: 20px;
+    margin-left: 4px;
+
+    @include mobile {
+      margin-left: 0;
+      margin-top: 8px;
+    }
+  }
+
+  &__info {
+    margin-top: 8px;
+    display: flex;
+    font-size: 13px;
+    line-height: 16px;
+    letter-spacing: 0.06px;
+    color: var(--text-color-default);
+
+    @include mobile {
+      flex-direction: column;
+    }
+  }
+
+  &__user {
+    margin-left: 8px;
+
+    @include mobile {
+      margin-left: 0;
+      margin-top: 8px;
+    }
+  }
+
+  &__container {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+
+    @include mobile {
+      flex-direction: column;
+    }
+  }
+
+  &__time {
+    display: flex;
+    font-size: 13px;
+    line-height: 16px;
+    letter-spacing: 0.06px;
+    color: var(--text-color-default);
+    flex-direction: column;
+    flex-shrink: 0;
+
+    @include mobile {
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid var(--blue-grey-50);
+      flex-direction: row;
+    }
+  }
+
+  &__duration {
+    margin-top: 12px;
+
+    @include mobile {
+      margin-left: 10px;
+      margin-top: 0;
+    }
+  }
+
+  &_view_default {
+    &:hover {
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(67, 68, 69, 0.3), 0 0 1px rgba(67, 68, 69, 0.3);
+    }
+  }
+
+  &_view_details {
+    & .build-card__time {
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid var(--blue-grey-50);
+      flex-direction: row;
+    }
+
+    & .build-card__duration {
+      margin-left: 10px;
+      margin-top: 0;
+    }
+
+    & .build-card__container {
+      flex-direction: column;
+    }
+  }
+
+  &_type {
+    &_success {
+      & .build-card__status {
+        background-image: url("../../images/success.svg");
+      }
+
+      & .build-card__number {
+        color: var(--text-color-success);
+      }
+    }
+
+    &_pending {
+      & .build-card__status {
+        background-image: url("../../images/pending.svg");
+      }
+
+      & .build-card__number {
+        color: var(--text-color-pending);
+      }
+    }
+
+    &_fail {
+      & .build-card__status {
+        background-image: url("../../images/fail.svg");
+      }
+
+      & .build-card__number {
+        color: var(--text-color-fail);
+      }
+    }
+  }
+}

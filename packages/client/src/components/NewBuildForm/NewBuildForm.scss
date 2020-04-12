@@ -1,0 +1,46 @@
+@import "../../mixins";
+
+.new-build-form {
+  width: 485px;
+
+  @include mobile {
+    max-width: 100%;
+  }
+
+  &__input {
+    margin-top: 6px;
+    margin-bottom: 8px;
+
+    &_size {
+      &_small {
+        width: 52px;
+        margin-left: 8px;
+        margin-right: 8px;
+      }
+    }
+  }
+
+  &__field {
+    padding-top: 10px;
+  }
+
+  &__buttons {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: row;
+
+    @include mobile {
+      margin-top: 6px;
+      flex-direction: column;
+      justify-content: stretch;
+    }
+  }
+
+  &__button {
+    margin-right: 8px;
+
+    @include mobile {
+      margin: 6px 0;
+    }
+  }
+}

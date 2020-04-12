@@ -1,0 +1,23 @@
+{
+  "name": "@shri-ci/server",
+  "private": true,
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "cross-env PORT=5000 NODE_ENV=development nodemon --inspect src/app.js",
+    "lint": "eslint src/ --fix"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "express": "^4.17.1",
+    "lru-cache": "^5.1.1",
+    "object-sizeof": "^1.5.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  },
+  "lint-staged": {
+    "src/**/*.js": [
+      "eslint --fix"
+    ]
+  }
+}

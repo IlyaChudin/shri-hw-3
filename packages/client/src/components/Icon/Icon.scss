@@ -1,0 +1,56 @@
+.icon {
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  &_type {
+    &_settings {
+      background-image: url("../../images/settings.svg");
+    }
+
+    &_clear {
+      background-image: url("../../images/clear.svg");
+    }
+
+    &_play {
+      background-image: url("../../images/play.svg");
+    }
+
+    &_rebuild {
+      background-image: url("../../images/rebuild.svg");
+    }
+
+    &_calendar {
+      background-image: url("../../images/calendar.svg");
+    }
+
+    &_commit {
+      background-image: url("../../images/commit.svg");
+    }
+
+    &_stopwatch {
+      background-image: url("../../images/stopwatch.svg");
+    }
+
+    &_user {
+      background-image: url("../../images/user.svg");
+    }
+  }
+
+  &_size {
+    &_xs {
+      width: 16px;
+      height: 16px;
+    }
+
+    &_s {
+      width: 28px;
+      height: 28px;
+    }
+
+    &_m {
+      width: 36px;
+      height: 36px;
+    }
+  }
+}
