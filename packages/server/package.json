@@ -4,6 +4,7 @@
   "scripts": {
     "start": "node src/app.js",
     "dev": "cross-env PORT=5000 NODE_ENV=development nodemon --inspect src/app.js",
+    "test": "jest",
     "lint": "eslint src/ --fix"
   },
   "dependencies": {
@@ -13,11 +14,22 @@
     "object-sizeof": "^1.5.3"
   },
   "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "babel-jest": "^25.3.0",
+    "jest": "^25.3.0",
     "nodemon": "^2.0.2"
   },
   "lint-staged": {
     "src/**/*.js": [
       "eslint --fix"
+    ]
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "src/**/*.js"
     ]
   }
 }
