@@ -1,19 +1,8 @@
 const axios = require("axios");
-const https = require("https");
-const config = require("./config");
-
-const instance = axios.create({
-  baseURL: config.apiUrl,
-  headers: {
-    Authorization: `Bearer ${config.jwtToken}`
-  },
-  httpsAgent: new https.Agent({
-    rejectUnauthorized: false
-  })
-});
+const { backendOptions } = require("./axiosOptions");
 
 async function getSettings() {
-  const response = await instance.get("/conf");
+  const response = await axios.get("/conf", backendOptions);
   const { repoName, buildCommand, mainBranch, period } = response.data.data;
   return {
     repoName,
@@ -24,11 +13,12 @@ async function getSettings() {
 }
 
 async function saveSettings({ repoName, buildCommand, mainBranch, period }) {
-  await instance.post("/conf", { repoName, buildCommand, mainBranch, period });
+  await axios.post("/conf", { repoName, buildCommand, mainBranch, period }, backendOptions);
 }
 
 async function getAllBuilds(offset, limit) {
-  const response = await instance.get("/build/list", {
+  const response = await axios.get("/build/list", {
+    ...backendOptions,
     params: {
       offset: offset || 0,
       limit: limit || 25
@@ -38,17 +28,21 @@ async function getAllBuilds(offset, limit) {
 }
 
 async function getBuildDetails(buildId) {
-  const response = await instance.get("/build/details", { params: { buildId } });
+  const response = await axios.get("/build/details", { ...backendOptions, params: { buildId } });
   return response.data.data;
 }
 
 async function getBuildLog(buildId) {
-  const response = await instance.get("/build/log", { params: { buildId } });
+  const response = await axios.get("/build/log", { ...backendOptions, params: { buildId } });
   return response.data;
 }
 
 async function requestBuild({ commitMessage, commitHash, branchName, authorName }) {
-  const response = await instance.post("/build/request", { commitMessage, commitHash, branchName, authorName });
+  const response = await axios.post(
+    "/build/request",
+    { commitMessage, commitHash, branchName, authorName },
+    backendOptions
+  );
   return response.data.data;
 }
 
