@@ -1,18 +1,8 @@
 const axios = require("axios");
-const { gitHubToken } = require("./config");
-
-const axiosOptions = {
-  baseURL: "https://api.github.com/repos"
-};
-if (gitHubToken) {
-  axiosOptions.headers = {
-    Authorization: `token ${gitHubToken}`
-  };
-}
-const instance = axios.create(axiosOptions);
+const { githubOptions } = require("./axiosOptions");
 
 async function getCommitInfo(repoName, commitHash) {
-  const { data } = await instance.get(`/${repoName}/commits/${commitHash}`);
+  const { data } = await axios.get(`/${repoName}/commits/${commitHash}`, githubOptions);
   return {
     commitMessage: data.commit.message,
     commitHash,
@@ -21,7 +11,8 @@ async function getCommitInfo(repoName, commitHash) {
 }
 
 async function getBranchCommits(repoName, branchName) {
-  const { data } = await instance.get(`/${repoName}/commits`, {
+  const { data } = await axios.get(`/${repoName}/commits`, {
+    ...githubOptions,
     params: { sha: branchName }
   });
   return data;
@@ -29,7 +20,7 @@ async function getBranchCommits(repoName, branchName) {
 
 async function getRepositoryInfo(repoName) {
   try {
-    const { data } = await instance.get(`/${repoName}`);
+    const { data } = await axios.get(`/${repoName}`, githubOptions);
     return data;
   } catch (e) {
     if (e.response && e.response.status === 404) {

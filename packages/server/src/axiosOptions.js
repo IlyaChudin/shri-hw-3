@@ -10,5 +10,15 @@ module.exports = {
     httpsAgent: new https.Agent({
       rejectUnauthorized: false
     })
+  },
+  githubOptions: {
+    baseURL: "https://api.github.com/repos",
+    ...(config.gitHubToken
+      ? {
+          headers: {
+            Authorization: `token ${config.gitHubToken}`
+          }
+        }
+      : {})
   }
 };
