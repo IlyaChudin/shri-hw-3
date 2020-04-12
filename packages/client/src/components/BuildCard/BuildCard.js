@@ -5,26 +5,7 @@ import { format } from "date-fns";
 import { ru } from "date-fns/locale";
 import cn from "../../classname";
 import IconPlus from "../IconPlus";
-
-function formatDuration(duration) {
-  const date = new Date(duration * 1000);
-  const h = date.getUTCHours();
-  const m = date.getUTCMinutes();
-  const s = date.getSeconds();
-  return h > 0 ? `${h} ч ${m} мин` : `${m} м ${s} сек`;
-}
-
-function getCardView(status) {
-  switch (status) {
-    case "Waiting":
-    case "InProgress":
-      return "pending";
-    case "Success":
-      return "success";
-    default:
-      return "fail";
-  }
-}
+import { formatDuration, getCardView } from "../../helpers";
 
 const buildCard = cn("build-card");
 
