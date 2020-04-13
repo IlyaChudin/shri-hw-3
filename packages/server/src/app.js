@@ -32,6 +32,7 @@ app.use((err, req, res, next) => {
     console.error(error);
     res.json(error);
   }
+  console.error(err.message);
   console.error(err.stack);
   if (!res.headersSent) {
     res.json({
