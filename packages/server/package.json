@@ -2,8 +2,9 @@
   "name": "@shri-ci/server",
   "private": true,
   "scripts": {
-    "start": "node src/app.js",
-    "dev": "cross-env PORT=5000 NODE_ENV=development nodemon --inspect src/app.js",
+    "start": "node -r dotenv/config src/app.js dotenv_config_path=../../.env",
+    "start:e2e": "node -r dotenv/config src/app.js dotenv_config_path=../../.env.test",
+    "dev": "cross-env PORT=5000 NODE_ENV=development nodemon -r dotenv/config --inspect src/app.js dotenv_config_path=../../.env.test",
     "test": "jest",
     "lint": "eslint src/ --fix"
   },

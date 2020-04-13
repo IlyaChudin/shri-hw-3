@@ -16,6 +16,10 @@ async function saveSettings({ repoName, buildCommand, mainBranch, period }) {
   await axios.post("/conf", { repoName, buildCommand, mainBranch, period }, backendOptions);
 }
 
+async function deleteSettings() {
+  await axios.delete("/conf", backendOptions);
+}
+
 async function getAllBuilds(offset, limit) {
   const response = await axios.get("/build/list", {
     ...backendOptions,
@@ -49,6 +53,7 @@ async function requestBuild({ commitMessage, commitHash, branchName, authorName 
 module.exports = {
   getSettings,
   saveSettings,
+  deleteSettings,
   getAllBuilds,
   getBuildDetails,
   getBuildLog,

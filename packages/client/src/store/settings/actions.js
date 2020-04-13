@@ -73,11 +73,7 @@ export function saveSettings(settings, history) {
       dispatch(clearSaveError());
       await axios.post("/api/settings", settings);
       dispatch(saveSettingsSuccess(settings));
-      if (history.length > 0) {
-        history.goBack();
-      } else {
-        history.push("/");
-      }
+      history.push("/");
     } catch (e) {
       if (e.response && e.response.data && e.response.data.error) {
         dispatch(saveSettingsFailure(e.response.data.error.message));

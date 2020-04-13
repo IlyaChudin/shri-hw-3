@@ -5,13 +5,16 @@
   "license": "ISC",
   "scripts": {
     "start": "lerna run build --scope=@shri-ci/client --stream && lerna run start --scope=@shri-ci/server --stream",
+    "start:e2e": "lerna run build --scope=@shri-ci/client --stream && lerna run start:e2e --scope=@shri-ci/server --stream",
     "dev": "lerna run dev --stream",
-    "test": "lerna run test --stream",
+    "test": "lerna run test --scope=@shri-ci/client --scope=@shri-ci/server --stream",
+    "test:e2e": "lerna run test --scope=@shri-ci/e2e --stream",
     "lint": "lerna run lint --stream",
     "postinstall": "lerna bootstrap"
   },
   "devDependencies": {
     "cross-env": "^7.0.2",
+    "dotenv": "^8.2.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-config-prettier": "^6.10.0",

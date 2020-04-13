@@ -30,7 +30,7 @@ export default function reducer(state = initialState, action) {
     case SAVE_SETTINGS_END:
       return { ...state, isSaving: false };
     case SAVE_SETTINGS_SUCCESS:
-      return { ...state, ...action.settings };
+      return { ...state, ...action.settings, isLoaded: true };
     case SAVE_SETTINGS_FAILURE:
       return { ...state, saveError: action.error };
     case CLEAR_SAVE_ERROR:
