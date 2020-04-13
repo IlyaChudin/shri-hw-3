@@ -7,6 +7,11 @@ describe("settings page", () => {
   beforeEach(async () => {
     await deleteSettings();
   });
+
+  afterEach(async () => {
+    await deleteSettings();
+  });
+
   it("should save settings and redirect to builds list", function() {
     return this.browser
       .url("/settings")

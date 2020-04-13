@@ -7,6 +7,7 @@ module.exports = {
       }
     }
   },
+  retry: 3,
   sets: {
     common: {
       files: "tests/**/*.js"
