@@ -9,7 +9,7 @@ const buildList = cn("build-list");
 function BuildList(props) {
   const { builds, showMore, isLoading, onShowMoreClick } = props;
   return (
-    <div className={buildList()}>
+    <div data-testid="build-list" className={buildList()}>
       {builds.map(build => (
         <BuildCard
           key={build.id}

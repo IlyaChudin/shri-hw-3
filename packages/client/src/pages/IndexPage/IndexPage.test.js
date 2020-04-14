@@ -1,0 +1,47 @@
+import React from "react";
+import { Provider } from "react-redux";
+import { MemoryRouter } from "react-router-dom";
+import { render } from "@testing-library/react";
+import IndexPage from ".";
+import createStore from "../../store";
+
+jest.spyOn(React, "useEffect");
+jest.mock("react-redux", () => {
+  return {
+    __esModule: true,
+    ...jest.requireActual("react-redux"),
+    useDispatch: jest.fn().mockReturnValue(() => {})
+  };
+});
+
+describe("Index page", () => {
+  it("should render Home when settings not loaded", () => {
+    const store = createStore();
+    const { getByTestId } = render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <IndexPage />
+        </MemoryRouter>
+      </Provider>
+    );
+
+    const startScreen = getByTestId("start-screen");
+
+    expect(startScreen).toBeTruthy();
+  });
+
+  it("should render BuildsHistory when settings is loaded", () => {
+    const store = createStore({ settings: { isLoaded: true } });
+    const { getByTestId } = render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <IndexPage />
+        </MemoryRouter>
+      </Provider>
+    );
+
+    const buildsHistory = getByTestId("build-list");
+
+    expect(buildsHistory).toBeTruthy();
+  });
+});
