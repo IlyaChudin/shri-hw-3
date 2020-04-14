@@ -1,0 +1,686 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BuildList component should renders correctly 1`] = `
+<div
+  className="build-list"
+  data-testid="build-list"
+>
+  <div
+    className="build-card build-card_view_default build-card_type_pending build-list__item"
+    onClick={[Function]}
+  >
+    <div
+      className="build-card__status"
+    />
+    <div
+      className="build-card__container"
+    >
+      <div>
+        <div
+          className="build-card__header"
+        >
+          <div
+            className="build-card__number"
+          >
+            #
+            37
+          </div>
+          <div
+            className="build-card__title"
+          >
+            test update
+          </div>
+        </div>
+        <div
+          className="build-card__info"
+        >
+          <div
+            className="icon-plus build-card__commit"
+          >
+            <div
+              className="icon icon_type_commit icon_size_xs"
+            />
+            <span
+              className="icon-plus__text icon-plus__text_type_primary"
+            >
+              master
+            </span>
+            <span
+              className="icon-plus__text icon-plus__text_type_secondary"
+            >
+              0cab04f
+            </span>
+          </div>
+          <div
+            className="icon-plus build-card__user"
+          >
+            <div
+              className="icon icon_type_user icon_size_xs"
+            />
+            <span
+              className="icon-plus__text icon-plus__text_type_primary"
+            >
+              Ilya Chudin
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="build-card build-card_view_default build-card_type_success build-list__item"
+    onClick={[Function]}
+  >
+    <div
+      className="build-card__status"
+    />
+    <div
+      className="build-card__container"
+    >
+      <div>
+        <div
+          className="build-card__header"
+        >
+          <div
+            className="build-card__number"
+          >
+            #
+            36
+          </div>
+          <div
+            className="build-card__title"
+          >
+            test update
+          </div>
+        </div>
+        <div
+          className="build-card__info"
+        >
+          <div
+            className="icon-plus build-card__commit"
+          >
+            <div
+              className="icon icon_type_commit icon_size_xs"
+            />
+            <span
+              className="icon-plus__text icon-plus__text_type_primary"
+            >
+              master
+            </span>
+            <span
+              className="icon-plus__text icon-plus__text_type_secondary"
+            >
+              0cab04f
+            </span>
+          </div>
+          <div
+            className="icon-plus build-card__user"
+          >
+            <div
+              className="icon icon_type_user icon_size_xs"
+            />
+            <span
+              className="icon-plus__text icon-plus__text_type_primary"
+            >
+              Ilya Chudin
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        className="build-card__time"
+      >
+        <div
+          className="icon-plus build-card__date"
+        >
+          <div
+            className="icon icon_type_calendar icon_size_xs"
+          />
+          <span
+            className="icon-plus__text icon-plus__text_type_secondary"
+          >
+            4 апр. 08:32
+          </span>
+        </div>
+        <div
+          className="icon-plus build-card__duration"
+        >
+          <div
+            className="icon icon_type_stopwatch icon_size_xs"
+          />
+          <span
+            className="icon-plus__text icon-plus__text_type_secondary"
+          >
+            39 м 35 сек
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="loading"
+  >
+    <div
+      className="loading__container"
+    >
+      <div
+        className="loading__bar"
+      />
+      <div
+        className="loading__bar"
+      />
+      <div
+        className="loading__bar"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`BuildList component should renders correctly 2`] = `
+<div
+  className="build-list"
+  data-testid="build-list"
+>
+  <div
+    className="build-card build-card_view_default build-card_type_pending build-list__item"
+    onClick={[Function]}
+  >
+    <div
+      className="build-card__status"
+    />
+    <div
+      className="build-card__container"
+    >
+      <div>
+        <div
+          className="build-card__header"
+        >
+          <div
+            className="build-card__number"
+          >
+            #
+            37
+          </div>
+          <div
+            className="build-card__title"
+          >
+            test update
+          </div>
+        </div>
+        <div
+          className="build-card__info"
+        >
+          <div
+            className="icon-plus build-card__commit"
+          >
+            <div
+              className="icon icon_type_commit icon_size_xs"
+            />
+            <span
+              className="icon-plus__text icon-plus__text_type_primary"
+            >
+              master
+            </span>
+            <span
+              className="icon-plus__text icon-plus__text_type_secondary"
+            >
+              0cab04f
+            </span>
+          </div>
+          <div
+            className="icon-plus build-card__user"
+          >
+            <div
+              className="icon icon_type_user icon_size_xs"
+            />
+            <span
+              className="icon-plus__text icon-plus__text_type_primary"
+            >
+              Ilya Chudin
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="build-card build-card_view_default build-card_type_success build-list__item"
+    onClick={[Function]}
+  >
+    <div
+      className="build-card__status"
+    />
+    <div
+      className="build-card__container"
+    >
+      <div>
+        <div
+          className="build-card__header"
+        >
+          <div
+            className="build-card__number"
+          >
+            #
+            36
+          </div>
+          <div
+            className="build-card__title"
+          >
+            test update
+          </div>
+        </div>
+        <div
+          className="build-card__info"
+        >
+          <div
+            className="icon-plus build-card__commit"
+          >
+            <div
+              className="icon icon_type_commit icon_size_xs"
+            />
+            <span
+              className="icon-plus__text icon-plus__text_type_primary"
+            >
+              master
+            </span>
+            <span
+              className="icon-plus__text icon-plus__text_type_secondary"
+            >
+              0cab04f
+            </span>
+          </div>
+          <div
+            className="icon-plus build-card__user"
+          >
+            <div
+              className="icon icon_type_user icon_size_xs"
+            />
+            <span
+              className="icon-plus__text icon-plus__text_type_primary"
+            >
+              Ilya Chudin
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        className="build-card__time"
+      >
+        <div
+          className="icon-plus build-card__date"
+        >
+          <div
+            className="icon icon_type_calendar icon_size_xs"
+          />
+          <span
+            className="icon-plus__text icon-plus__text_type_secondary"
+          >
+            4 апр. 08:32
+          </span>
+        </div>
+        <div
+          className="icon-plus build-card__duration"
+        >
+          <div
+            className="icon icon_type_stopwatch icon_size_xs"
+          />
+          <span
+            className="icon-plus__text icon-plus__text_type_secondary"
+          >
+            39 м 35 сек
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="button button_size_m button_view_default build-list__button"
+    onClick={[Function]}
+    type="button"
+  >
+    <span
+      className="button__text"
+    >
+      Show more
+    </span>
+  </button>
+</div>
+`;
+
+exports[`BuildList component should renders correctly 3`] = `
+<div
+  className="build-list"
+  data-testid="build-list"
+>
+  <div
+    className="build-card build-card_view_default build-card_type_pending build-list__item"
+    onClick={[Function]}
+  >
+    <div
+      className="build-card__status"
+    />
+    <div
+      className="build-card__container"
+    >
+      <div>
+        <div
+          className="build-card__header"
+        >
+          <div
+            className="build-card__number"
+          >
+            #
+            37
+          </div>
+          <div
+            className="build-card__title"
+          >
+            test update
+          </div>
+        </div>
+        <div
+          className="build-card__info"
+        >
+          <div
+            className="icon-plus build-card__commit"
+          >
+            <div
+              className="icon icon_type_commit icon_size_xs"
+            />
+            <span
+              className="icon-plus__text icon-plus__text_type_primary"
+            >
+              master
+            </span>
+            <span
+              className="icon-plus__text icon-plus__text_type_secondary"
+            >
+              0cab04f
+            </span>
+          </div>
+          <div
+            className="icon-plus build-card__user"
+          >
+            <div
+              className="icon icon_type_user icon_size_xs"
+            />
+            <span
+              className="icon-plus__text icon-plus__text_type_primary"
+            >
+              Ilya Chudin
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="build-card build-card_view_default build-card_type_success build-list__item"
+    onClick={[Function]}
+  >
+    <div
+      className="build-card__status"
+    />
+    <div
+      className="build-card__container"
+    >
+      <div>
+        <div
+          className="build-card__header"
+        >
+          <div
+            className="build-card__number"
+          >
+            #
+            36
+          </div>
+          <div
+            className="build-card__title"
+          >
+            test update
+          </div>
+        </div>
+        <div
+          className="build-card__info"
+        >
+          <div
+            className="icon-plus build-card__commit"
+          >
+            <div
+              className="icon icon_type_commit icon_size_xs"
+            />
+            <span
+              className="icon-plus__text icon-plus__text_type_primary"
+            >
+              master
+            </span>
+            <span
+              className="icon-plus__text icon-plus__text_type_secondary"
+            >
+              0cab04f
+            </span>
+          </div>
+          <div
+            className="icon-plus build-card__user"
+          >
+            <div
+              className="icon icon_type_user icon_size_xs"
+            />
+            <span
+              className="icon-plus__text icon-plus__text_type_primary"
+            >
+              Ilya Chudin
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        className="build-card__time"
+      >
+        <div
+          className="icon-plus build-card__date"
+        >
+          <div
+            className="icon icon_type_calendar icon_size_xs"
+          />
+          <span
+            className="icon-plus__text icon-plus__text_type_secondary"
+          >
+            4 апр. 08:32
+          </span>
+        </div>
+        <div
+          className="icon-plus build-card__duration"
+        >
+          <div
+            className="icon icon_type_stopwatch icon_size_xs"
+          />
+          <span
+            className="icon-plus__text icon-plus__text_type_secondary"
+          >
+            39 м 35 сек
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="loading"
+  >
+    <div
+      className="loading__container"
+    >
+      <div
+        className="loading__bar"
+      />
+      <div
+        className="loading__bar"
+      />
+      <div
+        className="loading__bar"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`BuildList component should renders correctly 4`] = `
+<div
+  className="build-list"
+  data-testid="build-list"
+>
+  <div
+    className="build-card build-card_view_default build-card_type_pending build-list__item"
+    onClick={[Function]}
+  >
+    <div
+      className="build-card__status"
+    />
+    <div
+      className="build-card__container"
+    >
+      <div>
+        <div
+          className="build-card__header"
+        >
+          <div
+            className="build-card__number"
+          >
+            #
+            37
+          </div>
+          <div
+            className="build-card__title"
+          >
+            test update
+          </div>
+        </div>
+        <div
+          className="build-card__info"
+        >
+          <div
+            className="icon-plus build-card__commit"
+          >
+            <div
+              className="icon icon_type_commit icon_size_xs"
+            />
+            <span
+              className="icon-plus__text icon-plus__text_type_primary"
+            >
+              master
+            </span>
+            <span
+              className="icon-plus__text icon-plus__text_type_secondary"
+            >
+              0cab04f
+            </span>
+          </div>
+          <div
+            className="icon-plus build-card__user"
+          >
+            <div
+              className="icon icon_type_user icon_size_xs"
+            />
+            <span
+              className="icon-plus__text icon-plus__text_type_primary"
+            >
+              Ilya Chudin
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="build-card build-card_view_default build-card_type_success build-list__item"
+    onClick={[Function]}
+  >
+    <div
+      className="build-card__status"
+    />
+    <div
+      className="build-card__container"
+    >
+      <div>
+        <div
+          className="build-card__header"
+        >
+          <div
+            className="build-card__number"
+          >
+            #
+            36
+          </div>
+          <div
+            className="build-card__title"
+          >
+            test update
+          </div>
+        </div>
+        <div
+          className="build-card__info"
+        >
+          <div
+            className="icon-plus build-card__commit"
+          >
+            <div
+              className="icon icon_type_commit icon_size_xs"
+            />
+            <span
+              className="icon-plus__text icon-plus__text_type_primary"
+            >
+              master
+            </span>
+            <span
+              className="icon-plus__text icon-plus__text_type_secondary"
+            >
+              0cab04f
+            </span>
+          </div>
+          <div
+            className="icon-plus build-card__user"
+          >
+            <div
+              className="icon icon_type_user icon_size_xs"
+            />
+            <span
+              className="icon-plus__text icon-plus__text_type_primary"
+            >
+              Ilya Chudin
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        className="build-card__time"
+      >
+        <div
+          className="icon-plus build-card__date"
+        >
+          <div
+            className="icon icon_type_calendar icon_size_xs"
+          />
+          <span
+            className="icon-plus__text icon-plus__text_type_secondary"
+          >
+            4 апр. 08:32
+          </span>
+        </div>
+        <div
+          className="icon-plus build-card__duration"
+        >
+          <div
+            className="icon icon_type_stopwatch icon_size_xs"
+          />
+          <span
+            className="icon-plus__text icon-plus__text_type_secondary"
+          >
+            39 м 35 сек
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
