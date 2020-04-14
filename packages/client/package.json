@@ -22,6 +22,7 @@
     "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
+    "mutationobserver-shim": "^0.3.5",
     "node-sass": "^4.13.1",
     "stylelint": "^13.2.1",
     "stylelint-config-prettier": "^8.0.1",
