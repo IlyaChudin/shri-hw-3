@@ -42,6 +42,7 @@ function startAutoUpdate() {
   }
   const period = settings.period * 60000;
   interval = setInterval(async () => {
+    let lastHash;
     try {
       console.log("Update started!");
       const hashes = await getNewHashes();
@@ -53,15 +54,17 @@ function startAutoUpdate() {
         // eslint-disable-next-line no-await-in-loop
         await backendApi.requestBuild(commitInfo);
         console.log("New commit: ", commitInfo);
-      }
-      if (hashes.length > 0) {
-        [lastCommitHash] = hashes;
-        console.log("Last commit hash updated: ", lastCommitHash);
+        lastHash = hash;
       }
       console.log("Update finished. Build requested for ", hashes);
     } catch (error) {
       console.error(error.stack);
       console.error(error.message);
+    } finally {
+      if (lastHash) {
+        lastCommitHash = lastHash;
+        console.log("Last commit hash updated: ", lastCommitHash);
+      }
     }
   }, period);
   console.log(`Interval updates started each ${period}ms.`);
