@@ -42,6 +42,6 @@ app.use((req, res) => {
 });
 
 app.listen(config.port, () => {
-  builds.start(config.updateInterval);
+  builds.start(config.updateInterval || 60000);
   logger.info(`Server started on port ${config.port}!`);
 });
