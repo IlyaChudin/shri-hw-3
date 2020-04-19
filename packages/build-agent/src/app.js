@@ -1,7 +1,7 @@
 const express = require("express");
-const config = require("./config");
+const config = require("../../shared/src/config");
 const agent = require("./agent");
-const logger = require("./logger");
+const logger = require("../../shared/src/logger");
 
 const app = express();
 

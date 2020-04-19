@@ -1,9 +1,9 @@
 /* eslint-disable no-await-in-loop,no-param-reassign */
 const axios = require("axios");
 const pool = require("./pool");
-const logger = require("./logger");
+const logger = require("../../shared/src/logger");
 const api = require("./backendApi");
-const { getDataFromAxiosError } = require("./helpers");
+const { getDataFromAxiosError } = require("../../shared/src/helpers");
 
 const sendBuildResult = async (id, duration, status, log) => {
   try {

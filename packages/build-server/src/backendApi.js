@@ -1,7 +1,7 @@
 const rax = require("retry-axios");
 const axios = require("axios");
 const axiosOptions = require("./axiosOptions");
-const raxOptions = require("./raxOptions");
+const raxOptions = require("../../shared/src/raxOptions");
 
 rax.attach();
 

@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 const axios = require("axios");
 const { v4 } = require("uuid");
-const logger = require("./logger");
+const logger = require("../../shared/src/logger");
 
 const agents = [];
 

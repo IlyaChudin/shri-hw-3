@@ -1,6 +1,6 @@
 const axios = require("axios");
-const { port, serverHost, serverPort } = require("./config");
-const logger = require("./logger");
+const { port, serverHost, serverPort } = require("../../shared/src/config");
+const logger = require("../../shared/src/logger");
 
 let isBusy = false;
 let buildId;
