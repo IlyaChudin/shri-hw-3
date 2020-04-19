@@ -3,6 +3,7 @@ const axios = require("axios");
 const pool = require("./pool");
 const logger = require("./logger");
 const api = require("./backendApi");
+const { getDataFromAxiosError } = require("./helpers");
 
 const sendBuildResult = async (id, duration, status, log) => {
   try {
@@ -63,14 +64,8 @@ const handleBuilds = async () => {
     logger.info(`Свободных агентов: ${pool.getAvailableAgents().length}`);
     logger.info(`Занятых агентов: ${pool.getBusyAgents().length}`);
   } catch (e) {
-    if (e.isAxiosError && e.response) {
-      const error = {
-        code: e.response.status,
-        url: e.response.config.url,
-        baseURL: e.response.config.baseURL,
-        data: e.response.data
-      };
-      logger.error(`${e.message}\n${JSON.stringify(error, null, 2)}`);
+    if (e.isAxiosError) {
+      logger.error(`${e.message}\n${JSON.stringify(getDataFromAxiosError(e), null, 2)}`);
     } else {
       logger.error(e);
     }

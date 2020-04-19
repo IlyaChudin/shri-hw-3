@@ -1,5 +1,14 @@
+const rax = require("retry-axios");
 const axios = require("axios");
-const options = require("./axiosOptions");
+const axiosOptions = require("./axiosOptions");
+const raxOptions = require("./raxOptions");
+
+rax.attach();
+
+const options = {
+  ...axiosOptions,
+  ...raxOptions
+};
 
 async function getSettings() {
   const response = await axios.get("/conf", options);
