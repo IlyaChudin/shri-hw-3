@@ -1,0 +1,22 @@
+{
+  "name": "@shri-ci/build-agent",
+  "private": true,
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js",
+    "lint": "eslint src/ --fix"
+  },
+  "lint-staged": {
+    "src/**/*.js": [
+      "eslint --fix"
+    ]
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "express": "^4.17.1",
+    "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.3"
+  }
+}

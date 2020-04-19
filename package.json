@@ -6,7 +6,7 @@
   "scripts": {
     "start": "lerna run build --scope=@shri-ci/client --stream && lerna run start --scope=@shri-ci/server --stream",
     "start:e2e": "lerna run build --scope=@shri-ci/client --stream && lerna run start:e2e --scope=@shri-ci/server --stream",
-    "dev": "lerna run dev --stream",
+    "dev": "lerna run dev --scope=@shri-ci/client --scope=@shri-ci/server --stream",
     "test": "lerna run test --scope=@shri-ci/client --scope=@shri-ci/server --stream",
     "test:e2e": "lerna run test --scope=@shri-ci/e2e --stream",
     "lint": "lerna run lint --stream",
