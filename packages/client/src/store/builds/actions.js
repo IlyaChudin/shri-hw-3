@@ -8,7 +8,7 @@ import {
   GET_BUILDS_LOADING
 } from "./types";
 
-function getBuildsSuccess(builds, showMore) {
+export function getBuildsSuccess(builds, showMore) {
   return {
     type: GET_BUILDS_SUCCESS,
     builds,
@@ -16,33 +16,33 @@ function getBuildsSuccess(builds, showMore) {
   };
 }
 
-function getBuildsFailure(error) {
+export function getBuildsFailure(error) {
   return {
     type: GET_BUILDS_FAILURE,
     error
   };
 }
 
-function runBuildsSuccess() {
+export function runBuildSuccess() {
   return {
     type: RUN_BUILD_SUCCESS
   };
 }
 
-function runBuildsFailure(error) {
+export function runBuildFailure(error) {
   return {
     type: RUN_BUILD_FAILURE,
     error
   };
 }
 
-function clearBuilds() {
+export function clearBuilds() {
   return {
     type: CLEAR_BUILDS
   };
 }
 
-function getBuildsLoading(isLoading) {
+export function getBuildsLoading(isLoading) {
   return {
     type: GET_BUILDS_LOADING,
     isLoading
@@ -67,11 +67,11 @@ export function runBuild(commitHash, branchName, history) {
   return async dispatch => {
     try {
       const { data } = await axios.post(`/api/builds/${commitHash}`, { params: { branchName } });
-      dispatch(runBuildsSuccess());
+      dispatch(runBuildSuccess());
       history.push(`/build/${data.id}`);
       dispatch(clearBuilds());
     } catch (e) {
-      dispatch(runBuildsFailure(e.message));
+      dispatch(runBuildFailure(e.message));
     }
   };
 }

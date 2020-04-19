@@ -9,7 +9,7 @@ import Button from "../../components/Button";
 import Layout from "../../components/Layout";
 import { getBuilds, runBuild } from "../../store/builds/actions";
 
-function BuildHistory({ appName }) {
+function BuildsHistory({ appName }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const store = useSelector(x => x.builds);
@@ -52,4 +52,4 @@ function BuildHistory({ appName }) {
   );
 }
 
-export default BuildHistory;
+export default BuildsHistory;

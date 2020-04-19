@@ -60,7 +60,8 @@ function startAutoUpdate() {
       }
       console.log("Update finished. Build requested for ", hashes);
     } catch (error) {
-      console.log(error);
+      console.error(error.stack);
+      console.error(error.message);
     }
   }, period);
   console.log(`Interval updates started each ${period}ms.`);
@@ -79,7 +80,9 @@ async function internalInit({ repoName, buildCommand, mainBranch, period }) {
     }
     startAutoUpdate();
   } catch (error) {
-    console.error(error);
+    console.log("Auto updater start failed!");
+    console.error(error.stack);
+    console.error(error.message);
   }
 }
 
@@ -88,7 +91,8 @@ async function init() {
     const data = await backendApi.getSettings();
     await internalInit(data);
   } catch (error) {
-    console.error(error);
+    console.error(error.stack);
+    console.error(error.message);
   }
 }
 

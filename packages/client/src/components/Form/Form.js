@@ -7,7 +7,7 @@ const form = cn("form");
 function Form(props) {
   const { title, description, onSubmit, children, error, mix } = props;
   return (
-    <form className={classnames(form(), mix)} onSubmit={onSubmit}>
+    <form data-testid="form" className={classnames(form(), mix)} onSubmit={onSubmit}>
       <div className={form("header")}>
         <span className={form("title")}>{title}</span>
         {description && <span className={form("description")}>{description}</span>}

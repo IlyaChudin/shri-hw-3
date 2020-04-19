@@ -2,7 +2,6 @@ import React from "react";
 import ReactModal from "react-modal";
 import cn from "../../classname";
 
-ReactModal.setAppElement("#root");
 const modal = cn("modal");
 
 function Modal(props) {
@@ -10,6 +9,7 @@ function Modal(props) {
   return (
     <ReactModal
       isOpen={isOpen}
+      appElement={document.querySelector("#root")}
       portalClassName={modal()}
       className={modal("content")}
       overlayClassName={modal("overlay")}
