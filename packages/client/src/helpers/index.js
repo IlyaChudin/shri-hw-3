@@ -1,5 +1,5 @@
 export function formatDuration(duration) {
-  const date = new Date(duration * 1000);
+  const date = new Date(duration);
   const h = date.getUTCHours();
   const m = date.getUTCMinutes();
   const s = date.getSeconds();
