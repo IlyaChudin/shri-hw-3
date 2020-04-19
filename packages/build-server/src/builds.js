@@ -1,13 +1,13 @@
 /* eslint-disable no-await-in-loop,no-param-reassign */
-const axios = require("axios");
 const pool = require("./pool");
 const logger = require("../../shared/src/logger");
-const api = require("./backendApi");
+const backendApi = require("./backendApi");
+const agentApi = require("./agentApi");
 const { getDataFromAxiosError } = require("../../shared/src/helpers");
 
 const sendBuildResult = async (id, duration, status, log) => {
   try {
-    await api.buildFinish(id, duration, status, log);
+    await backendApi.buildFinish(id, duration, status, log);
     logger.info(`Результаты билда ${id} успешно отправлены в хранилище.`);
   } catch (e) {
     logger.error(`Результаты билда ${id} не отправлены в хранилище.`);
@@ -18,8 +18,8 @@ const startBuild = async (agent, build, repoName, buildCommand) => {
   agent.isBusy = true;
   const { id, commitHash } = build;
   try {
-    await axios.post(`http://${agent.host}:${agent.port}/build`, { id, commitHash, repoName, buildCommand });
-    await api.buildStart(id, new Date());
+    await agentApi.buildStart(agent, id, commitHash, repoName, buildCommand);
+    await backendApi.buildStart(id, new Date());
     logger.info(`Билд ${id} успешно запущен на агенте ${agent.host}:${agent.port}`);
   } catch (e) {
     if (e.response && e.response.data === "Agent is busy") {
@@ -38,8 +38,8 @@ const handleBuilds = async () => {
   try {
     await pool.checkAgents();
     const availableAgents = pool.getAvailableAgents();
-    const { repoName, buildCommand } = await api.getSettings();
-    const allBuilds = await api.getAllBuilds(0, 100);
+    const { repoName, buildCommand } = await backendApi.getSettings();
+    const allBuilds = await backendApi.getAllBuilds(0, 100);
     const waitingBuilds = allBuilds.filter(x => x.status === "Waiting");
     const inProgressBuilds = allBuilds.filter(x => x.status === "InProgress");
     while (waitingBuilds.length) {

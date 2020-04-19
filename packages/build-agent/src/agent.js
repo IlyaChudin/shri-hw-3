@@ -1,6 +1,5 @@
-const axios = require("axios");
-const { port, serverHost, serverPort } = require("../../shared/src/config");
 const logger = require("../../shared/src/logger");
+const serverApi = require("./serverApi");
 
 let isBusy = false;
 let buildId;
@@ -8,9 +7,8 @@ let agentId;
 
 const notifyServer = async () => {
   try {
-    const { data } = await axios.post(`http://${serverHost}:${serverPort}/notify-agent`, { port, agentId });
-    agentId = data;
-    logger.info(`Агент зарегистрирован на билд-сервере c id: ${data}.`);
+    agentId = await serverApi.notifyAgent(agentId);
+    logger.info(`Агент зарегистрирован на билд-сервере c id: ${agentId}.`);
   } catch (e) {
     if (e.response && typeof e.response.data === "string" && e.response.data.includes("already registered")) {
       logger.info("Агент уже зарегистрирован на билд-сервере.");
@@ -23,7 +21,7 @@ const notifyServer = async () => {
 
 const sendResult = async (id, duration, status, log) => {
   try {
-    await axios.post(`http://${serverHost}:${serverPort}/notify-build-result`, { id, agentId, duration, status, log });
+    await serverApi.sendResult(id, agentId, duration, status, log);
     logger.info(`Результаты билда ${id} успешно отправлены на билд-сервер.`);
   } catch (e) {
     logger.error(`Отправка результатов билда ${id} завершилась неудачей.`);
