@@ -1,5 +1,6 @@
 const logger = require("../../shared/src/logger");
 const serverApi = require("./serverApi");
+const { execInTempPath } = require("./utils");
 
 let isBusy = false;
 let buildId;
@@ -28,20 +29,29 @@ const sendResult = async (id, duration, status, log) => {
   }
 };
 
-const startBuild = (id, repoName, buildCommand, commitHash) => {
-  const timeout = Math.round(Math.random() * 60000);
+const startBuild = async (id, repoName, buildCommand, commitHash) => {
   isBusy = true;
   buildId = id;
-  logger.info(`Билд ${id} запущен. ${timeout}`);
-  // TODO Заменить на реальный билд
-  setTimeout(() => {
-    const status = Boolean(Math.round(Math.random()));
-    const log = `${repoName} ${buildCommand} ${commitHash}`;
+  const start = Date.now();
+  let result;
+  logger.info(`Билд ${id} запущен.`);
+  try {
+    const command = [
+      `git clone https://github.com/${repoName}.git .`,
+      `git -c advice.detachedHead=false checkout ${commitHash}`,
+      buildCommand
+    ].join(" && ");
+    result = await execInTempPath(command);
+  } catch (e) {
+    result = { code: 1, log: e.message };
+  } finally {
+    const { code, log } = result;
+    const status = code === 0;
     logger.info(`Билд ${id} завершен. Статус: ${status}.`);
-    sendResult(id, timeout, status, log);
+    sendResult(id, Date.now() - start, status, log);
     isBusy = false;
     buildId = undefined;
-  }, timeout);
+  }
 };
 
 let intervalId;
