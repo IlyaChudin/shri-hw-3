@@ -7,12 +7,17 @@ const execInTempPath = (command, maxBuffer = 10 * 1024 * 1024) =>
       if (error) {
         reject(error);
       } else {
-        exec(command, { maxBuffer, cwd }, (err, stdout, stderr) => {
+        let log = "";
+        const child = exec(command, { maxBuffer, cwd });
+        child.stdout.on("data", data => {
+          log += data.toString();
+        });
+        child.stderr.on("data", data => {
+          log += data.toString();
+        });
+        child.on("exit", code => {
           cleanupCallback();
-          resolve({
-            code: (err && err.code) || 0,
-            log: `${stdout}\n${stderr}`.trim()
-          });
+          resolve({ code, log });
         });
       }
     });
