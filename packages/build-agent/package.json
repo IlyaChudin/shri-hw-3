@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "start": "node src/app.js",
+    "build:docker-image": "docker build -t shri-ci-build-agent -f ../../build-agent.Dockerfile ../../",
     "dev": "nodemon src/app.js",
     "lint": "eslint src/ --fix"
   },
