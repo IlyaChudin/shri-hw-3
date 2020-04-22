@@ -1,6 +1,6 @@
 const rax = require("retry-axios");
 const axios = require("axios");
-const { port, serverHost, serverPort } = require("../../shared/src/config");
+const { port, serverHost, serverPort } = require("./config");
 const raxOptions = require("../../shared/src/raxOptions");
 
 const instance = axios.create(raxOptions);

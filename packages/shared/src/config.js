@@ -1,5 +1,9 @@
+/* eslint-disable global-require,import/no-dynamic-require */
 const path = require("path");
 const { _, config, ...rest } = require("minimist")(process.argv.slice(2));
 
-// eslint-disable-next-line global-require,import/no-dynamic-require
-module.exports = { ...(config ? require(path.resolve(process.cwd(), config)) : {}), ...rest };
+module.exports = defaultConfig => ({
+  ...defaultConfig,
+  ...(config ? require(path.resolve(process.cwd(), config)) : {}),
+  ...rest
+});

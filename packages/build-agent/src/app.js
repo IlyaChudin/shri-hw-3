@@ -1,5 +1,5 @@
 const express = require("express");
-const config = require("../../shared/src/config");
+const config = require("./config");
 const agent = require("./agent");
 const logger = require("../../shared/src/logger");
 

@@ -1,5 +1,5 @@
 const https = require("https");
-const { apiBaseUrl, apiToken } = require("../../shared/src/config");
+const { apiBaseUrl, apiToken } = require("./config");
 
 module.exports = {
   baseURL: apiBaseUrl,
