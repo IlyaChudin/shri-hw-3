@@ -68,9 +68,9 @@
 
     ```json
     {
-      port: 3001,
-      apiBaseUrl: "https://hw.shri.yandex/api/",
-      updateInterval: 30000
+      "port": 3001,
+      "apiBaseUrl": "https://hw.shri.yandex/api/",
+      "updateInterval": 30000
     }
     ```
 
@@ -78,9 +78,9 @@
 
     ```json
     {
-      serverHost: "127.0.0.1",
-      serverPort: 3001,
-      updateInterval: 30000
+      "serverHost": "127.0.0.1",
+      "serverPort": 3001,
+      "updateInterval": 30000
     }
     ```
 
