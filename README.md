@@ -61,3 +61,50 @@
 Либо вообще не указывать конфиг файл и передать все настройки через параметры:
 
 `npm run start:build-agent -- --port=3004 --serverHost="127.0.0.1" --serverPort=3001 --updateInterval=30000`
+
+В приложениях присутствуют стандартные настройки:
+
+1. Для сервера
+
+    ```json
+    {
+      port: 3001,
+      apiBaseUrl: "https://hw.shri.yandex/api/",
+      updateInterval: 30000
+    }
+    ```
+
+1. Для агента
+
+    ```json
+    {
+      serverHost: "127.0.0.1",
+      serverPort: 3001,
+      updateInterval: 30000
+    }
+    ```
+
+Если ими воспользоваться, то можно запускать приложения так:
+
+`npm run start:build-agent -- --port=3004`
+
+`npm run start:build-server -- --apiToken="..."`
+
+## Сборка и запуск docker образов для билд-сервера и билд-агента
+
+1. Собрать образы `npm run build:docker-images`
+1. Запуcтить билд-сервер
+
+    `docker run --name build-server --network host shri-ci-build-server --port=3001 --apiBaseUrl="https://hw.shri.yandex/api/" --updateInterval=30000 --apiToken="..."`.
+
+    Со стандартными настройками:
+
+    `docker run --name build-server --network host shri-ci-build-server --apiToken="..."`
+
+1. Запуcтить билд-агента
+
+    `docker run --name build-agent-3002 --network host shri-ci-build-agent --port=3002 --serverHost="127.0.0.1" --serverPort=3001 --updateInterval=30000`.
+
+    Со стандартными настройками:
+
+    `docker run --name build-agent-3002 --network host shri-ci-build-agent --port=3002`
