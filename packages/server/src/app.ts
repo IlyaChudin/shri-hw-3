@@ -1,8 +1,8 @@
-const path = require("path");
-const express = require("express");
-const routes = require("./routes");
-const config = require("./config");
-const updater = require("./updater");
+import path from "path";
+import express, { NextFunction, Response, Request } from "express";
+import routes from "./routes";
+import config from "./config";
+import updater from "./updater";
 
 updater.init();
 
@@ -18,8 +18,7 @@ app.use("/", routes);
 
 app.get("*", (req, res) => res.sendFile(indexHtml));
 
-// eslint-disable-next-line no-unused-vars
-app.use((err, req, res, next) => {
+app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   res.status(err.status || 500);
   if (err.response && err.response.status === 400) {
     res.status(400);
