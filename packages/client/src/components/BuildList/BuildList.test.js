@@ -24,7 +24,7 @@ const builds = [
     authorName: "Ilya Chudin",
     status: "Success",
     start: "2020-04-04T08:32:53.442",
-    duration: 2375
+    duration: 12375
   }
 ];
 

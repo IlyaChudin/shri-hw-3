@@ -151,7 +151,7 @@ exports[`BuildList component should renders correctly 1`] = `
           <span
             className="icon-plus__text icon-plus__text_type_secondary"
           >
-            39 м 35 сек
+            0 м 12 сек
           </span>
         </div>
       </div>
@@ -328,7 +328,7 @@ exports[`BuildList component should renders correctly 2`] = `
           <span
             className="icon-plus__text icon-plus__text_type_secondary"
           >
-            39 м 35 сек
+            0 м 12 сек
           </span>
         </div>
       </div>
@@ -499,7 +499,7 @@ exports[`BuildList component should renders correctly 3`] = `
           <span
             className="icon-plus__text icon-plus__text_type_secondary"
           >
-            39 м 35 сек
+            0 м 12 сек
           </span>
         </div>
       </div>
@@ -676,7 +676,7 @@ exports[`BuildList component should renders correctly 4`] = `
           <span
             className="icon-plus__text icon-plus__text_type_secondary"
           >
-            39 м 35 сек
+            0 м 12 сек
           </span>
         </div>
       </div>

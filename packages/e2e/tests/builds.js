@@ -1,4 +1,4 @@
-/* eslint-disable func-names */
+/* eslint-disable func-names,import/no-extraneous-dependencies */
 require("dotenv").config({ path: "../../.env.test" });
 const { deleteSettings, saveSettings, requestBuild } = require("../../server/src/backendApi");
 
