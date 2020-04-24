@@ -1,5 +1,5 @@
 import express from "express";
-import { ConfigurationInput, ConfigurationModel } from "@shri-ci/types";
+import { ConfigurationInput, ConfigurationModel } from "../../../../types";
 import backendApi from "../../backendApi";
 import updater from "../../updater";
 import githubApi from "../../githubApi";

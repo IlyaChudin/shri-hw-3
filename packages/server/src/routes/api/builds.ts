@@ -6,7 +6,7 @@ import {
   QueueBuildInput,
   BuildList,
   BuildRequestResultModel
-} from "@shri-ci/types";
+} from "../../../../types";
 import backendApi from "../../backendApi";
 import githubApi from "../../githubApi";
 import updater from "../../updater";
@@ -63,7 +63,12 @@ router.post<CommitHashParams, BuildRequestResultModel, PostBranchBody>("/:commit
     const { branchName } = req.body;
     const settings = updater.getSettings();
     const commitInfo = await githubApi.getCommitInfo(settings.repoName, commitHash);
-    const requestBuild: QueueBuildInput = { ...commitInfo, branchName };
+    const requestBuild: QueueBuildInput = {
+      authorName: commitInfo.commit.author.name,
+      branchName,
+      commitHash: commitInfo.sha,
+      commitMessage: commitInfo.commit.message
+    };
     const data = await backendApi.requestBuild(requestBuild);
     res.json(data);
   } catch (error) {

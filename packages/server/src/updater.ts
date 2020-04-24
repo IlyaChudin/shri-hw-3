@@ -1,5 +1,5 @@
 /* eslint-disable no-await-in-loop */
-import { ConfigurationModel, QueueBuildInput } from "@shri-ci/types";
+import { ConfigurationModel, QueueBuildInput } from "../../types";
 import backendApi from "./backendApi";
 import githubApi from "./githubApi";
 
@@ -12,7 +12,7 @@ const getNewHashes = async (): Promise<string[]> => {
   if (commits.length === 0 || lastCommitHash === undefined) {
     return [];
   }
-  const hashes = [];
+  const hashes = new Array<string>();
   for (let i = 0; i < commits.length; i += 1) {
     const commit = commits[i];
     if (commit.sha === lastCommitHash) {
@@ -46,7 +46,12 @@ const startAutoUpdate = (): void => {
       for (let i = hashes.length - 1; i >= 0; i -= 1) {
         const hash = hashes[i];
         const commitInfo = await githubApi.getCommitInfo(configuration.repoName, hash);
-        const requestBuild: QueueBuildInput = { ...commitInfo, branchName: configuration.mainBranch };
+        const requestBuild: QueueBuildInput = {
+          authorName: commitInfo.commit.author.name,
+          branchName: configuration.mainBranch,
+          commitHash: commitInfo.sha,
+          commitMessage: commitInfo.commit.message
+        };
         await backendApi.requestBuild(requestBuild);
         console.log("New build: ", requestBuild);
         lastHash = hash;
