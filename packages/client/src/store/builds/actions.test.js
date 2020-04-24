@@ -115,7 +115,7 @@ describe("Builds actions", () => {
 
       await store.dispatch(runBuild(commitHash, branchName, history));
 
-      expect(axios.post).toHaveBeenCalledWith(`/api/builds/${commitHash}`, { params: { branchName } });
+      expect(axios.post).toHaveBeenCalledWith(`/api/builds/${commitHash}`, { branchName });
     });
 
     it("should dispatch RUN_BUILD_FAILURE when run build fails", async () => {

@@ -66,7 +66,7 @@ export function getBuilds(offset, limit = 10) {
 export function runBuild(commitHash, branchName, history) {
   return async dispatch => {
     try {
-      const { data } = await axios.post(`/api/builds/${commitHash}`, { params: { branchName } });
+      const { data } = await axios.post(`/api/builds/${commitHash}`, { branchName });
       dispatch(runBuildSuccess());
       history.push(`/build/${data.id}`);
       dispatch(clearBuilds());
