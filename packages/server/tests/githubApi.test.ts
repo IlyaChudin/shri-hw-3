@@ -1,8 +1,8 @@
 /* eslint-disable prefer-promise-reject-errors */
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import api from "../src/githubApi";
 import { githubOptions } from "../src/axiosOptions";
-import { ReposListCommitsResponseDataItem, ReposListCommitsResponseData } from "../src/gihupApiTypes";
+import { ReposListCommitsResponseData, ReposListCommitsResponseDataItem } from "../src/gihupApiTypes";
 
 jest.mock("axios");
 const mockedAxios = axios as jest.Mocked<typeof axios>;
@@ -11,13 +11,14 @@ describe("github api", () => {
   it("should get commit info by repository name and commit hash", async () => {
     const repoName = "IlyaChudin/ci-test";
     const commitHash = "0cab04f6b0894e775e66224469fde0309f8eb284";
-    const expected = {} as ReposListCommitsResponseDataItem;
-    expected.sha = commitHash;
-    mockedAxios.get.mockImplementationOnce(() => Promise.resolve({ data: expected }));
+    const expected = { sha: commitHash } as ReposListCommitsResponseDataItem;
+    mockedAxios.get.mockImplementationOnce(() =>
+      Promise.resolve({ data: expected } as AxiosResponse<ReposListCommitsResponseDataItem>)
+    );
 
     const result = await api.getCommitInfo(repoName, commitHash);
 
-    expect(result).toEqual(expected);
+    expect(result).toBe(expected);
     expect(mockedAxios.get).toHaveBeenCalledWith(`/${repoName}/commits/${commitHash}`, githubOptions);
   });
 
@@ -25,12 +26,13 @@ describe("github api", () => {
     const repoName = "IlyaChudin/ci-test";
     const branchName = "master";
     const expected: ReposListCommitsResponseData = [{} as ReposListCommitsResponseDataItem];
-    expected[0].sha = "0cab04f6b0894e775e66224469fde0309f8eb284";
-    mockedAxios.get.mockImplementationOnce(() => Promise.resolve({ data: expected }));
+    mockedAxios.get.mockImplementationOnce(() =>
+      Promise.resolve({ data: expected } as AxiosResponse<ReposListCommitsResponseData>)
+    );
 
     const result = await api.getBranchCommits(repoName, branchName);
 
-    expect(result).toEqual(expected);
+    expect(result).toBe(expected);
     expect(mockedAxios.get).toHaveBeenCalledWith(`/${repoName}/commits`, {
       ...githubOptions,
       params: { sha: branchName }

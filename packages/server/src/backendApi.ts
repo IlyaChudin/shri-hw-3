@@ -9,7 +9,7 @@ import {
 } from "../../types";
 import { backendOptions } from "./axiosOptions";
 
-interface ApiResponse<T> {
+export interface ApiResponse<T> {
   data: T;
 }
 
