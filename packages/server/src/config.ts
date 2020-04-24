@@ -1,4 +1,14 @@
-module.exports = {
+interface Config {
+  port: string | number;
+  apiUrl: string;
+  jwtToken: string | undefined;
+  gitHubToken: string | undefined;
+  cacheSize: number;
+  cacheMaxAge: number;
+  nodeEnv: string;
+}
+
+const config: Config = {
   port: process.env.PORT || 3000,
   apiUrl: "https://hw.shri.yandex/api/",
   jwtToken: process.env.SHRI_API_KEY,
@@ -7,3 +17,5 @@ module.exports = {
   cacheMaxAge: 1000 * 60 * 60,
   nodeEnv: process.env.NODE_ENV || "production"
 };
+
+export default config;

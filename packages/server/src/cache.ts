@@ -1,9 +1,9 @@
 import sizeof from "object-sizeof";
 import LRU from "lru-cache";
-import { cacheMaxAge, cacheSize } from "./config";
+import config from "./config";
 
 export default new LRU<string, string | undefined>({
-  max: cacheSize,
-  maxAge: cacheMaxAge,
+  max: config.cacheSize,
+  maxAge: config.cacheMaxAge,
   length: (value, key): number => sizeof(value) + sizeof(key)
 });
