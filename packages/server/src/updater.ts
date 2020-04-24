@@ -1,14 +1,14 @@
 /* eslint-disable no-await-in-loop */
-import { Configuration, RequestBuild } from "@shri-ci/types";
+import { ConfigurationModel, QueueBuildInput } from "@shri-ci/types";
 import backendApi from "./backendApi";
 import githubApi from "./githubApi";
 
-let internalSettings: Configuration = { buildCommand: "", mainBranch: "", period: 0, repoName: "" };
+let configuration = {} as ConfigurationModel;
 let lastCommitHash: string | undefined;
 let interval: NodeJS.Timeout;
 
 const getNewHashes = async (): Promise<string[]> => {
-  const commits = await githubApi.getBranchCommits(internalSettings.repoName, internalSettings.mainBranch);
+  const commits = await githubApi.getBranchCommits(configuration.repoName, configuration.mainBranch);
   if (commits.length === 0 || lastCommitHash === undefined) {
     return [];
   }
@@ -24,7 +24,7 @@ const getNewHashes = async (): Promise<string[]> => {
 };
 
 const initLastCommitHash = async (): Promise<void> => {
-  const commits = await githubApi.getBranchCommits(internalSettings.repoName, internalSettings.mainBranch);
+  const commits = await githubApi.getBranchCommits(configuration.repoName, configuration.mainBranch);
   if (commits.length === 0) {
     lastCommitHash = undefined;
   } else {
@@ -37,7 +37,7 @@ const startAutoUpdate = (): void => {
   if (interval) {
     clearInterval(interval);
   }
-  const period = internalSettings.period * 60000;
+  const period = configuration.period * 60000;
   interval = setInterval(async () => {
     let lastHash;
     try {
@@ -45,8 +45,8 @@ const startAutoUpdate = (): void => {
       const hashes = await getNewHashes();
       for (let i = hashes.length - 1; i >= 0; i -= 1) {
         const hash = hashes[i];
-        const commitInfo = await githubApi.getCommitInfo(internalSettings.repoName, hash);
-        const requestBuild: RequestBuild = { ...commitInfo, branchName: internalSettings.mainBranch };
+        const commitInfo = await githubApi.getCommitInfo(configuration.repoName, hash);
+        const requestBuild: QueueBuildInput = { ...commitInfo, branchName: configuration.mainBranch };
         await backendApi.requestBuild(requestBuild);
         console.log("New build: ", requestBuild);
         lastHash = hash;
@@ -65,10 +65,10 @@ const startAutoUpdate = (): void => {
   console.log(`Interval updates started each ${period}ms.`);
 };
 
-const internalInit = async (settings: Configuration): Promise<void> => {
+const internalInit = async (settings: ConfigurationModel): Promise<void> => {
   try {
-    const [lastRepoName, lastMainBranch] = [internalSettings.repoName, internalSettings.mainBranch];
-    internalSettings = settings;
+    const [lastRepoName, lastMainBranch] = [configuration.repoName, configuration.mainBranch];
+    configuration = settings;
     console.log("Settings set: ", settings);
     if (settings.repoName !== lastRepoName || settings.mainBranch !== lastMainBranch || lastCommitHash === undefined) {
       await initLastCommitHash();
@@ -81,7 +81,7 @@ const internalInit = async (settings: Configuration): Promise<void> => {
   }
 };
 
-const init = async (): Promise<void> => {
+const start = async (): Promise<void> => {
   try {
     const data = await backendApi.getSettings();
     await internalInit(data);
@@ -91,12 +91,7 @@ const init = async (): Promise<void> => {
   }
 };
 
-const setSettings = (settings: Configuration): void => {
-  setTimeout(() => internalInit(settings), 0);
-};
-
 export default {
-  init,
-  setSettings,
-  getSettings: (): Configuration => internalSettings
+  start,
+  getSettings: (): ConfigurationModel => configuration
 };

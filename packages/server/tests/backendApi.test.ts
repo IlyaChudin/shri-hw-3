@@ -3,6 +3,7 @@ import api from "../src/backendApi";
 import { backendOptions } from "../src/axiosOptions";
 
 jest.mock("axios");
+const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 describe("backend api", () => {
   it("should successfully get settings", async () => {
@@ -12,12 +13,12 @@ describe("backend api", () => {
       mainBranch: "master",
       period: "10"
     };
-    axios.get.mockImplementationOnce(() => Promise.resolve({ data: { data } }));
+    mockedAxios.get.mockImplementationOnce(() => Promise.resolve({ data: { data } }));
 
     const result = await api.getSettings();
 
     expect(result).toEqual(data);
-    expect(axios.get).toHaveBeenCalledWith("/conf", backendOptions);
+    expect(mockedAxios.get).toHaveBeenCalledWith("/conf", backendOptions);
   });
 
   it("should successfully save settings", async () => {
@@ -27,11 +28,11 @@ describe("backend api", () => {
       mainBranch: "master",
       period: "10"
     };
-    axios.post.mockImplementationOnce(() => Promise.resolve());
+    mockedAxios.post.mockImplementationOnce(() => Promise.resolve());
 
     await api.saveSettings(data);
 
-    expect(axios.post).toHaveBeenCalledWith("/conf", data, backendOptions);
+    expect(mockedAxios.post).toHaveBeenCalledWith("/conf", data, backendOptions);
   });
 
   it("should get builds list", async () => {
@@ -61,22 +62,25 @@ describe("backend api", () => {
         duration: 2387
       }
     ];
-    axios.get.mockImplementationOnce(() => Promise.resolve({ data: { data } }));
+    mockedAxios.get.mockImplementationOnce(() => Promise.resolve({ data: { data } }));
 
     const result = await api.getAllBuilds();
 
     expect(result).toEqual(data);
-    expect(axios.get).toHaveBeenCalledWith("/build/list", { ...backendOptions, params: { offset: 0, limit: 25 } });
+    expect(axios.get).toHaveBeenCalledWith("/build/list", {
+      ...backendOptions,
+      params: { offset: undefined, limit: undefined }
+    });
   });
 
   it("should get builds list with limit and offset params", async () => {
     const offset = 3;
     const limit = 5;
-    axios.get.mockImplementationOnce(() => Promise.resolve({ data: {} }));
+    mockedAxios.get.mockImplementationOnce(() => Promise.resolve({ data: {} }));
 
     await api.getAllBuilds(offset, limit);
 
-    expect(axios.get).toHaveBeenCalledWith("/build/list", { ...backendOptions, params: { offset, limit } });
+    expect(mockedAxios.get).toHaveBeenCalledWith("/build/list", { ...backendOptions, params: { offset, limit } });
   });
 
   it("should get build details", async () => {
@@ -93,23 +97,23 @@ describe("backend api", () => {
       start: "2020-04-04T08:32:53.442",
       duration: 2375
     };
-    axios.get.mockImplementationOnce(() => Promise.resolve({ data: { data } }));
+    mockedAxios.get.mockImplementationOnce(() => Promise.resolve({ data: { data } }));
 
     const result = await api.getBuildDetails(buildId);
 
     expect(result).toEqual(data);
-    expect(axios.get).toHaveBeenCalledWith("/build/details", { ...backendOptions, params: { buildId } });
+    expect(mockedAxios.get).toHaveBeenCalledWith("/build/details", { ...backendOptions, params: { buildId } });
   });
 
   it("should get build log", async () => {
     const buildId = "01d78ffb-dae2-4bb9-9457-233fc8700c7e";
     const data = "log";
-    axios.get.mockImplementationOnce(() => Promise.resolve({ data }));
+    mockedAxios.get.mockImplementationOnce(() => Promise.resolve({ data }));
 
     const result = await api.getBuildLog(buildId);
 
     expect(result).toEqual(data);
-    expect(axios.get).toHaveBeenCalledWith("/build/log", { ...backendOptions, params: { buildId } });
+    expect(mockedAxios.get).toHaveBeenCalledWith("/build/log", { ...backendOptions, params: { buildId } });
   });
 
   it("should request build for commit", async () => {
@@ -124,11 +128,11 @@ describe("backend api", () => {
       buildNumber: 37,
       status: "Waiting"
     };
-    axios.post.mockImplementationOnce(() => Promise.resolve({ data: { data: resData } }));
+    mockedAxios.post.mockImplementationOnce(() => Promise.resolve({ data: { data: resData } }));
 
     const result = await api.requestBuild(reqData);
 
     expect(result).toEqual(resData);
-    expect(axios.post).toHaveBeenCalledWith("/build/request", reqData, backendOptions);
+    expect(mockedAxios.post).toHaveBeenCalledWith("/build/request", reqData, backendOptions);
   });
 });

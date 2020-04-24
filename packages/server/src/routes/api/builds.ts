@@ -1,5 +1,12 @@
 import express from "express";
-import { PostBranchBody, Build, BuildListQuery, RequestBuild } from "@shri-ci/types";
+import {
+  PostBranchBody,
+  BuildModel,
+  BuildListQuery,
+  QueueBuildInput,
+  BuildList,
+  BuildRequestResultModel
+} from "@shri-ci/types";
 import backendApi from "../../backendApi";
 import githubApi from "../../githubApi";
 import updater from "../../updater";
@@ -7,7 +14,7 @@ import cache from "../../cache";
 
 const router = express.Router();
 
-router.get<{}, Build[], {}, BuildListQuery>("/", async (req, res, next) => {
+router.get<{}, BuildList, {}, BuildListQuery>("/", async (req, res, next) => {
   try {
     const { offset, limit } = req.query;
     const data = await backendApi.getAllBuilds(offset, limit);
@@ -21,7 +28,7 @@ type BuildIdParams = {
   buildId: string;
 };
 
-router.get<BuildIdParams, Build>("/:buildId", async (req, res, next) => {
+router.get<BuildIdParams, BuildModel>("/:buildId", async (req, res, next) => {
   try {
     const { buildId } = req.params;
     const data = await backendApi.getBuildDetails(buildId);
@@ -50,13 +57,13 @@ type CommitHashParams = {
   commitHash: string;
 };
 
-router.post<CommitHashParams, {}, PostBranchBody>("/:commitHash", async (req, res, next) => {
+router.post<CommitHashParams, BuildRequestResultModel, PostBranchBody>("/:commitHash", async (req, res, next) => {
   try {
     const { commitHash } = req.params;
     const { branchName } = req.body;
     const settings = updater.getSettings();
     const commitInfo = await githubApi.getCommitInfo(settings.repoName, commitHash);
-    const requestBuild: RequestBuild = { ...commitInfo, branchName };
+    const requestBuild: QueueBuildInput = { ...commitInfo, branchName };
     const data = await backendApi.requestBuild(requestBuild);
     res.json(data);
   } catch (error) {

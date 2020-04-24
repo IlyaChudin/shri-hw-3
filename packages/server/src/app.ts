@@ -4,8 +4,6 @@ import routes from "./routes";
 import config from "./config";
 import updater from "./updater";
 
-updater.init();
-
 const app = express();
 const buildPath = path.resolve(__dirname, "../../client/build");
 const indexHtml = path.join(buildPath, "index.html");
@@ -44,4 +42,5 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
 
 app.listen(config.port, () => {
   console.log(`Server started on port ${config.port}!`);
+  updater.start();
 });
