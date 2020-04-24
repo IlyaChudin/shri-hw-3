@@ -1,0 +1,26 @@
+{
+  "name": "@shri-ci/build-server",
+  "private": true,
+  "scripts": {
+    "start": "node src/app.js",
+    "build:docker-image": "docker build -t shri-ci-build-server -f ../../build-server.Dockerfile ../../",
+    "dev": "nodemon src/app.js",
+    "lint": "eslint src/ --fix"
+  },
+  "lint-staged": {
+    "src/**/*.js": [
+      "eslint --fix"
+    ]
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "express": "^4.17.1",
+    "minimist": "^1.2.5",
+    "retry-axios": "^2.1.2",
+    "uuid": "^7.0.3",
+    "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.3"
+  }
+}
