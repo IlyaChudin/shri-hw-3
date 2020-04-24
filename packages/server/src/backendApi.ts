@@ -6,7 +6,7 @@ import {
   ConfigurationModel,
   QueueBuildInput,
   BuildRequestResultModel
-} from "../../types";
+} from "@shri-ci/types";
 import { backendOptions } from "./axiosOptions";
 
 export interface ApiResponse<T> {

@@ -1,5 +1,5 @@
 /* eslint-disable no-await-in-loop */
-import { ConfigurationModel, QueueBuildInput } from "../../types";
+import { ConfigurationModel, QueueBuildInput } from "@shri-ci/types";
 import backendApi from "./backendApi";
 import githubApi from "./githubApi";
 

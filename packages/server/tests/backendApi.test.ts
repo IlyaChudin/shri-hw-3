@@ -1,6 +1,4 @@
 import axios, { AxiosResponse } from "axios";
-import api, { ApiResponse } from "../src/backendApi";
-import { backendOptions } from "../src/axiosOptions";
 import {
   BuildList,
   BuildModel,
@@ -8,7 +6,9 @@ import {
   ConfigurationInput,
   ConfigurationModel,
   QueueBuildInput
-} from "../../types";
+} from "@shri-ci/types";
+import api, { ApiResponse } from "../src/backendApi";
+import { backendOptions } from "../src/axiosOptions";
 
 jest.mock("axios");
 const mockedAxios = axios as jest.Mocked<typeof axios>;

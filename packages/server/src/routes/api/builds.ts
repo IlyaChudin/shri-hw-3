@@ -6,7 +6,7 @@ import {
   QueueBuildInput,
   BuildList,
   BuildRequestResultModel
-} from "../../../../types";
+} from "@shri-ci/types";
 import backendApi from "../../backendApi";
 import githubApi from "../../githubApi";
 import updater from "../../updater";
