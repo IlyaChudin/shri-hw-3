@@ -1,17 +1,14 @@
-const backendApi = require("./backendApi");
-const githubApi = require("./githubApi");
+/* eslint-disable no-await-in-loop */
+import { Configuration, RequestBuild } from "@shri-ci/types";
+import backendApi from "./backendApi";
+import githubApi from "./githubApi";
 
-const settings = {
-  repoName: undefined,
-  buildCommand: undefined,
-  mainBranch: undefined,
-  period: undefined
-};
-let lastCommitHash;
-let interval;
+let internalSettings: Configuration = { buildCommand: "", mainBranch: "", period: 0, repoName: "" };
+let lastCommitHash: string | undefined;
+let interval: NodeJS.Timeout;
 
-async function getNewHashes() {
-  const commits = await githubApi.getBranchCommits(settings.repoName, settings.mainBranch);
+const getNewHashes = async (): Promise<string[]> => {
+  const commits = await githubApi.getBranchCommits(internalSettings.repoName, internalSettings.mainBranch);
   if (commits.length === 0 || lastCommitHash === undefined) {
     return [];
   }
@@ -24,23 +21,23 @@ async function getNewHashes() {
     hashes.push(commit.sha);
   }
   return hashes;
-}
+};
 
-async function initLastCommitHash() {
-  const commits = await githubApi.getBranchCommits(settings.repoName, settings.mainBranch);
+const initLastCommitHash = async (): Promise<void> => {
+  const commits = await githubApi.getBranchCommits(internalSettings.repoName, internalSettings.mainBranch);
   if (commits.length === 0) {
     lastCommitHash = undefined;
   } else {
     lastCommitHash = commits[0].sha;
   }
   console.log("Last commit hash inited: ", lastCommitHash);
-}
+};
 
-function startAutoUpdate() {
+const startAutoUpdate = (): void => {
   if (interval) {
     clearInterval(interval);
   }
-  const period = settings.period * 60000;
+  const period = internalSettings.period * 60000;
   interval = setInterval(async () => {
     let lastHash;
     try {
@@ -48,12 +45,10 @@ function startAutoUpdate() {
       const hashes = await getNewHashes();
       for (let i = hashes.length - 1; i >= 0; i -= 1) {
         const hash = hashes[i];
-        // eslint-disable-next-line no-await-in-loop
-        const commitInfo = await githubApi.getCommitInfo(settings.repoName, hash);
-        commitInfo.branchName = settings.mainBranch;
-        // eslint-disable-next-line no-await-in-loop
-        await backendApi.requestBuild(commitInfo);
-        console.log("New commit: ", commitInfo);
+        const commitInfo = await githubApi.getCommitInfo(internalSettings.repoName, hash);
+        const requestBuild: RequestBuild = { ...commitInfo, branchName: internalSettings.mainBranch };
+        await backendApi.requestBuild(requestBuild);
+        console.log("New build: ", requestBuild);
         lastHash = hash;
       }
       console.log("Update finished. Build requested for ", hashes);
@@ -68,15 +63,12 @@ function startAutoUpdate() {
     }
   }, period);
   console.log(`Interval updates started each ${period}ms.`);
-}
+};
 
-async function internalInit({ repoName, buildCommand, mainBranch, period }) {
+const internalInit = async (settings: Configuration): Promise<void> => {
   try {
-    const [lastRepoName, lastMainBranch] = [settings.repoName, settings.mainBranch];
-    settings.repoName = repoName;
-    settings.buildCommand = buildCommand;
-    settings.mainBranch = mainBranch;
-    settings.period = period;
+    const [lastRepoName, lastMainBranch] = [internalSettings.repoName, internalSettings.mainBranch];
+    internalSettings = settings;
     console.log("Settings set: ", settings);
     if (settings.repoName !== lastRepoName || settings.mainBranch !== lastMainBranch || lastCommitHash === undefined) {
       await initLastCommitHash();
@@ -87,9 +79,9 @@ async function internalInit({ repoName, buildCommand, mainBranch, period }) {
     console.error(error.stack);
     console.error(error.message);
   }
-}
+};
 
-async function init() {
+const init = async (): Promise<void> => {
   try {
     const data = await backendApi.getSettings();
     await internalInit(data);
@@ -97,14 +89,14 @@ async function init() {
     console.error(error.stack);
     console.error(error.message);
   }
-}
+};
 
-async function setSettings({ repoName, buildCommand, mainBranch, period }) {
-  setTimeout(() => internalInit({ repoName, buildCommand, mainBranch, period }), 0);
-}
+const setSettings = (settings: Configuration): void => {
+  setTimeout(() => internalInit(settings), 0);
+};
 
-module.exports = {
+export default {
   init,
   setSettings,
-  getSettings: () => settings
+  getSettings: (): Configuration => internalSettings
 };
