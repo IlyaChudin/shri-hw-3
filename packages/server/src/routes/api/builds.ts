@@ -1,12 +1,13 @@
-const express = require("express");
-const backendApi = require("../../backendApi");
-const githubApi = require("../../githubApi");
-const updater = require("../../updater");
-const cache = require("../../cache");
+import express from "express";
+import { PostBranchBody, Build, BuildListQuery, RequestBuild } from "@shri-ci/types";
+import backendApi from "../../backendApi";
+import githubApi from "../../githubApi";
+import updater from "../../updater";
+import cache from "../../cache";
 
 const router = express.Router();
 
-router.get("/", async (req, res, next) => {
+router.get<{}, Build[], {}, BuildListQuery>("/", async (req, res, next) => {
   try {
     const { offset, limit } = req.query;
     const data = await backendApi.getAllBuilds(offset, limit);
@@ -16,7 +17,11 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-router.get("/:buildId", async (req, res, next) => {
+type BuildIdParams = {
+  buildId: string;
+};
+
+router.get<BuildIdParams, Build>("/:buildId", async (req, res, next) => {
   try {
     const { buildId } = req.params;
     const data = await backendApi.getBuildDetails(buildId);
@@ -26,7 +31,7 @@ router.get("/:buildId", async (req, res, next) => {
   }
 });
 
-router.get("/:buildId/logs", async (req, res, next) => {
+router.get<BuildIdParams, string>("/:buildId/logs", async (req, res, next) => {
   try {
     const { buildId } = req.params;
     const key = `build_log_${buildId}`;
@@ -41,19 +46,22 @@ router.get("/:buildId/logs", async (req, res, next) => {
   }
 });
 
-router.post("/:commitHash", async (req, res, next) => {
+type CommitHashParams = {
+  commitHash: string;
+};
+
+router.post<CommitHashParams, {}, PostBranchBody>("/:commitHash", async (req, res, next) => {
   try {
     const { commitHash } = req.params;
-    // В README написал почему branchName получаю из тела запроса
     const { branchName } = req.body;
     const settings = updater.getSettings();
     const commitInfo = await githubApi.getCommitInfo(settings.repoName, commitHash);
-    commitInfo.branchName = branchName || settings.mainBranch;
-    const data = await backendApi.requestBuild(commitInfo);
+    const requestBuild: RequestBuild = { ...commitInfo, branchName };
+    const data = await backendApi.requestBuild(requestBuild);
     res.json(data);
   } catch (error) {
     next(error);
   }
 });
 
-module.exports = router;
+export default router;
