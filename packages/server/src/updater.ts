@@ -3,7 +3,7 @@ import { ConfigurationModel, QueueBuildInput } from "../../types";
 import backendApi from "./backendApi";
 import githubApi from "./githubApi";
 
-let configuration = {} as ConfigurationModel;
+let configuration: ConfigurationModel = { buildCommand: "", id: "", mainBranch: "", period: 0, repoName: "" };
 let lastCommitHash: string | undefined;
 let interval: NodeJS.Timeout;
 
