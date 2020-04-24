@@ -4,10 +4,11 @@
   "author": "Ilya Chudin",
   "license": "ISC",
   "scripts": {
-    "start": "lerna run build --scope=@shri-ci/client --stream && lerna run start --scope=@shri-ci/server --stream",
-    "start:e2e": "lerna run build --scope=@shri-ci/client --stream && lerna run start:e2e --scope=@shri-ci/server --stream",
+    "start": "npm run build && lerna run start --scope=@shri-ci/server --stream",
+    "start:e2e": "npm run build && lerna run start:e2e --scope=@shri-ci/server --stream",
     "start:build-server": "node packages/build-server/src/app.js",
     "start:build-agent": "node packages/build-agent/src/app.js",
+    "build": "lerna run build --scope=@shri-ci/client --scope=@shri-ci/server --stream",
     "build:docker-images": "lerna run build:docker-image --stream",
     "dev": "lerna run dev --scope=@shri-ci/client --scope=@shri-ci/server --stream",
     "test": "lerna run test --scope=@shri-ci/client --scope=@shri-ci/server --stream",

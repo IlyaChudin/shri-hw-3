@@ -2,9 +2,9 @@
   "name": "@shri-ci/server",
   "private": true,
   "scripts": {
-    "start": "npm run build && node -r dotenv/config build/app.js dotenv_config_path=../../.env",
+    "start": "node -r dotenv/config build/app.js dotenv_config_path=../../.env",
     "build": "tsc",
-    "start:e2e": "npm run build && node -r dotenv/config build/app.js dotenv_config_path=../../.env.test",
+    "start:e2e": "node -r dotenv/config build/app.js dotenv_config_path=../../.env.test",
     "dev": "cross-env PORT=5000 NODE_ENV=development nodemon -e js,ts,json -r dotenv/config src/app.ts dotenv_config_path=../../.env.test",
     "test": "jest",
     "lint": "eslint src/ tests/ --fix --ext .ts"
