@@ -7,7 +7,7 @@
     "start:e2e": "npm run build && node -r dotenv/config build/app.js dotenv_config_path=../../.env.test",
     "dev": "cross-env PORT=5000 NODE_ENV=development nodemon -e js,ts,json -r dotenv/config src/app.ts dotenv_config_path=../../.env.test",
     "test": "jest",
-    "lint": "eslint src/ tests/ --fix --ext .js,.ts"
+    "lint": "eslint src/ tests/ --fix --ext .ts"
   },
   "dependencies": {
     "axios": "^0.19.2",
@@ -27,14 +27,14 @@
   },
   "lint-staged": {
     "{src,tests}/**/*.{js,ts}": [
-      "eslint --fix --ext .js,.ts"
+      "eslint --fix --ext .ts"
     ]
   },
   "jest": {
     "testEnvironment": "node",
     "collectCoverage": true,
     "collectCoverageFrom": [
-      "src/**/*.js"
+      "src/**/*.ts"
     ]
   }
 }
