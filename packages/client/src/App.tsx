@@ -10,7 +10,7 @@ import { getSettings } from "./store/settings/actions";
 
 const appName = "School CI server";
 
-function App() {
+const App: React.FC = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -36,6 +36,6 @@ function App() {
       <Footer />
     </BrowserRouter>
   );
-}
+};
 
 export default App;
