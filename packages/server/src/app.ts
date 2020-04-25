@@ -1,5 +1,6 @@
 import path from "path";
 import express, { NextFunction, Response, Request } from "express";
+import { AxiosError } from "axios";
 import routes from "./routes";
 import config from "./config";
 import updater from "./updater";
@@ -16,7 +17,12 @@ app.use("/", routes);
 
 app.get("*", (req, res) => res.sendFile(indexHtml));
 
-app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+interface ErrorWithStatus extends AxiosError {
+  status?: number;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+app.use((err: ErrorWithStatus, req: Request, res: Response, next: NextFunction) => {
   res.status(err.status || 500);
   if (err.response && err.response.status === 400) {
     res.status(400);
