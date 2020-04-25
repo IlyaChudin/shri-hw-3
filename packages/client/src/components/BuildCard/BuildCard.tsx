@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import { classnames } from "@bem-react/classnames";
 import { format } from "date-fns";
 import { ru } from "date-fns/locale";
+import { BuildStatus } from "@shri-ci/types";
 import cn from "../../classname";
 import IconPlus from "../IconPlus";
 import { formatDuration, getCardView } from "../../helpers";
@@ -12,7 +13,7 @@ const buildCard = cn("build-card");
 interface BuildCardProps {
   href?: string;
   onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
-  status: string;
+  status: BuildStatus;
   view?: "default";
   number: number;
   title: string;

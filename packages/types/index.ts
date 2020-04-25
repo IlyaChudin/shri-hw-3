@@ -14,11 +14,11 @@ export interface BuildListQuery {
 }
 
 export enum BuildStatus {
-  Waiting,
-  InProgress,
-  Success,
-  Fail,
-  Canceled
+  Waiting = "Waiting",
+  InProgress = "InProgress",
+  Success = "Success",
+  Fail = "Fail",
+  Canceled = "Canceled"
 }
 
 export interface BuildModel {

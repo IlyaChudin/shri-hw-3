@@ -1,4 +1,5 @@
 import React from "react";
+import { BuildModel } from "@shri-ci/types";
 import cn from "../../classname";
 import BuildCard from "../BuildCard";
 import Button from "../Button";
@@ -6,25 +7,11 @@ import Loading from "../Loading";
 
 const buildList = cn("build-list");
 
-// TODO заменить на тип из @shri-ci/types
-export interface BuildModel {
-  id: string;
-  configurationId: string;
-  buildNumber: number;
-  commitMessage: string;
-  commitHash: string;
-  branchName: string;
-  authorName: string;
-  status: string;
-  start?: Date;
-  duration?: number;
-}
-
 interface BuildListProps {
   builds: BuildModel[];
   showMore: boolean;
   isLoading: boolean;
-  onShowMoreClick: () => void;
+  onShowMoreClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
 const BuildList: React.FC<BuildListProps> = ({ builds, showMore, isLoading, onShowMoreClick }) => {

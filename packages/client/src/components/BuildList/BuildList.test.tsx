@@ -1,7 +1,8 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import { MemoryRouter } from "react-router-dom";
-import BuildList, { BuildModel } from "./BuildList";
+import { BuildModel, BuildStatus } from "@shri-ci/types";
+import BuildList from "./BuildList";
 
 const builds: BuildModel[] = [
   {
@@ -12,7 +13,7 @@ const builds: BuildModel[] = [
     commitHash: "0cab04f6b0894e775e66224469fde0309f8eb284",
     branchName: "master",
     authorName: "Ilya Chudin",
-    status: "Waiting"
+    status: BuildStatus.Waiting
   },
   {
     id: "01d78ffb-dae2-4bb9-9457-233fc8700c7e",
@@ -22,7 +23,7 @@ const builds: BuildModel[] = [
     commitHash: "0cab04f6b0894e775e66224469fde0309f8eb284",
     branchName: "master",
     authorName: "Ilya Chudin",
-    status: "Success",
+    status: BuildStatus.Success,
     start: new Date("2020-04-04T08:32:53.442"),
     duration: 12375
   }
