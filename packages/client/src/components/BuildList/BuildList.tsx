@@ -6,8 +6,28 @@ import Loading from "../Loading";
 
 const buildList = cn("build-list");
 
-function BuildList(props) {
-  const { builds, showMore, isLoading, onShowMoreClick } = props;
+// TODO заменить на тип из @shri-ci/types
+export interface BuildModel {
+  id: string;
+  configurationId: string;
+  buildNumber: number;
+  commitMessage: string;
+  commitHash: string;
+  branchName: string;
+  authorName: string;
+  status: string;
+  start?: Date;
+  duration?: number;
+}
+
+interface BuildListProps {
+  builds: BuildModel[];
+  showMore: boolean;
+  isLoading: boolean;
+  onShowMoreClick: () => void;
+}
+
+const BuildList: React.FC<BuildListProps> = ({ builds, showMore, isLoading, onShowMoreClick }) => {
   return (
     <div data-testid="build-list" className={buildList()}>
       {builds.map(build => (
@@ -31,6 +51,6 @@ function BuildList(props) {
       )}
     </div>
   );
-}
+};
 
 export default BuildList;

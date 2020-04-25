@@ -5,27 +5,54 @@ import Button from "../Button";
 
 const input = cn("input");
 
-function Input(props) {
-  const { name, initialValue, placeholder, size, textAlign, clearButton, register, setValue, error, mix } = props;
-  const [visible, setVisible] = useState(false);
-  const inputRef = useRef(null);
+interface InputProps {
+  name: string;
+  initialValue?: string;
+  placeholder?: string;
+  size?: string;
+  textAlign?: string;
+  clearButton?: boolean;
+  register: (ref: HTMLInputElement) => void;
+  setValue?: (name: string) => void;
+  error?: string;
+  mix?: string;
+}
 
-  const registerRefs = e => {
+const Input: React.FC<InputProps> = ({
+  name,
+  initialValue,
+  placeholder,
+  size,
+  textAlign,
+  clearButton,
+  register,
+  setValue,
+  error,
+  mix
+}: InputProps) => {
+  const [visible, setVisible] = useState(false);
+  const inputRef = useRef<HTMLInputElement>();
+
+  const registerRefs = (e: HTMLInputElement): void => {
     register(e);
-    inputRef.current = e;
+    if (inputRef) {
+      inputRef.current = e;
+    }
   };
 
   useEffect(() => {
     setVisible(!!initialValue);
   }, [initialValue]);
 
-  const clickHandler = () => {
-    setValue(name);
+  const clickHandler = (): void => {
+    setValue && setValue(name);
     setVisible(false);
-    inputRef.current.focus();
+    if (inputRef && inputRef.current) {
+      inputRef.current.focus();
+    }
   };
 
-  const changeHandler = e => setVisible(!!e.target.value);
+  const changeHandler = (e: React.ChangeEvent<HTMLInputElement>): void => setVisible(!!e.target.value);
 
   return (
     <div className={classnames(input({ "icon-position": clearButton ? "right" : undefined }), mix)}>
@@ -48,6 +75,6 @@ function Input(props) {
       {error && <p className={input("error")}>{error}</p>}
     </div>
   );
-}
+};
 
 export default Input;

@@ -12,6 +12,7 @@ jest.mock("react-redux", () => {
     useDispatch: jest.fn().mockReturnValue(() => {})
   };
 });
+jest.mock("react-modal");
 
 describe("Index page", () => {
   it("should render Home when settings not loaded", () => {

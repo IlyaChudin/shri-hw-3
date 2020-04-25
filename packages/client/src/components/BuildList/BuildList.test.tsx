@@ -1,9 +1,9 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import { MemoryRouter } from "react-router-dom";
-import BuildList from "./BuildList";
+import BuildList, { BuildModel } from "./BuildList";
 
-const builds = [
+const builds: BuildModel[] = [
   {
     id: "f7981650-50c6-4eb2-a357-f112910a3eb7",
     configurationId: "952b0cf1-948a-4f95-b6ce-ee225d36c24c",
@@ -23,7 +23,7 @@ const builds = [
     branchName: "master",
     authorName: "Ilya Chudin",
     status: "Success",
-    start: "2020-04-04T08:32:53.442",
+    start: new Date("2020-04-04T08:32:53.442"),
     duration: 12375
   }
 ];
@@ -35,10 +35,11 @@ describe("BuildList component", () => {
     [false, true],
     [false, false]
   ])("should renders correctly", (showMore, isLoading) => {
+    const fn = jest.fn();
     const tree = renderer
       .create(
         <MemoryRouter>
-          <BuildList builds={builds} showMore={showMore} isLoading={isLoading} />
+          <BuildList builds={builds} showMore={showMore} isLoading={isLoading} onShowMoreClick={fn} />
         </MemoryRouter>
       )
       .toJSON();

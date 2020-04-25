@@ -3,13 +3,35 @@ import { useHistory } from "react-router-dom";
 import { classnames } from "@bem-react/classnames";
 import Icon from "../Icon";
 import cn from "../../classname";
+import { IconProps } from "../Icon/Icon";
 
 const button = cn("button");
 
-function Button(props) {
-  const { href, text, onClick, size, view = "default", type = "button", disabled, icon, mix } = props;
+export interface ButtonProps {
+  href?: string;
+  text?: string;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  size?: string;
+  view?: string;
+  type?: "submit" | "reset" | "button";
+  disabled?: boolean;
+  icon?: IconProps;
+  mix?: string;
+}
+
+const Button: React.FC<ButtonProps> = ({
+  href,
+  text,
+  onClick,
+  size,
+  view = "default",
+  type = "button",
+  disabled,
+  icon,
+  mix
+}) => {
   const history = useHistory();
-  const clickHandler = e => {
+  const clickHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
     onClick && onClick(e);
     if (href) {
       history.push(href);
@@ -26,6 +48,6 @@ function Button(props) {
       {text && <span className={button("text")}>{text}</span>}
     </button>
   );
-}
+};
 
 export default Button;

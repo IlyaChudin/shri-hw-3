@@ -4,12 +4,15 @@ import cn from "../../classname";
 
 const modal = cn("modal");
 
-function Modal(props) {
-  const { isOpen, children } = props;
+ReactModal.setAppElement("#root");
+
+interface ModalProps {
+  isOpen: boolean;
+}
+const Modal: React.FC<ModalProps> = ({ isOpen, children }) => {
   return (
     <ReactModal
       isOpen={isOpen}
-      appElement={document.querySelector("#root")}
       portalClassName={modal()}
       className={modal("content")}
       overlayClassName={modal("overlay")}
@@ -17,6 +20,6 @@ function Modal(props) {
       {children}
     </ReactModal>
   );
-}
+};
 
 export default Modal;

@@ -9,23 +9,37 @@ import { formatDuration, getCardView } from "../../helpers";
 
 const buildCard = cn("build-card");
 
-function BuildCard(props) {
-  const {
-    href,
-    onClick,
-    status,
-    view = "default",
-    number,
-    title,
-    commitBranch,
-    commitHash,
-    user,
-    date,
-    duration,
-    mix
-  } = props;
+interface BuildCardProps {
+  href?: string;
+  onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+  status: string;
+  view?: "default";
+  number: number;
+  title: string;
+  commitBranch: string;
+  commitHash: string;
+  user: string;
+  date?: Date;
+  duration?: number;
+  mix: string;
+}
+
+const BuildCard: React.FC<BuildCardProps> = ({
+  href,
+  onClick,
+  status,
+  view = "default",
+  number,
+  title,
+  commitBranch,
+  commitHash,
+  user,
+  date,
+  duration,
+  mix
+}) => {
   const history = useHistory();
-  const clickHandler = e => {
+  const clickHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>): void => {
     onClick && onClick(e);
     if (href) {
       history.push(href);
@@ -65,7 +79,7 @@ function BuildCard(props) {
                 items={[{ text: format(new Date(date), "d MMM HH:mm", { locale: ru }), type: "secondary" }]}
               />
             )}
-            {duration && (
+            {duration !== undefined && (
               <IconPlus
                 mix={buildCard("duration")}
                 icon={{ type: "stopwatch", size: "xs" }}
@@ -77,6 +91,6 @@ function BuildCard(props) {
       </div>
     </div>
   );
-}
+};
 
 export default BuildCard;

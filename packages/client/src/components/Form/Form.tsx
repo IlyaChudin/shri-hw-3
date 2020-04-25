@@ -4,8 +4,15 @@ import cn from "../../classname";
 
 const form = cn("form");
 
-function Form(props) {
-  const { title, description, onSubmit, children, error, mix } = props;
+interface FormProps {
+  title: string;
+  description?: string;
+  onSubmit?: (event: React.FormEvent<HTMLFormElement>) => void;
+  error?: string;
+  mix?: string;
+}
+
+const Form: React.FC<FormProps> = ({ title, description, onSubmit, children, error, mix }) => {
   return (
     <form data-testid="form" className={classnames(form(), mix)} onSubmit={onSubmit}>
       <div className={form("header")}>
@@ -16,6 +23,6 @@ function Form(props) {
       {error && <p className={form("error")}>{error}</p>}
     </form>
   );
-}
+};
 
 export default Form;

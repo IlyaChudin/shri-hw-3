@@ -8,9 +8,19 @@ import cn from "../../classname";
 
 const newFormBuild = cn("new-build-form");
 
-function NewBuildForm(props) {
-  const { onSubmit, onCancel, error } = props;
-  const { register, setValue, handleSubmit } = useForm();
+interface NewBuildFormProps {
+  onSubmit: (data: FormData) => void;
+  onCancel: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  error?: string;
+}
+
+interface FormData {
+  hash: string;
+  branch: string;
+}
+
+const NewBuildForm: React.FC<NewBuildFormProps> = ({ onSubmit, onCancel, error }) => {
+  const { register, setValue, handleSubmit } = useForm<FormData>();
 
   return (
     <Form title="New build" mix={newFormBuild()} error={error} onSubmit={handleSubmit(onSubmit)}>
@@ -42,5 +52,5 @@ function NewBuildForm(props) {
       </div>
     </Form>
   );
-}
+};
 export default NewBuildForm;

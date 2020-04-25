@@ -4,8 +4,15 @@ import cn from "../../classname";
 
 const formField = cn("form-field");
 
-function FormField(props) {
-  const { title, required, type, children, addon, mix } = props;
+interface FormFieldProps {
+  title: string;
+  required?: boolean;
+  type: string;
+  addon?: string;
+  mix?: string;
+}
+
+const FormField: React.FC<FormFieldProps> = ({ title, required = false, type, children, addon, mix }) => {
   return (
     <div className={classnames(formField({ type, required }), mix)}>
       <span className={formField("title")}>{title}</span>
@@ -13,6 +20,6 @@ function FormField(props) {
       {addon && <span className={formField("addon")}>{addon}</span>}
     </div>
   );
-}
+};
 
 export default FormField;

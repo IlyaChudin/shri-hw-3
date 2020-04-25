@@ -3,7 +3,7 @@ import cn from "../../classname";
 
 const loading = cn("loading");
 
-function Loading() {
+const Loading: React.FC = () => {
   return (
     <div className={loading()}>
       <div className={loading("container")}>
@@ -13,6 +13,6 @@ function Loading() {
       </div>
     </div>
   );
-}
+};
 
 export default Loading;

@@ -5,7 +5,7 @@ import Layout from "../Layout";
 
 const footer = cn("footer");
 
-function Footer() {
+const Footer: React.FC = () => {
   return (
     <Layout mix={footer()} containerMix={footer("content")}>
       <div className={footer("menu")}>
@@ -19,6 +19,6 @@ function Footer() {
       <span className={footer("copyright")}>&copy; 2020 Ilya Chudin</span>
     </Layout>
   );
-}
+};
 
 export default Footer;
