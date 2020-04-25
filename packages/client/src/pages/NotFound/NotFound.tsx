@@ -2,8 +2,9 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Header from "../../components/Header";
 import Layout from "../../components/Layout";
+import { PageProps } from "../PageProps";
 
-function NotFound({ appName }) {
+const NotFound: React.FC<PageProps> = ({ appName }) => {
   useEffect(() => {
     document.title = `Not found - ${appName}`;
   }, [appName]);
@@ -17,6 +18,6 @@ function NotFound({ appName }) {
       </Layout>
     </>
   );
-}
+};
 
 export default NotFound;
