@@ -10,7 +10,7 @@ interface HeaderProps {
   title: string;
   titleColor?: string;
   titleLink?: string;
-  children?: React.ReactElement<ButtonProps>[];
+  children?: React.ReactElement<ButtonProps> | React.ReactElement<ButtonProps>[];
 }
 
 const Header: React.FC<HeaderProps> = ({ title, titleColor = "default", titleLink = "/", children }) => {
@@ -21,7 +21,9 @@ const Header: React.FC<HeaderProps> = ({ title, titleColor = "default", titleLin
       </Link>
       {children && (
         <div className={header("actions")}>
-          {React.Children.map(children, x => React.cloneElement(x, { mix: header("button") }))}
+          {React.Children.map<React.ReactElement<ButtonProps>, React.ReactElement<ButtonProps>>(children, x => {
+            return React.cloneElement(x, { mix: header("button") });
+          })}
         </div>
       )}
     </Layout>

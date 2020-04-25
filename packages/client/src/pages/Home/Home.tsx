@@ -2,8 +2,9 @@ import React, { useEffect } from "react";
 import Header from "../../components/Header";
 import StartScreen from "../../components/StartScreen";
 import Button from "../../components/Button";
+import { PageProps } from "../PageProps";
 
-function Home({ appName }) {
+const Home: React.FC<PageProps> = ({ appName }) => {
   useEffect(() => {
     document.title = `Home - ${appName}`;
   }, [appName]);
@@ -16,6 +17,6 @@ function Home({ appName }) {
       <StartScreen />
     </>
   );
-}
+};
 
 export default Home;
