@@ -51,7 +51,7 @@ type SettingsThunkResult<R = void> = ThunkAction<R | Promise<R>, SettingsState, 
 export function getSettings(): SettingsThunkResult {
   return async (dispatch): Promise<void> => {
     try {
-      const { data } = await axios.get("/api/settings");
+      const { data } = await axios.get<ConfigurationModel>("/api/settings");
       dispatch(getSettingsSuccess(data));
     } catch (e) {
       dispatch(getSettingsFailure(e.message));
@@ -64,7 +64,7 @@ export function saveSettings(settings: ConfigurationInput, history: History): Se
     try {
       dispatch(saveSettingsStart());
       dispatch(clearSaveError());
-      await axios.post("/api/settings", settings);
+      await axios.post<ConfigurationInput>("/api/settings", settings);
       dispatch(saveSettingsSuccess(settings));
       history.push("/");
     } catch (e) {

@@ -1,4 +1,4 @@
-import { BuildModel } from "@shri-ci/types";
+import { BuildList, BuildModel } from "@shri-ci/types";
 import { Action } from "redux";
 import { FailureAction } from "../common";
 
@@ -18,7 +18,7 @@ export interface BuildsState {
 }
 
 interface GetBuildsSuccess extends Action<typeof GET_BUILDS_SUCCESS> {
-  builds: BuildModel[];
+  builds: BuildList;
   showMore: boolean;
 }
 

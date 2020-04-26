@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BuildModel } from "@shri-ci/types";
+import { BuildList, BuildRequestResultModel } from "@shri-ci/types";
 import { ThunkAction } from "redux-thunk";
 import { History } from "history";
 import {
@@ -13,7 +13,7 @@ import {
   BuildsState
 } from "./types";
 
-export const getBuildsSuccess = (builds: BuildModel[], showMore: boolean): BuildsActionTypes => ({
+export const getBuildsSuccess = (builds: BuildList, showMore: boolean): BuildsActionTypes => ({
   type: GET_BUILDS_SUCCESS,
   builds,
   showMore
@@ -48,8 +48,8 @@ export const getBuilds = (offset = 0, limit = 10): BuildsThunkResult => {
   return async (dispatch): Promise<void> => {
     try {
       dispatch(getBuildsLoading(true));
-      const { data } = await axios.get<BuildModel[]>("/api/builds", { params: { offset, limit } });
-      dispatch(getBuildsSuccess(data, data.length >= limit));
+      const { data } = await axios.get<BuildList>("/api/builds", { params: { offset, limit } });
+      dispatch(getBuildsSuccess(data, data ? data.length >= limit : false));
     } catch (e) {
       dispatch(getBuildsFailure(e.message));
     } finally {
@@ -61,7 +61,7 @@ export const getBuilds = (offset = 0, limit = 10): BuildsThunkResult => {
 export const runBuild = (commitHash: string, branchName: string, history: History): BuildsThunkResult => {
   return async (dispatch): Promise<void> => {
     try {
-      const { data } = await axios.post(`/api/builds/${commitHash}`, { branchName });
+      const { data } = await axios.post<BuildRequestResultModel>(`/api/builds/${commitHash}`, { branchName });
       dispatch(runBuildSuccess());
       history.push(`/build/${data.id}`);
       dispatch(clearBuilds());

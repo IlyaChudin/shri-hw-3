@@ -50,7 +50,7 @@ type DetailsThunkResult<R = void> = ThunkAction<R | Promise<R>, DetailsState, un
 export function getDetails(buildId: string): DetailsThunkResult {
   return async (dispatch): Promise<void> => {
     try {
-      const { data } = await axios.get(`/api/builds/${buildId}`);
+      const { data } = await axios.get<BuildModel>(`/api/builds/${buildId}`);
       dispatch(getBuildDetailsSuccess(data));
     } catch (e) {
       if (e.response && e.response.status === 400) {
@@ -66,7 +66,7 @@ export function getLog(buildId: string): DetailsThunkResult {
   return async (dispatch): Promise<void> => {
     try {
       dispatch(logLoadingStart());
-      const { data } = await axios.get(`/api/builds/${buildId}/logs`);
+      const { data } = await axios.get<string>(`/api/builds/${buildId}/logs`);
       dispatch(getBuildLogSuccess(data));
     } catch (e) {
       if (e.response && e.response.status === 400) {

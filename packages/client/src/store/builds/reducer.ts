@@ -20,7 +20,12 @@ const initialState: BuildsState = {
 export default (state = initialState, action: BuildsActionTypes): BuildsState => {
   switch (action.type) {
     case GET_BUILDS_SUCCESS:
-      return { ...state, builds: [...state.builds, ...action.builds], getError: undefined, showMore: action.showMore };
+      return {
+        ...state,
+        builds: action.builds ? [...state.builds, ...action.builds] : state.builds,
+        getError: undefined,
+        showMore: action.showMore
+      };
     case GET_BUILDS_FAILURE:
       return { ...state, getError: action.error };
     case GET_BUILDS_LOADING:

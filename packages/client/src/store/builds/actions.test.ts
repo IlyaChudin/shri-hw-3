@@ -32,8 +32,8 @@ describe("Builds actions", () => {
   describe("getBuilds action", () => {
     it("should dispatch GET_BUILDS_SUCCESS when builds loaded successfully", async () => {
       const store = mockStore();
-      const expected = [getBuildsSuccess([], false)];
-      mockedAxios.get.mockImplementationOnce(() => Promise.resolve({ data: [] }));
+      const expected = [getBuildsSuccess(undefined, false)];
+      mockedAxios.get.mockImplementationOnce(() => Promise.resolve({ data: undefined }));
 
       await store.dispatch(getBuilds());
 
