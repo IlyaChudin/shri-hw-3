@@ -11,8 +11,8 @@ import {
 
 const initialState: BuildsState = {
   builds: [],
-  getError: null,
-  runBuildError: null,
+  getError: undefined,
+  runBuildError: undefined,
   showMore: true,
   isLoading: false
 };
@@ -20,13 +20,13 @@ const initialState: BuildsState = {
 export default (state = initialState, action: BuildsActionTypes): BuildsState => {
   switch (action.type) {
     case GET_BUILDS_SUCCESS:
-      return { ...state, builds: [...state.builds, ...action.builds], getError: null, showMore: action.showMore };
+      return { ...state, builds: [...state.builds, ...action.builds], getError: undefined, showMore: action.showMore };
     case GET_BUILDS_FAILURE:
       return { ...state, getError: action.error };
     case GET_BUILDS_LOADING:
       return { ...state, isLoading: action.isLoading };
     case RUN_BUILD_SUCCESS:
-      return { ...state, runBuildError: null };
+      return { ...state, runBuildError: undefined };
     case RUN_BUILD_FAILURE:
       return { ...state, runBuildError: action.error };
     case CLEAR_BUILDS:

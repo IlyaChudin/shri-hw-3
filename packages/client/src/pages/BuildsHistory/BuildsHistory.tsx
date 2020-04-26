@@ -8,12 +8,16 @@ import NewBuildForm from "../../components/NewBuildForm";
 import Button from "../../components/Button";
 import Layout from "../../components/Layout";
 import { getBuilds, runBuild } from "../../store/builds/actions";
+import { PageProps } from "../PageProps";
+import { RootState } from "../../store";
+import { BuildsState } from "../../store/builds/types";
+import { NewBuildFormData } from "../../components/NewBuildForm/NewBuildForm";
 
-function BuildsHistory({ appName }) {
+const BuildsHistory: React.FC<PageProps> = ({ appName }) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const store = useSelector(x => x.builds);
-  const repoName = useSelector(x => x.settings.repoName);
+  const store = useSelector<RootState, BuildsState>(x => x.builds);
+  const repoName = useSelector<RootState, string>(x => x.settings.repoName);
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
@@ -22,14 +26,18 @@ function BuildsHistory({ appName }) {
 
   useEffect(() => {
     if (store.builds.length === 0) {
-      dispatch(getBuilds(0));
+      dispatch(getBuilds());
     }
   }, [dispatch, store.builds.length]);
 
-  const runBuildHandler = () => setIsOpen(true);
-  const showMoreHandler = () => dispatch(getBuilds(store.builds.length));
-  const onSubmit = ({ hash, branch }) => dispatch(runBuild(hash, branch, history));
-  const onCancel = () => setIsOpen(false);
+  const runBuildHandler = (): void => setIsOpen(true);
+  const showMoreHandler = (): void => {
+    dispatch(getBuilds(store.builds.length));
+  };
+  const onSubmit = ({ hash, branch }: NewBuildFormData): void => {
+    dispatch(runBuild(hash, branch, history));
+  };
+  const onCancel = (): void => setIsOpen(false);
 
   return (
     <>
@@ -50,6 +58,6 @@ function BuildsHistory({ appName }) {
       </Modal>
     </>
   );
-}
+};
 
 export default BuildsHistory;

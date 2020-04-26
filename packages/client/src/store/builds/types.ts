@@ -11,8 +11,8 @@ export const CLEAR_BUILDS = "CLEAR_BUILDS";
 
 export interface BuildsState {
   builds: BuildModel[];
-  getError: string | null;
-  runBuildError: string | null;
+  getError?: string;
+  runBuildError?: string;
   showMore: boolean;
   isLoading: boolean;
 }
