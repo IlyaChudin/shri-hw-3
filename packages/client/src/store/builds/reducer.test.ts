@@ -13,8 +13,8 @@ import { BuildsState } from "./types";
 describe("builds reducer", () => {
   const initialState: BuildsState = {
     builds: [],
-    getError: null,
-    runBuildError: null,
+    getError: undefined,
+    runBuildError: undefined,
     showMore: true,
     isLoading: false
   };
@@ -45,7 +45,7 @@ describe("builds reducer", () => {
     ];
     const action = getBuildsSuccess(builds, true);
 
-    const expected = { ...initialState, builds, showMore: true };
+    const expected: BuildsState = { ...initialState, builds, showMore: true };
 
     const state = reducer(initialState, action);
 
@@ -54,7 +54,7 @@ describe("builds reducer", () => {
 
   it("should reduce GET_BUILDS_FAILURE action", () => {
     const action = getBuildsFailure("error");
-    const expected = { ...initialState, getError: "error" };
+    const expected: BuildsState = { ...initialState, getError: "error" };
 
     const state = reducer(initialState, action);
 
@@ -63,7 +63,7 @@ describe("builds reducer", () => {
 
   it("should reduce GET_BUILDS_LOADING action", () => {
     const action = getBuildsLoading(true);
-    const expected = { ...initialState, isLoading: true };
+    const expected: BuildsState = { ...initialState, isLoading: true };
 
     const state = reducer(initialState, action);
 
@@ -72,7 +72,7 @@ describe("builds reducer", () => {
 
   it("should reduce RUN_BUILD_SUCCESS action", () => {
     const action = runBuildSuccess();
-    const expected = { ...initialState, runBuildError: null };
+    const expected: BuildsState = { ...initialState, runBuildError: undefined };
 
     const state = reducer(initialState, action);
 
@@ -81,7 +81,7 @@ describe("builds reducer", () => {
 
   it("should reduce RUN_BUILD_FAILURE action", () => {
     const action = runBuildFailure("error");
-    const expected = { ...initialState, runBuildError: "error" };
+    const expected: BuildsState = { ...initialState, runBuildError: "error" };
 
     const state = reducer(initialState, action);
 
