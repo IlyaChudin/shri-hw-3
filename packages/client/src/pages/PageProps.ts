@@ -1,3 +1,3 @@
 export interface PageProps {
-  appName: string;
+  appName?: string;
 }

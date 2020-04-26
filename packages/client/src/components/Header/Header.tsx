@@ -7,7 +7,7 @@ import { ButtonProps } from "../Button/Button";
 const header = cn("header");
 
 interface HeaderProps {
-  title: string;
+  title?: string;
   titleColor?: string;
   titleLink?: string;
   children?: React.ReactElement<ButtonProps> | React.ReactElement<ButtonProps>[];
