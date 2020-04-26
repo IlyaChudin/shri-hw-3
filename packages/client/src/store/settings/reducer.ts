@@ -18,14 +18,14 @@ const initialState: SettingsState = {
   period: 0,
   isLoaded: false,
   isSaving: false,
-  saveError: null,
-  getError: null
+  saveError: undefined,
+  getError: undefined
 };
 
 export default (state = initialState, action: SettingsActionTypes): SettingsState => {
   switch (action.type) {
     case GET_SETTINGS_SUCCESS:
-      return { ...state, ...action.settings, isLoaded: true, getError: null };
+      return { ...state, ...action.settings, isLoaded: true, getError: undefined };
     case GET_SETTINGS_FAILURE:
       return { ...state, isLoaded: false, getError: action.error };
     case SAVE_SETTINGS_START:
@@ -37,7 +37,7 @@ export default (state = initialState, action: SettingsActionTypes): SettingsStat
     case SAVE_SETTINGS_FAILURE:
       return { ...state, saveError: action.error };
     case CLEAR_SAVE_ERROR:
-      return { ...state, saveError: null };
+      return { ...state, saveError: undefined };
     default:
       return state;
   }

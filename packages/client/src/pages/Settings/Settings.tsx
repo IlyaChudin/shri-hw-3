@@ -3,7 +3,7 @@ import { classnames } from "@bem-react/classnames";
 import { useDispatch, useSelector } from "react-redux";
 import MaskedInput from "react-text-mask";
 import { useHistory } from "react-router-dom";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useForm, FieldError } from "react-hook-form";
 import cn from "../../classname";
 import Header from "../../components/Header";
 import Form from "../../components/Form";
@@ -12,22 +12,41 @@ import Input from "../../components/Input";
 import Button from "../../components/Button";
 import Layout from "../../components/Layout";
 import { clearSaveError, saveSettings } from "../../store/settings/actions";
+import { PageProps } from "../PageProps";
+import { RootState } from "../../store";
+import { SettingsState } from "../../store/settings/types";
 
 const settings = cn("settings");
 const required = { required: { value: true, message: "This field is required" } };
 
-function Settings({ appName }) {
-  const { register, errors, setValue, control, handleSubmit } = useForm();
+interface SettingsFormData {
+  repoName: string;
+  buildCommand: string;
+  mainBranch: string;
+  period: string;
+}
+
+const getError = (e: FieldError | undefined): string | undefined => {
+  if (e) {
+    if (typeof e.message === "string") {
+      return e.message;
+    }
+  }
+  return undefined;
+};
+
+const Settings: React.FC<PageProps> = ({ appName }) => {
+  const { register, errors, setValue, control, handleSubmit } = useForm<SettingsFormData>();
   const history = useHistory();
   const dispatch = useDispatch();
-  const store = useSelector(x => x.settings);
+  const store = useSelector<RootState, SettingsState>(x => x.settings);
 
   useEffect(() => {
     document.title = `Settings - ${appName}`;
   }, [appName]);
 
   useEffect(() => {
-    return () => {
+    return (): void => {
       if (store.saveError) {
         dispatch(clearSaveError());
       }
@@ -35,12 +54,18 @@ function Settings({ appName }) {
   }, [store.saveError, dispatch]);
 
   // hack MaskedInput.defaultValue not working
-  useEffect(() => setValue("period", store.period), [store.period, setValue]);
+  useEffect(() => {
+    return setValue("period", String(store.period));
+  }, [store.period, setValue]);
 
-  const onSubmit = data => {
+  const onSubmit = (data: SettingsFormData): void => {
     if (!errors.repoName && !errors.buildCommand) {
       dispatch(saveSettings({ ...data, period: Number(data.period) }, history));
     }
+  };
+
+  const onCancel = (): void => {
+    history.goBack();
   };
 
   return (
@@ -63,7 +88,7 @@ function Settings({ appName }) {
               clearButton
               register={register(required)}
               setValue={setValue}
-              error={errors.repoName && errors.repoName.message}
+              error={getError(errors.repoName)}
               mix={settings("input")}
             />
           </FormField>
@@ -76,7 +101,7 @@ function Settings({ appName }) {
               clearButton
               register={register(required)}
               setValue={setValue}
-              error={errors.buildCommand && errors.buildCommand.message}
+              error={getError(errors.buildCommand)}
               mix={settings("input")}
             />
           </FormField>
@@ -118,18 +143,12 @@ function Settings({ appName }) {
               size="m"
               mix={settings("button")}
             />
-            <Button
-              disabled={store.isSaving}
-              text="Cancel"
-              size="m"
-              mix={settings("button")}
-              onClick={() => history.goBack()}
-            />
+            <Button disabled={store.isSaving} text="Cancel" size="m" mix={settings("button")} onClick={onCancel} />
           </div>
         </Form>
       </Layout>
     </>
   );
-}
+};
 
 export default Settings;

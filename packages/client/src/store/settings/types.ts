@@ -13,8 +13,8 @@ export const CLEAR_SAVE_ERROR = "CLEAR_SAVE_ERROR";
 export interface SettingsState extends ConfigurationModel {
   isLoaded: boolean;
   isSaving: boolean;
-  saveError: string | null;
-  getError: string | null;
+  saveError?: string;
+  getError?: string;
 }
 
 interface GetSettingsSuccess extends Action<typeof GET_SETTINGS_SUCCESS> {
