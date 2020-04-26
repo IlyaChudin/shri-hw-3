@@ -3,8 +3,8 @@ import { classnames } from "@bem-react/classnames";
 import cn from "../../classname";
 
 export interface IconProps {
-  type: string;
-  size: string;
+  type: "settings" | "clear" | "play" | "rebuild" | "calendar" | "commit" | "stopwatch" | "user";
+  size: "xs" | "s" | "m";
   mix?: string;
 }
 

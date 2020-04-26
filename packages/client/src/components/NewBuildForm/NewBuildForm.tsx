@@ -24,22 +24,20 @@ const NewBuildForm: React.FC<NewBuildFormProps> = ({ onSubmit, onCancel, error }
 
   return (
     <Form title="New build" mix={newFormBuild()} error={error} onSubmit={handleSubmit(onSubmit)}>
-      <FormField title="Commit hash" type="v" mix={newFormBuild("field")}>
+      <FormField title="Commit hash" mix={newFormBuild("field")}>
         <Input
           name="hash"
           placeholder="66e50bf"
-          size="m"
           clearButton
           register={register}
           setValue={setValue}
           mix={newFormBuild("input")}
         />
       </FormField>
-      <FormField title="Branch" type="v" mix={newFormBuild("field")}>
+      <FormField title="Branch" mix={newFormBuild("field")}>
         <Input
           name="branch"
           placeholder="master"
-          size="m"
           clearButton
           register={register}
           setValue={setValue}

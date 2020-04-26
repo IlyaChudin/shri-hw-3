@@ -10,7 +10,7 @@ interface IconPlusProps {
   icon: IconProps;
   items: {
     text: string;
-    type: string;
+    type: "primary" | "secondary";
   }[];
   mix?: string;
 }

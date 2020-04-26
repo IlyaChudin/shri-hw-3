@@ -27,12 +27,7 @@ interface SettingsFormData {
 }
 
 const getError = (e: FieldError | undefined): string | undefined => {
-  if (e) {
-    if (typeof e.message === "string") {
-      return e.message;
-    }
-  }
-  return undefined;
+  return e && typeof e.message === "string" ? e.message : undefined;
 };
 
 const Settings: React.FC<PageProps> = ({ appName }) => {
@@ -79,12 +74,11 @@ const Settings: React.FC<PageProps> = ({ appName }) => {
           mix={settings("form")}
           error={store.saveError}
         >
-          <FormField title="GitHub repository" required type="v" mix={settings("field")}>
+          <FormField title="GitHub repository" required mix={settings("field")}>
             <Input
               name="repoName"
               initialValue={store.repoName}
               placeholder="user-name/repo-name"
-              size="m"
               clearButton
               register={register(required)}
               setValue={setValue}
@@ -92,12 +86,11 @@ const Settings: React.FC<PageProps> = ({ appName }) => {
               mix={settings("input")}
             />
           </FormField>
-          <FormField title="Build command" required type="v" mix={settings("field")}>
+          <FormField title="Build command" required mix={settings("field")}>
             <Input
               name="buildCommand"
               initialValue={store.buildCommand}
               placeholder="npm ci && npm run build"
-              size="m"
               clearButton
               register={register(required)}
               setValue={setValue}
@@ -105,12 +98,11 @@ const Settings: React.FC<PageProps> = ({ appName }) => {
               mix={settings("input")}
             />
           </FormField>
-          <FormField title="Main branch" type="v" mix={settings("field")}>
+          <FormField title="Main branch" mix={settings("field")}>
             <Input
               name="mainBranch"
               initialValue={store.mainBranch}
               placeholder="master"
-              size="m"
               clearButton
               register={register}
               setValue={setValue}
@@ -128,7 +120,6 @@ const Settings: React.FC<PageProps> = ({ appName }) => {
                   settings("input", { size: "small" })
                 )}
                 guide={false}
-                defaultValue="123"
                 mask={[/\d/, /\d/, /\d/]}
                 placeholder="10"
               />

@@ -9,8 +9,7 @@ interface InputProps {
   name: string;
   initialValue?: string;
   placeholder?: string;
-  size?: string;
-  textAlign?: string;
+  size?: "m";
   clearButton?: boolean;
   register: (ref: HTMLInputElement) => void;
   setValue?: (name: string) => void;
@@ -22,9 +21,8 @@ const Input: React.FC<InputProps> = ({
   name,
   initialValue,
   placeholder,
-  size,
-  textAlign,
-  clearButton,
+  size = "m",
+  clearButton = false,
   register,
   setValue,
   error,
@@ -45,9 +43,9 @@ const Input: React.FC<InputProps> = ({
   }, [initialValue]);
 
   const clickHandler = (): void => {
-    setValue && setValue(name);
+    setValue?.(name);
     setVisible(false);
-    if (inputRef && inputRef.current) {
+    if (inputRef?.current) {
       inputRef.current.focus();
     }
   };
@@ -68,7 +66,7 @@ const Input: React.FC<InputProps> = ({
         name={name}
         defaultValue={initialValue}
         ref={registerRefs}
-        className={input("control", { size, "text-align": textAlign, view: error && "error" })}
+        className={input("control", { size, view: error && "error" })}
         placeholder={placeholder}
         onChange={changeHandler}
       />

@@ -8,7 +8,7 @@ const header = cn("header");
 
 interface HeaderProps {
   title?: string;
-  titleColor?: string;
+  titleColor?: "default" | "primary";
   titleLink?: string;
   children?: React.ReactElement<ButtonProps> | React.ReactElement<ButtonProps>[];
 }

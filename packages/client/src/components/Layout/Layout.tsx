@@ -8,8 +8,8 @@ const pageContent = cn("page")("content");
 interface LayoutProps {
   mix?: string;
   containerMix?: string;
-  horizontalIndent?: string;
-  containerSize?: string;
+  horizontalIndent?: "s";
+  containerSize?: "s";
   isPageContent?: boolean;
 }
 

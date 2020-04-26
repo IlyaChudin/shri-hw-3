@@ -11,8 +11,8 @@ export interface ButtonProps {
   href?: string;
   text?: string;
   onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-  size?: string;
-  view?: string;
+  size?: "s" | "m";
+  view?: "default" | "accent" | "clean" | "disabled";
   type?: "submit" | "reset" | "button";
   disabled?: boolean;
   icon?: IconProps;

@@ -7,12 +7,12 @@ const formField = cn("form-field");
 interface FormFieldProps {
   title: string;
   required?: boolean;
-  type: string;
+  type?: "h" | "v";
   addon?: string;
   mix?: string;
 }
 
-const FormField: React.FC<FormFieldProps> = ({ title, required = false, type, children, addon, mix }) => {
+const FormField: React.FC<FormFieldProps> = ({ title, required = false, type = "v", children, addon, mix }) => {
   return (
     <div className={classnames(formField({ type, required }), mix)}>
       <span className={formField("title")}>{title}</span>
