@@ -5,21 +5,24 @@ import {
   SAVE_SETTINGS_END,
   SAVE_SETTINGS_SUCCESS,
   SAVE_SETTINGS_FAILURE,
-  CLEAR_SAVE_ERROR
+  CLEAR_SAVE_ERROR,
+  SettingsState,
+  SettingsActionTypes
 } from "./types";
 
-const initialState = {
+const initialState: SettingsState = {
+  id: "",
   repoName: "",
   buildCommand: "",
   mainBranch: "",
-  period: "",
+  period: 0,
   isLoaded: false,
   isSaving: false,
   saveError: null,
   getError: null
 };
 
-export default function reducer(state = initialState, action) {
+export default (state = initialState, action: SettingsActionTypes): SettingsState => {
   switch (action.type) {
     case GET_SETTINGS_SUCCESS:
       return { ...state, ...action.settings, isLoaded: true, getError: null };
@@ -38,4 +41,4 @@ export default function reducer(state = initialState, action) {
     default:
       return state;
   }
-}
+};

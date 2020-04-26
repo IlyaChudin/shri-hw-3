@@ -1,5 +1,6 @@
 import { BuildModel } from "@shri-ci/types";
 import { Action } from "redux";
+import { FailureAction } from "../common";
 
 export const GET_BUILDS_SUCCESS = "GET_BUILDS_SUCCESS";
 export const GET_BUILDS_FAILURE = "GET_BUILDS_FAILURE";
@@ -14,10 +15,6 @@ export interface BuildsState {
   runBuildError: string | null;
   showMore: boolean;
   isLoading: boolean;
-}
-
-interface FailureAction<T> extends Action<T> {
-  error: string;
 }
 
 interface GetBuildsSuccess extends Action<typeof GET_BUILDS_SUCCESS> {

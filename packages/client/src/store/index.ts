@@ -4,19 +4,14 @@ import { composeWithDevTools } from "redux-devtools-extension/logOnlyInProductio
 import settingsReducer from "./settings/reducer";
 import buildsReducer from "./builds/reducer";
 import detailsReducer from "./details/reducer";
-import { BuildsState } from "./builds/types";
 
-const reducers = {
+const rootReducer = combineReducers({
   settings: settingsReducer,
   builds: buildsReducer,
   details: detailsReducer
-};
+});
 
-export type AppState = {
-  settings: any;
-  builds: BuildsState;
-  details: any;
-};
+export type RootState = ReturnType<typeof rootReducer>;
 
-export default (initialState: AppState | undefined = undefined): Store<AppState> =>
-  createStore(combineReducers(reducers), initialState, composeWithDevTools(applyMiddleware(thunk)));
+export default (initialState: Partial<RootState> = {}): Store<RootState> =>
+  createStore(rootReducer, initialState, composeWithDevTools(applyMiddleware(thunk)));
