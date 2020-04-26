@@ -37,7 +37,7 @@ const BuildDetails: React.FC<PageProps> = ({ appName }) => {
   }, [dispatch, id]);
 
   const rebuildHandler = (): void => {
-    if (store.details && store.details.commitHash) {
+    if (store.details?.commitHash) {
       dispatch(runBuild(store.details.commitHash, store.details.branchName, history));
     }
   };
@@ -49,19 +49,7 @@ const BuildDetails: React.FC<PageProps> = ({ appName }) => {
         <Button href="/settings" icon={{ type: "settings", size: "s" }} size="s" />
       </Header>
       <Layout isPageContent>
-        {store.details && store.details.id && (
-          <BuildCard
-            view="details"
-            status={store.details.status}
-            number={store.details.buildNumber}
-            title={store.details.commitMessage}
-            commitBranch={store.details.branchName}
-            commitHash={store.details.commitHash}
-            user={store.details.authorName}
-            date={store.details.start}
-            duration={store.details.duration}
-          />
-        )}
+        {store.details?.id && <BuildCard view="details" {...store.details} />}
         {store.getDetailsError && <p>{store.getDetailsError}</p>}
         {store.logLoading && <Loading />}
         {store.log && <BuildLog text={store.log} />}

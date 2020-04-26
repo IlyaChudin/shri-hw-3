@@ -18,19 +18,7 @@ const BuildList: React.FC<BuildListProps> = ({ builds, showMore, isLoading, onSh
   return (
     <div data-testid="build-list" className={buildList()}>
       {builds.map(build => (
-        <BuildCard
-          key={build.id}
-          href={`/build/${build.id}`}
-          status={build.status}
-          mix={buildList("item")}
-          number={build.buildNumber}
-          title={build.commitMessage}
-          commitBranch={build.branchName}
-          commitHash={build.commitHash}
-          user={build.authorName}
-          date={build.start}
-          duration={build.duration}
-        />
+        <BuildCard key={build.id} href={`/build/${build.id}`} mix={buildList("item")} {...build} />
       ))}
       {isLoading && <Loading />}
       {showMore && !isLoading && (
