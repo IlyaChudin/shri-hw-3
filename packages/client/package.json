@@ -53,8 +53,8 @@
     "test": "react-app-rewired test --watchAll=false --coverage ",
     "test:watch": "react-app-rewired test",
     "eject": "react-scripts eject",
-    "lint": "npm run lint:js & npm run lint:scss",
-    "lint:js": "eslint src/ --fix",
+    "lint": "npm run lint:ts & npm run lint:scss",
+    "lint:ts": "eslint src/ --fix --ext .ts,.tsx",
     "lint:scss": "stylelint src/**/*.scss --fix"
   },
   "proxy": "http://localhost:5000",
@@ -62,8 +62,8 @@
     "src/**/*.scss": [
       "stylelint --fix"
     ],
-    "src/**/*.js": [
-      "eslint --fix"
+    "src/**/*.{ts,tsx}": [
+      "eslint --fix --ext .ts,.tsx"
     ]
   },
   "browserslist": {
