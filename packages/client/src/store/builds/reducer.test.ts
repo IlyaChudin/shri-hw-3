@@ -1,3 +1,4 @@
+import { BuildModel, BuildStatus } from "@shri-ci/types";
 import reducer from "./reducer";
 import {
   clearBuilds,
@@ -7,9 +8,10 @@ import {
   runBuildFailure,
   runBuildSuccess
 } from "./actions";
+import { BuildsState } from "./types";
 
 describe("builds reducer", () => {
-  const initialState = {
+  const initialState: BuildsState = {
     builds: [],
     getError: null,
     runBuildError: null,
@@ -17,7 +19,7 @@ describe("builds reducer", () => {
     isLoading: false
   };
   it("should reduce GET_BUILDS_SUCCESS action", () => {
-    const builds = [
+    const builds: BuildModel[] = [
       {
         id: "f7981650-50c6-4eb2-a357-f112910a3eb7",
         configurationId: "952b0cf1-948a-4f95-b6ce-ee225d36c24c",
@@ -26,7 +28,7 @@ describe("builds reducer", () => {
         commitHash: "0cab04f6b0894e775e66224469fde0309f8eb284",
         branchName: "master",
         authorName: "Ilya Chudin",
-        status: "Waiting"
+        status: BuildStatus.Waiting
       },
       {
         id: "01d78ffb-dae2-4bb9-9457-233fc8700c7e",
@@ -36,13 +38,14 @@ describe("builds reducer", () => {
         commitHash: "0cab04f6b0894e775e66224469fde0309f8eb284",
         branchName: "master",
         authorName: "Ilya Chudin",
-        status: "Success",
-        start: "2020-04-04T08:32:53.442",
+        status: BuildStatus.Success,
+        start: new Date("2020-04-04T08:32:53.442"),
         duration: 2375
       }
     ];
     const action = getBuildsSuccess(builds, true);
-    const expected = { ...initialState, builds: action.builds, showMore: true };
+
+    const expected = { ...initialState, builds, showMore: true };
 
     const state = reducer(initialState, action);
 
@@ -89,12 +92,6 @@ describe("builds reducer", () => {
     const action = clearBuilds();
 
     const state = reducer(initialState, action);
-
-    expect(state).toEqual(initialState);
-  });
-
-  it("should return current state on unknown action", () => {
-    const state = reducer(initialState, { type: "ABRA_KADABRA" });
 
     expect(state).toEqual(initialState);
   });
