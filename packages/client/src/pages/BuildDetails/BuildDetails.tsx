@@ -9,26 +9,35 @@ import { runBuild } from "../../store/builds/actions";
 import Button from "../../components/Button";
 import Layout from "../../components/Layout";
 import Loading from "../../components/Loading";
+import { PageProps } from "../PageProps";
+import { RootState } from "../../store";
+import { DetailsState } from "../../store/details/types";
 
-function BuildDetails({ appName }) {
+const BuildDetails: React.FC<PageProps> = ({ appName }) => {
   const { id } = useParams();
-  const store = useSelector(x => x.details);
-  const repoName = useSelector(x => x.settings.repoName);
+  const store = useSelector<RootState, DetailsState>(x => x.details);
+  const repoName = useSelector<RootState, string>(x => x.settings.repoName);
   const dispatch = useDispatch();
   const history = useHistory();
 
   useEffect(() => {
-    document.title = `Build #${store.details.buildNumber} - ${appName}`;
-  }, [store.details.buildNumber, appName]);
+    if (store.details) {
+      document.title = `Build #${store.details.buildNumber} - ${appName}`;
+    }
+  }, [store.details, appName]);
 
   useEffect(() => {
-    dispatch(getDetails(id));
-    dispatch(getLog(id));
-    return () => dispatch(clearDetails());
+    if (id) {
+      dispatch(getDetails(id));
+      dispatch(getLog(id));
+    }
+    return (): void => {
+      dispatch(clearDetails());
+    };
   }, [dispatch, id]);
 
-  const rebuildHandler = () => {
-    if (store.details.commitHash) {
+  const rebuildHandler = (): void => {
+    if (store.details && store.details.commitHash) {
       dispatch(runBuild(store.details.commitHash, store.details.branchName, history));
     }
   };
@@ -60,6 +69,6 @@ function BuildDetails({ appName }) {
       </Layout>
     </>
   );
-}
+};
 
 export default BuildDetails;

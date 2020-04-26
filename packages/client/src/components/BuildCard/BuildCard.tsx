@@ -14,7 +14,7 @@ interface BuildCardProps {
   href?: string;
   onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   status: BuildStatus;
-  view?: "default";
+  view?: "default" | "details";
   number: number;
   title: string;
   commitBranch: string;
@@ -22,7 +22,7 @@ interface BuildCardProps {
   user: string;
   date?: Date;
   duration?: number;
-  mix: string;
+  mix?: string;
 }
 
 const BuildCard: React.FC<BuildCardProps> = ({
