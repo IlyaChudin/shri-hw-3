@@ -1,6 +1,6 @@
 /* eslint-disable func-names,import/no-extraneous-dependencies */
 require("dotenv").config({ path: "../../.env.test" });
-const { deleteSettings, saveSettings, requestBuild } = require("../../server/src/backendApi");
+const { deleteSettings, saveSettings, requestBuild } = require("../../server/build/backendApi");
 
 describe("builds page", () => {
   beforeEach(async () => {

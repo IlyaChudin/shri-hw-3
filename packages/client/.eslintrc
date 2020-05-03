@@ -1,3 +1,26 @@
 {
-  "extends": ["airbnb-base", "react-app", "plugin:prettier/recommended"]
+  "extends": [
+    "airbnb-base",
+    "react-app",
+    "plugin:jest/style",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/typescript",
+    "plugin:prettier/recommended",
+    "prettier/@typescript-eslint"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "rules": {
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": ["**/*.test.*"] }],
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "ts": "never",
+        "tsx": "never",
+        "js": "never",
+        "jsx": "never"
+      }
+    ]
+  }
 }

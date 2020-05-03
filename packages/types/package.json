@@ -1,0 +1,13 @@
+{
+  "name": "@shri-ci/types",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "lint": "eslint . --fix --ext .ts"
+  },
+  "lint-staged": {
+    "src/**/*.ts": [
+      "eslint --fix --ext .ts"
+    ]
+  }
+}
