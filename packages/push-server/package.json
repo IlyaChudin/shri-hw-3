@@ -1,0 +1,28 @@
+{
+  "name": "@shri-ci/push-server",
+  "private": true,
+  "scripts": {
+    "start": "node -r dotenv/config build/app.js dotenv_config_path=../../.env",
+    "build": "tsc",
+    "dev": "nodemon -e js,ts,json -r dotenv/config src/app.ts dotenv_config_path=../../.env",
+    "lint": "eslint src/ --fix --ext .ts"
+  },
+  "dependencies": {
+    "@shri-ci/types": "^0.1.0",
+    "axios": "^0.19.2",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "web-push": "^3.4.3"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.6",
+    "@types/web-push": "^3.3.0",
+    "nodemon": "^2.0.2",
+    "ts-node": "^8.9.0"
+  },
+  "lint-staged": {
+    "src/**/*.ts": [
+      "eslint --fix --ext .ts"
+    ]
+  }
+}

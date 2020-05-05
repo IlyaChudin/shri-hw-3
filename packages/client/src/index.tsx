@@ -18,3 +18,14 @@ ReactDOM.render(
 );
 
 serviceWorker.register();
+
+const updateNotificationSubscription = async (): Promise<void> => {
+  if (Notification.permission === "default") {
+    await Notification.requestPermission();
+  }
+  navigator.serviceWorker.getRegistration().then(x => x?.active?.postMessage("update-notification-subscription"));
+};
+
+if ("Notification" in window) {
+  updateNotificationSubscription();
+}
