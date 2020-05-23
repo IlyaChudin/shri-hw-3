@@ -1,5 +1,6 @@
 import React from "react";
 import { BuildModel } from "@shri-ci/types";
+import { useTranslation } from "react-i18next";
 import cn from "../../classname";
 import BuildCard from "../BuildCard";
 import Button from "../Button";
@@ -15,6 +16,8 @@ interface BuildListProps {
 }
 
 const BuildList: React.FC<BuildListProps> = ({ builds, showMore, isLoading, onShowMoreClick }) => {
+  const { t } = useTranslation();
+
   return (
     <div data-testid="build-list" className={buildList()}>
       {builds.map(build => (
@@ -22,7 +25,7 @@ const BuildList: React.FC<BuildListProps> = ({ builds, showMore, isLoading, onSh
       ))}
       {isLoading && <Loading />}
       {showMore && !isLoading && (
-        <Button text="Show more" size="m" mix={buildList("button")} onClick={onShowMoreClick} />
+        <Button text={t("buildList.showMore")} size="m" mix={buildList("button")} onClick={onShowMoreClick} />
       )}
     </div>
   );

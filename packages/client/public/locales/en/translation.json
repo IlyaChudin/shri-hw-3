@@ -21,6 +21,9 @@
     "save": "Save",
     "cancel": "Cancel"
   },
+  "buildList": {
+    "showMore": "Show more"
+  },
   "footer": {
     "learning": "Learning",
     "support": "Support",
