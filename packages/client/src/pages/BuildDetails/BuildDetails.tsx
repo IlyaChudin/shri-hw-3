@@ -21,12 +21,13 @@ const BuildDetails: React.FC = () => {
   const history = useHistory();
   const { t } = useTranslation();
   const appName = t("appName");
+  const build = t("build");
 
   useEffect(() => {
     if (store.details) {
-      document.title = `Build #${store.details.buildNumber} - ${appName}`;
+      document.title = `${build} #${store.details.buildNumber} - ${appName}`;
     }
-  }, [store.details, appName]);
+  }, [store.details, appName, build]);
 
   useEffect(() => {
     if (id) {
@@ -47,7 +48,7 @@ const BuildDetails: React.FC = () => {
   return (
     <>
       <Header title={repoName} titleColor="primary">
-        <Button text="Rebuild" icon={{ type: "rebuild", size: "s" }} size="s" onClick={rebuildHandler} />
+        <Button text={t("rebuild")} icon={{ type: "rebuild", size: "s" }} size="s" onClick={rebuildHandler} />
         <Button href="/settings" icon={{ type: "settings", size: "s" }} size="s" />
       </Header>
       <Layout isPageContent>
