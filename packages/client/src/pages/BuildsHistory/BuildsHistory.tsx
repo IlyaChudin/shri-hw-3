@@ -21,10 +21,11 @@ const BuildsHistory: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { t } = useTranslation();
   const appName = t("appName");
+  const buildsHistory = t("buildsHistory");
 
   useEffect(() => {
-    document.title = `Build history - ${appName}`;
-  }, [appName]);
+    document.title = `${buildsHistory} - ${appName}`;
+  }, [appName, buildsHistory]);
 
   useEffect(() => {
     if (store.builds.length === 0) {
@@ -44,7 +45,7 @@ const BuildsHistory: React.FC = () => {
   return (
     <>
       <Header title={repoName} titleColor="primary">
-        <Button text="Run build" icon={{ type: "play", size: "s" }} size="s" onClick={runBuildHandler} />
+        <Button text={t("runBuild")} icon={{ type: "play", size: "s" }} size="s" onClick={runBuildHandler} />
         <Button href="/settings" icon={{ type: "settings", size: "s" }} size="s" />
       </Header>
       <Layout isPageContent>

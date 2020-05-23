@@ -1,5 +1,7 @@
 {
   "appName": "School CI server",
+  "buildsHistory": "Builds history",
+  "runBuild": "Run build",
   "footer": {
     "learning": "Learning",
     "support": "Support",
