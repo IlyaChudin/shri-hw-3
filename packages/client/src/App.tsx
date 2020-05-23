@@ -8,8 +8,6 @@ import BuildDetails from "./pages/BuildDetails";
 import Footer from "./components/Footer";
 import { getSettings } from "./store/settings/actions";
 
-const appName = "School CI server";
-
 const App: React.FC = () => {
   const dispatch = useDispatch();
 
@@ -21,16 +19,16 @@ const App: React.FC = () => {
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
-          <IndexPage appName={appName} />
+          <IndexPage />
         </Route>
         <Route path="/settings">
-          <Settings appName={appName} />
+          <Settings />
         </Route>
         <Route path="/build/:id">
-          <BuildDetails appName={appName} />
+          <BuildDetails />
         </Route>
         <Route path="*">
-          <NotFound appName={appName} />
+          <NotFound />
         </Route>
       </Switch>
       <Footer />

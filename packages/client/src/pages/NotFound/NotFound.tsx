@@ -1,10 +1,13 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import Header from "../../components/Header";
 import Layout from "../../components/Layout";
-import { PageProps } from "../PageProps";
 
-const NotFound: React.FC<PageProps> = ({ appName }) => {
+const NotFound: React.FC = () => {
+  const { t } = useTranslation();
+  const appName = t("appName");
+
   useEffect(() => {
     document.title = `Not found - ${appName}`;
   }, [appName]);

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import Header from "../../components/Header";
 import BuildList from "../../components/BuildList";
 import Modal from "../../components/Modal";
@@ -8,17 +9,18 @@ import NewBuildForm from "../../components/NewBuildForm";
 import Button from "../../components/Button";
 import Layout from "../../components/Layout";
 import { getBuilds, runBuild } from "../../store/builds/actions";
-import { PageProps } from "../PageProps";
 import { RootState } from "../../store";
 import { BuildsState } from "../../store/builds/types";
 import { NewBuildFormData } from "../../components/NewBuildForm/NewBuildForm";
 
-const BuildsHistory: React.FC<PageProps> = ({ appName }) => {
+const BuildsHistory: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const store = useSelector<RootState, BuildsState>(x => x.builds);
   const repoName = useSelector<RootState, string>(x => x.settings.repoName);
   const [isOpen, setIsOpen] = useState(false);
+  const { t } = useTranslation();
+  const appName = t("appName");
 
   useEffect(() => {
     document.title = `Build history - ${appName}`;

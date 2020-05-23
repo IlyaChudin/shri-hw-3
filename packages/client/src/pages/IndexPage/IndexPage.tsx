@@ -2,13 +2,12 @@ import React from "react";
 import { useSelector } from "react-redux";
 import Home from "../Home";
 import BuildsHistory from "../BuildsHistory";
-import { PageProps } from "../PageProps";
 import { RootState } from "../../store";
 
-const IndexPage: React.FC<PageProps> = ({ appName }) => {
+const IndexPage: React.FC = () => {
   const isLoaded = useSelector<RootState, boolean>(x => x.settings.isLoaded);
 
-  return isLoaded ? <BuildsHistory appName={appName} /> : <Home appName={appName} />;
+  return isLoaded ? <BuildsHistory /> : <Home />;
 };
 
 export default IndexPage;

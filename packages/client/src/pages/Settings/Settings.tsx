@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import MaskedInput from "react-text-mask";
 import { useHistory } from "react-router-dom";
 import { Controller, useForm, FieldError } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import cn from "../../classname";
 import Header from "../../components/Header";
 import Form from "../../components/Form";
@@ -12,7 +13,6 @@ import Input from "../../components/Input";
 import Button from "../../components/Button";
 import Layout from "../../components/Layout";
 import { clearSaveError, saveSettings } from "../../store/settings/actions";
-import { PageProps } from "../PageProps";
 import { RootState } from "../../store";
 import { SettingsState } from "../../store/settings/types";
 
@@ -30,11 +30,13 @@ const getError = (e: FieldError | undefined): string | undefined => {
   return e && typeof e.message === "string" ? e.message : undefined;
 };
 
-const Settings: React.FC<PageProps> = ({ appName }) => {
+const Settings: React.FC = () => {
   const { register, errors, setValue, control, handleSubmit } = useForm<SettingsFormData>();
   const history = useHistory();
   const dispatch = useDispatch();
   const store = useSelector<RootState, SettingsState>(x => x.settings);
+  const { t } = useTranslation();
+  const appName = t("appName");
 
   useEffect(() => {
     document.title = `Settings - ${appName}`;
