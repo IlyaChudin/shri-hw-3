@@ -9,13 +9,13 @@ const Home: React.FC = () => {
   const appName = t("appName");
 
   useEffect(() => {
-    document.title = `Home - ${appName}`;
+    document.title = `${appName}`;
   }, [appName]);
 
   return (
     <>
       <Header title={appName}>
-        <Button href="/settings" icon={{ type: "settings", size: "s" }} size="s" text="Settings" />
+        <Button href="/settings" icon={{ type: "settings", size: "s" }} size="s" text={t("settings")} />
       </Header>
       <StartScreen />
     </>

@@ -4,6 +4,7 @@
   "runBuild": "Run build",
   "build": "Build",
   "rebuild": "Rebuild",
+  "settings": "Settings",
   "footer": {
     "learning": "Learning",
     "support": "Support",
