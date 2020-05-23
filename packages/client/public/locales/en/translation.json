@@ -35,6 +35,10 @@
     "runBuild": "Run build",
     "cancel": "Cancel"
   },
+  "timeFormat": {
+    "hm": "{{h}} h {{m}} min",
+    "ms": "{{m}} m {{s}} sec"
+  },
   "footer": {
     "learning": "Learning",
     "support": "Support",
