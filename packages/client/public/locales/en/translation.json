@@ -24,6 +24,10 @@
   "buildList": {
     "showMore": "Show more"
   },
+  "startScreen": {
+    "text": "Configure repository connection and synchronization settings",
+    "button": "Open settings"
+  },
   "footer": {
     "learning": "Learning",
     "support": "Support",
