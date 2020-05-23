@@ -28,6 +28,13 @@
     "text": "Configure repository connection and synchronization settings",
     "button": "Open settings"
   },
+  "newBuildForm": {
+    "newBuild": "New build",
+    "commitHash": "Commit hash",
+    "branch": "Branch",
+    "runBuild": "Run build",
+    "cancel": "Cancel"
+  },
   "footer": {
     "learning": "Learning",
     "support": "Support",
