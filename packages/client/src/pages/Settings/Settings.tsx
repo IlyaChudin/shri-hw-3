@@ -31,16 +31,18 @@ const getError = (e: FieldError | undefined): string | undefined => {
 };
 
 const Settings: React.FC = () => {
-  const { register, errors, setValue, control, handleSubmit } = useForm<SettingsFormData>();
+  const { register, errors, setValue, control, handleSubmit, watch } = useForm<SettingsFormData>();
   const history = useHistory();
   const dispatch = useDispatch();
   const store = useSelector<RootState, SettingsState>(x => x.settings);
   const { t } = useTranslation();
   const appName = t("appName");
+  const title = t("settingsPage.title");
+  const period = watch("period");
 
   useEffect(() => {
-    document.title = `Settings - ${appName}`;
-  }, [appName]);
+    document.title = `${title} - ${appName}`;
+  }, [appName, title]);
 
   useEffect(() => {
     return (): void => {
@@ -70,13 +72,13 @@ const Settings: React.FC = () => {
       <Header title={appName} />
       <Layout isPageContent mix={settings()} containerMix={settings("content")}>
         <Form
-          title="Settings"
-          description="Configure repository connection and synchronization settings."
+          title={title}
+          description={t("settingsPage.description")}
           onSubmit={handleSubmit(onSubmit)}
           mix={settings("form")}
           error={store.saveError}
         >
-          <FormField title="GitHub repository" required mix={settings("field")}>
+          <FormField title={t("settingsPage.repository")} required mix={settings("field")}>
             <Input
               name="repoName"
               initialValue={store.repoName}
@@ -88,7 +90,7 @@ const Settings: React.FC = () => {
               mix={settings("input")}
             />
           </FormField>
-          <FormField title="Build command" required mix={settings("field")}>
+          <FormField title={t("settingsPage.buildCommand")} required mix={settings("field")}>
             <Input
               name="buildCommand"
               initialValue={store.buildCommand}
@@ -100,7 +102,7 @@ const Settings: React.FC = () => {
               mix={settings("input")}
             />
           </FormField>
-          <FormField title="Main branch" mix={settings("field")}>
+          <FormField title={t("settingsPage.mainBranch")} mix={settings("field")}>
             <Input
               name="mainBranch"
               initialValue={store.mainBranch}
@@ -111,7 +113,12 @@ const Settings: React.FC = () => {
               mix={settings("input")}
             />
           </FormField>
-          <FormField title="Synchronize every" type="h" addon="minutes" mix={settings("field")}>
+          <FormField
+            title={t("settingsPage.synchronizeEvery", { count: Number(period) })}
+            type="h"
+            addon={t("settingsPage.period", { count: Number(period) })}
+            mix={settings("field")}
+          >
             <div className={cn("input")()}>
               <Controller
                 as={MaskedInput}
@@ -131,12 +138,18 @@ const Settings: React.FC = () => {
             <Button
               disabled={store.isSaving}
               type="submit"
-              text="Save"
+              text={t("settingsPage.save")}
               view="accent"
               size="m"
               mix={settings("button")}
             />
-            <Button disabled={store.isSaving} text="Cancel" size="m" mix={settings("button")} onClick={onCancel} />
+            <Button
+              disabled={store.isSaving}
+              text={t("settingsPage.cancel")}
+              size="m"
+              mix={settings("button")}
+              onClick={onCancel}
+            />
           </div>
         </Form>
       </Layout>

@@ -9,6 +9,18 @@
     "title": "Page not found",
     "goHome": "Go home"
   },
+  "settingsPage": {
+    "title": "Settings",
+    "description": "Configure repository connection and synchronization settings.",
+    "repository": "GitHub repository",
+    "buildCommand": "Build command",
+    "mainBranch": "Main branch",
+    "synchronizeEvery": "Synchronize every",
+    "period": "minute",
+    "period_plural": "minutes",
+    "save": "Save",
+    "cancel": "Cancel"
+  },
   "footer": {
     "learning": "Learning",
     "support": "Support",
