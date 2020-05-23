@@ -5,6 +5,10 @@
   "build": "Build",
   "rebuild": "Rebuild",
   "settings": "Settings",
+  "notFoundPage": {
+    "title": "Page not found",
+    "goHome": "Go home"
+  },
   "footer": {
     "learning": "Learning",
     "support": "Support",
