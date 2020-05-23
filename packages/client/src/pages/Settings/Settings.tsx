@@ -3,8 +3,9 @@ import { classnames } from "@bem-react/classnames";
 import { useDispatch, useSelector } from "react-redux";
 import MaskedInput from "react-text-mask";
 import { useHistory } from "react-router-dom";
-import { Controller, useForm, FieldError } from "react-hook-form";
+import { Controller, FieldError, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import { TFunction } from "i18next";
 import cn from "../../classname";
 import Header from "../../components/Header";
 import Form from "../../components/Form";
@@ -17,7 +18,6 @@ import { RootState } from "../../store";
 import { SettingsState } from "../../store/settings/types";
 
 const settings = cn("settings");
-const required = { required: { value: true, message: "This field is required" } };
 
 interface SettingsFormData {
   repoName: string;
@@ -26,8 +26,16 @@ interface SettingsFormData {
   period: string;
 }
 
-const getError = (e: FieldError | undefined): string | undefined => {
-  return e && typeof e.message === "string" ? e.message : undefined;
+const getError = (e: FieldError | undefined, t: TFunction): string | undefined => {
+  if (e) {
+    if (e.type === "required") {
+      return t("settingsPage.required");
+    }
+    if (typeof e.message === "string") {
+      return e.message;
+    }
+  }
+  return undefined;
 };
 
 const Settings: React.FC = () => {
@@ -84,9 +92,9 @@ const Settings: React.FC = () => {
               initialValue={store.repoName}
               placeholder="user-name/repo-name"
               clearButton
-              register={register(required)}
+              register={register({ required: true })}
               setValue={setValue}
-              error={getError(errors.repoName)}
+              error={getError(errors.repoName, t)}
               mix={settings("input")}
             />
           </FormField>
@@ -96,9 +104,9 @@ const Settings: React.FC = () => {
               initialValue={store.buildCommand}
               placeholder="npm ci && npm run build"
               clearButton
-              register={register(required)}
+              register={register({ required: true })}
               setValue={setValue}
-              error={getError(errors.buildCommand)}
+              error={getError(errors.buildCommand, t)}
               mix={settings("input")}
             />
           </FormField>

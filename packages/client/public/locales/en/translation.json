@@ -19,7 +19,8 @@
     "period": "minute",
     "period_plural": "minutes",
     "save": "Save",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "required": "This field is required"
   },
   "buildList": {
     "showMore": "Show more"
