@@ -21,6 +21,12 @@
     "repository": "GitHub репозиторий",
     "buildCommand": "Команда сборки",
     "mainBranch": "Основная ветка",
+    "synchronizeEvery_0": "Синхронизировать каждую",
+    "synchronizeEvery_1": "Синхронизировать каждые",
+    "synchronizeEvery_2": "Синхронизировать каждые",
+    "period_0": "минуту",
+    "period_1": "минуты",
+    "period_2": "минут",
     "save": "Сохранить",
     "cancel": "Отмена",
     "required": "Это поле обязательно к заполнению"
