@@ -1,5 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import Form from "../Form";
 import FormField from "../FormField";
 import Input from "../Input";
@@ -21,10 +22,11 @@ export interface NewBuildFormData {
 
 const NewBuildForm: React.FC<NewBuildFormProps> = ({ onSubmit, onCancel, error }) => {
   const { register, setValue, handleSubmit } = useForm<NewBuildFormData>();
+  const { t } = useTranslation();
 
   return (
-    <Form title="New build" mix={newFormBuild()} error={error} onSubmit={handleSubmit(onSubmit)}>
-      <FormField title="Commit hash" mix={newFormBuild("field")}>
+    <Form title={t("newBuildForm.newBuild")} mix={newFormBuild()} error={error} onSubmit={handleSubmit(onSubmit)}>
+      <FormField title={t("newBuildForm.commitHash")} mix={newFormBuild("field")}>
         <Input
           name="hash"
           placeholder="66e50bf"
@@ -34,7 +36,7 @@ const NewBuildForm: React.FC<NewBuildFormProps> = ({ onSubmit, onCancel, error }
           mix={newFormBuild("input")}
         />
       </FormField>
-      <FormField title="Branch" mix={newFormBuild("field")}>
+      <FormField title={t("newBuildForm.branch")} mix={newFormBuild("field")}>
         <Input
           name="branch"
           placeholder="master"
@@ -45,8 +47,8 @@ const NewBuildForm: React.FC<NewBuildFormProps> = ({ onSubmit, onCancel, error }
         />
       </FormField>
       <div className={newFormBuild("buttons")}>
-        <Button type="submit" text="Run build" view="accent" size="m" mix={newFormBuild("button")} />
-        <Button text="Cancel" size="m" mix={newFormBuild("button")} onClick={onCancel} />
+        <Button type="submit" text={t("newBuildForm.runBuild")} view="accent" size="m" mix={newFormBuild("button")} />
+        <Button text={t("newBuildForm.cancel")} size="m" mix={newFormBuild("button")} onClick={onCancel} />
       </div>
     </Form>
   );

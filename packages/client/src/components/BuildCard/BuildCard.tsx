@@ -2,7 +2,8 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { classnames } from "@bem-react/classnames";
 import { format } from "date-fns";
-import { ru } from "date-fns/locale";
+import { ru, enUS } from "date-fns/locale";
+import { useTranslation } from "react-i18next";
 import { BuildModel } from "@shri-ci/types";
 import cn from "../../classname";
 import IconPlus from "../IconPlus";
@@ -32,6 +33,8 @@ const BuildCard: React.FC<BuildCardProps> = ({
   mix
 }) => {
   const history = useHistory();
+  const { t, i18n } = useTranslation();
+  const locale = i18n.languages[0] === "ru" ? ru : enUS;
   const clickHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>): void => {
     onClick?.(e);
     if (href) {
@@ -69,14 +72,14 @@ const BuildCard: React.FC<BuildCardProps> = ({
               <IconPlus
                 mix={buildCard("date")}
                 icon={{ type: "calendar", size: "xs" }}
-                items={[{ text: format(new Date(start), "d MMM HH:mm", { locale: ru }), type: "secondary" }]}
+                items={[{ text: format(new Date(start), "d MMM HH:mm", { locale }), type: "secondary" }]}
               />
             )}
             {duration !== undefined && (
               <IconPlus
                 mix={buildCard("duration")}
                 icon={{ type: "stopwatch", size: "xs" }}
-                items={[{ text: formatDuration(duration), type: "secondary" }]}
+                items={[{ text: formatDuration(duration, t), type: "secondary" }]}
               />
             )}
           </div>

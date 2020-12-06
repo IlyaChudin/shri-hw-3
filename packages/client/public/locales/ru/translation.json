@@ -1,0 +1,52 @@
+{
+  "footer": {
+    "author": "Илья Чудин",
+    "lang": "English version",
+    "learning": "Обучение",
+    "support": "Поддержка"
+  },
+  "appName": "School CI сервер",
+  "buildsHistory": "История сборок",
+  "runBuild": "Запустить сборку",
+  "build": "Сборка",
+  "rebuild": "Пересобрать",
+  "settings": "Настройки",
+  "notFoundPage": {
+    "title": "Страница не найдена",
+    "goHome": "Перейти на стартовую страницу"
+  },
+  "settingsPage": {
+    "title": "Настройки",
+    "description": "Настройте соединение с репозиторием и параметры синхронизации.",
+    "repository": "GitHub репозиторий",
+    "buildCommand": "Команда сборки",
+    "mainBranch": "Основная ветка",
+    "synchronizeEvery_0": "Синхронизировать каждую",
+    "synchronizeEvery_1": "Синхронизировать каждые",
+    "synchronizeEvery_2": "Синхронизировать каждые",
+    "period_0": "минуту",
+    "period_1": "минуты",
+    "period_2": "минут",
+    "save": "Сохранить",
+    "cancel": "Отмена",
+    "required": "Это поле обязательно к заполнению"
+  },
+  "buildList": {
+    "showMore": "Показать ещё"
+  },
+  "startScreen": {
+    "text": "Настройте соединение с репозиторием и параметры синхронизации",
+    "button": "Открыть настройки"
+  },
+  "newBuildForm": {
+    "newBuild": "Новая сборка",
+    "commitHash": "Хэш коммита",
+    "branch": "Ветка",
+    "runBuild": "Запустить сборку",
+    "cancel": "Отмена"
+  },
+  "timeFormat": {
+    "hm": "{{h}} ч {{m}} мин",
+    "ms": "{{m}} м {{s}} сек"
+  }
+}

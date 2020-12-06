@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 import Header from "../../components/Header";
 import BuildCard from "../../components/BuildCard";
 import BuildLog from "../../components/BuildLog";
@@ -9,22 +10,24 @@ import { runBuild } from "../../store/builds/actions";
 import Button from "../../components/Button";
 import Layout from "../../components/Layout";
 import Loading from "../../components/Loading";
-import { PageProps } from "../PageProps";
 import { RootState } from "../../store";
 import { DetailsState } from "../../store/details/types";
 
-const BuildDetails: React.FC<PageProps> = ({ appName }) => {
+const BuildDetails: React.FC = () => {
   const { id } = useParams();
   const store = useSelector<RootState, DetailsState>(x => x.details);
   const repoName = useSelector<RootState, string>(x => x.settings.repoName);
   const dispatch = useDispatch();
   const history = useHistory();
+  const { t } = useTranslation();
+  const appName = t("appName");
+  const build = t("build");
 
   useEffect(() => {
     if (store.details) {
-      document.title = `Build #${store.details.buildNumber} - ${appName}`;
+      document.title = `${build} #${store.details.buildNumber} - ${appName}`;
     }
-  }, [store.details, appName]);
+  }, [store.details, appName, build]);
 
   useEffect(() => {
     if (id) {
@@ -45,7 +48,7 @@ const BuildDetails: React.FC<PageProps> = ({ appName }) => {
   return (
     <>
       <Header title={repoName} titleColor="primary">
-        <Button text="Rebuild" icon={{ type: "rebuild", size: "s" }} size="s" onClick={rebuildHandler} />
+        <Button text={t("rebuild")} icon={{ type: "rebuild", size: "s" }} size="s" onClick={rebuildHandler} />
         <Button href="/settings" icon={{ type: "settings", size: "s" }} size="s" />
       </Header>
       <Layout isPageContent>

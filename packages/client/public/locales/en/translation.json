@@ -1,0 +1,49 @@
+{
+  "appName": "School CI server",
+  "buildsHistory": "Builds history",
+  "runBuild": "Run build",
+  "build": "Build",
+  "rebuild": "Rebuild",
+  "settings": "Settings",
+  "notFoundPage": {
+    "title": "Page not found",
+    "goHome": "Go home"
+  },
+  "settingsPage": {
+    "title": "Settings",
+    "description": "Configure repository connection and synchronization settings.",
+    "repository": "GitHub repository",
+    "buildCommand": "Build command",
+    "mainBranch": "Main branch",
+    "synchronizeEvery": "Synchronize every",
+    "period": "minute",
+    "period_plural": "minutes",
+    "save": "Save",
+    "cancel": "Cancel",
+    "required": "This field is required"
+  },
+  "buildList": {
+    "showMore": "Show more"
+  },
+  "startScreen": {
+    "text": "Configure repository connection and synchronization settings",
+    "button": "Open settings"
+  },
+  "newBuildForm": {
+    "newBuild": "New build",
+    "commitHash": "Commit hash",
+    "branch": "Branch",
+    "runBuild": "Run build",
+    "cancel": "Cancel"
+  },
+  "timeFormat": {
+    "hm": "{{h}} h {{m}} min",
+    "ms": "{{m}} m {{s}} sec"
+  },
+  "footer": {
+    "learning": "Learning",
+    "support": "Support",
+    "lang": "Русская версия",
+    "author": "Ilya Chudin"
+  }
+}

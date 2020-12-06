@@ -3,7 +3,9 @@ import { classnames } from "@bem-react/classnames";
 import { useDispatch, useSelector } from "react-redux";
 import MaskedInput from "react-text-mask";
 import { useHistory } from "react-router-dom";
-import { Controller, useForm, FieldError } from "react-hook-form";
+import { Controller, FieldError, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { TFunction } from "i18next";
 import cn from "../../classname";
 import Header from "../../components/Header";
 import Form from "../../components/Form";
@@ -12,12 +14,10 @@ import Input from "../../components/Input";
 import Button from "../../components/Button";
 import Layout from "../../components/Layout";
 import { clearSaveError, saveSettings } from "../../store/settings/actions";
-import { PageProps } from "../PageProps";
 import { RootState } from "../../store";
 import { SettingsState } from "../../store/settings/types";
 
 const settings = cn("settings");
-const required = { required: { value: true, message: "This field is required" } };
 
 interface SettingsFormData {
   repoName: string;
@@ -26,19 +26,31 @@ interface SettingsFormData {
   period: string;
 }
 
-const getError = (e: FieldError | undefined): string | undefined => {
-  return e && typeof e.message === "string" ? e.message : undefined;
+const getError = (e: FieldError | undefined, t: TFunction): string | undefined => {
+  if (e) {
+    if (e.type === "required") {
+      return t("settingsPage.required");
+    }
+    if (typeof e.message === "string") {
+      return e.message;
+    }
+  }
+  return undefined;
 };
 
-const Settings: React.FC<PageProps> = ({ appName }) => {
-  const { register, errors, setValue, control, handleSubmit } = useForm<SettingsFormData>();
+const Settings: React.FC = () => {
+  const { register, errors, setValue, control, handleSubmit, watch } = useForm<SettingsFormData>();
   const history = useHistory();
   const dispatch = useDispatch();
   const store = useSelector<RootState, SettingsState>(x => x.settings);
+  const { t } = useTranslation();
+  const appName = t("appName");
+  const title = t("settingsPage.title");
+  const period = watch("period");
 
   useEffect(() => {
-    document.title = `Settings - ${appName}`;
-  }, [appName]);
+    document.title = `${title} - ${appName}`;
+  }, [appName, title]);
 
   useEffect(() => {
     return (): void => {
@@ -68,37 +80,37 @@ const Settings: React.FC<PageProps> = ({ appName }) => {
       <Header title={appName} />
       <Layout isPageContent mix={settings()} containerMix={settings("content")}>
         <Form
-          title="Settings"
-          description="Configure repository connection and synchronization settings."
+          title={title}
+          description={t("settingsPage.description")}
           onSubmit={handleSubmit(onSubmit)}
           mix={settings("form")}
           error={store.saveError}
         >
-          <FormField title="GitHub repository" required mix={settings("field")}>
+          <FormField title={t("settingsPage.repository")} required mix={settings("field")}>
             <Input
               name="repoName"
               initialValue={store.repoName}
               placeholder="user-name/repo-name"
               clearButton
-              register={register(required)}
+              register={register({ required: true })}
               setValue={setValue}
-              error={getError(errors.repoName)}
+              error={getError(errors.repoName, t)}
               mix={settings("input")}
             />
           </FormField>
-          <FormField title="Build command" required mix={settings("field")}>
+          <FormField title={t("settingsPage.buildCommand")} required mix={settings("field")}>
             <Input
               name="buildCommand"
               initialValue={store.buildCommand}
               placeholder="npm ci && npm run build"
               clearButton
-              register={register(required)}
+              register={register({ required: true })}
               setValue={setValue}
-              error={getError(errors.buildCommand)}
+              error={getError(errors.buildCommand, t)}
               mix={settings("input")}
             />
           </FormField>
-          <FormField title="Main branch" mix={settings("field")}>
+          <FormField title={t("settingsPage.mainBranch")} mix={settings("field")}>
             <Input
               name="mainBranch"
               initialValue={store.mainBranch}
@@ -109,7 +121,12 @@ const Settings: React.FC<PageProps> = ({ appName }) => {
               mix={settings("input")}
             />
           </FormField>
-          <FormField title="Synchronize every" type="h" addon="minutes" mix={settings("field")}>
+          <FormField
+            title={t("settingsPage.synchronizeEvery", { count: Number(period) })}
+            type="h"
+            addon={t("settingsPage.period", { count: Number(period) })}
+            mix={settings("field")}
+          >
             <div className={cn("input")()}>
               <Controller
                 as={MaskedInput}
@@ -129,12 +146,18 @@ const Settings: React.FC<PageProps> = ({ appName }) => {
             <Button
               disabled={store.isSaving}
               type="submit"
-              text="Save"
+              text={t("settingsPage.save")}
               view="accent"
               size="m"
               mix={settings("button")}
             />
-            <Button disabled={store.isSaving} text="Cancel" size="m" mix={settings("button")} onClick={onCancel} />
+            <Button
+              disabled={store.isSaving}
+              text={t("settingsPage.cancel")}
+              size="m"
+              mix={settings("button")}
+              onClick={onCancel}
+            />
           </div>
         </Form>
       </Layout>
